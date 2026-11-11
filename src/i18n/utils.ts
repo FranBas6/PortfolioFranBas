@@ -10,6 +10,9 @@ export function getLang(locale: string | undefined): Lang {
 
 export const otherLang = (lang: Lang): Lang => (lang === 'es' ? 'en' : 'es');
 
+/** UI keys that start with a prefix, for keys built at runtime (`skills.group.${id}`). */
+export type UiKeyOf<Prefix extends string> = Extract<UiKey, `${Prefix}${string}`>;
+
 /** `t('nav.projects')`. Throws on an unknown key: there is no fallback text. */
 export function useTranslations(lang: Lang) {
   return (key: UiKey): string => {

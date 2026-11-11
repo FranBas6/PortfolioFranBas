@@ -92,6 +92,7 @@ const es = {
   'root.title': 'Elige idioma',
 
   'site.menuClose': 'Cerrar',
+  'link.newTab': '(se abre en una pestaña nueva)',
   'contact.form.sending': 'Enviando…',
   'contact.form.errorRequired': 'Rellena este campo.',
   'contact.form.errorEmail': 'Escribe un email válido, como nombre@dominio.com.',
@@ -194,6 +195,7 @@ const en = {
   'root.title': 'Choose a language',
 
   'site.menuClose': 'Close',
+  'link.newTab': '(opens in a new tab)',
   'contact.form.sending': 'Sending…',
   'contact.form.errorRequired': 'Please fill in this field.',
   'contact.form.errorEmail': 'Enter a valid email, such as name@domain.com.',

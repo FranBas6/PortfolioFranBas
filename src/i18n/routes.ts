@@ -16,6 +16,7 @@ export const xDefaultLang: Lang = 'en';
 export const segments = {
   projects: { es: 'proyectos', en: 'projects' },
   privacy: { es: 'privacidad', en: 'privacy' },
+  thanks: { es: 'gracias', en: 'thanks' },
 } as const satisfies Record<string, Record<Lang, string>>;
 
 /** Ids of the home-page sections, used as anchors (`/es/#proyectos`). */
@@ -42,10 +43,14 @@ export const projectPath = (lang: Lang, slug: string) =>
 
 export const privacyPath = (lang: Lang) => `/${lang}/${segments.privacy[lang]}/`;
 
+/** Page Netlify Forms sends people to after the contact form. Not indexed. */
+export const thanksPath = (lang: Lang) => `/${lang}/${segments.thanks[lang]}/`;
+
 /** Alternate URLs of one page, keyed by language. */
 export type Alternates = Record<Lang, string>;
 
 export const staticAlternates = {
   home: { es: homePath('es'), en: homePath('en') },
   privacy: { es: privacyPath('es'), en: privacyPath('en') },
+  thanks: { es: thanksPath('es'), en: thanksPath('en') },
 } satisfies Record<string, Alternates>;

@@ -8,6 +8,7 @@ import {
   languages,
   projectPath,
   staticAlternates,
+  thanksPath,
   xDefaultLang,
 } from './src/i18n/routes.ts';
 
@@ -20,7 +21,8 @@ const root = fileURLToPath(new URL('.', import.meta.url));
  * alternate URLs from the same sources the pages use.
  */
 function alternateGroups() {
-  const groups = Object.values(staticAlternates);
+  const { thanks: _notIndexed, ...indexed } = staticAlternates;
+  const groups = Object.values(indexed);
   for (const project of Object.values(loadProjects(root))) {
     if (!project.es || !project.en) continue; // check-content reports it
     if (project.es.data.draft || project.en.data.draft) continue;
@@ -46,6 +48,9 @@ const alternates = alternateGroups();
 export default defineConfig({
   site: SITE,
   output: 'static',
+  // Astro 7 defaults to 'jsx', which drops the space between an inline element
+  // and the text next to it ("Idiomas:Español"). Keep the classic behaviour.
+  compressHTML: true,
   trailingSlash: 'always',
   i18n: {
     locales: [...languages],
@@ -58,8 +63,11 @@ export default defineConfig({
   },
   integrations: [
     sitemap({
-      // The root fallback page and the 404 are not indexed.
-      filter: (page) => page !== `${SITE}/` && !page.startsWith(`${SITE}/404`),
+      // Not indexed: the root fallback, the 404 and the thank-you pages.
+      filter: (page) =>
+        page !== `${SITE}/` &&
+        !page.startsWith(`${SITE}/404`) &&
+        !languages.some((lang) => page === SITE + thanksPath(lang)),
       serialize(item) {
         const links = alternates.get(item.url);
         return links ? { ...item, links } : item;
