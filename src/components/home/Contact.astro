@@ -1,0 +1,116 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import ContactForm from '../ui/ContactForm.astro';
+import Icon from '../ui/Icon.astro';
+import { sections, type Lang } from '../../i18n/routes';
+import { useTranslations } from '../../i18n/utils';
+
+interface Props {
+  lang: Lang;
+  site: CollectionEntry<'site'>['data'];
+}
+
+const { lang, site } = Astro.props;
+const t = useTranslations(lang);
+
+const short = (url: string) => url.replace(/^https?:\/\/(www\.)?/, '');
+const profiles = [
+  { icon: 'github' as const, label: 'GitHub', href: site.links.github, address: short(site.links.github) },
+  {
+    icon: 'linkedin' as const,
+    label: 'LinkedIn',
+    href: site.links.linkedin,
+    address: short(site.links.linkedin),
+    shortAddress: short(site.links.linkedin).replace(/^linkedin\.com\//, ''),
+  },
+];
+---
+
+<section id={sections.contact[lang]} aria-labelledby="contact-title" class="py-16 lg:py-24">
+  <div class="container-site grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-16">
+    <div>
+      <h2 id="contact-title" class="section-title">{t('contact.title')}</h2>
+      <p class="mt-10 text-sm text-text-muted">{t('contact.email')}</p>
+      <div class="mt-2 flex flex-col items-start gap-3 lg:flex-row lg:flex-wrap lg:items-center lg:gap-4">
+        <a
+          href={`mailto:${site.email}`}
+          class="rounded text-xl font-bold break-all transition-colors duration-160 hover:text-accent lg:text-[26px]"
+        >
+          {site.email}
+        </a>
+        <button
+          type="button"
+          class="btn btn-secondary btn-sm"
+          data-copy={site.email}
+          hidden
+        >
+          <span data-copy-idle class="inline-flex items-center gap-2">
+            <Icon name="copy" />
+            {t('contact.copyEmail')}
+          </span>
+          <span data-copy-done class="hidden items-center gap-2">
+            <Icon name="check" class="text-accent" />
+            {t('contact.copied')}
+          </span>
+        </button>
+        <span class="sr-only" aria-live="polite" data-copy-status></span>
+      </div>
+      <ul class="mt-8 max-w-[420px] border-t border-border">
+        {
+          profiles.map((profile) => (
+            <li class="border-b border-border">
+              <a
+                href={profile.href}
+                class="group flex min-h-12 items-center gap-3 rounded lg:min-h-14"
+              >
+                <Icon name={profile.icon} size={20} class="text-text-secondary group-hover:text-text" />
+                <span class="font-semibold group-hover:underline group-hover:decoration-accent group-hover:decoration-2 group-hover:underline-offset-4">
+                  {profile.label}
+                </span>
+                <span class="ml-auto font-medium text-text-muted">
+                  {profile.shortAddress ? (
+                    <>
+                      <span class="lg:hidden">{profile.shortAddress}</span>
+                      <span class="hidden lg:inline">{profile.address}</span>
+                    </>
+                  ) : (
+                    profile.address
+                  )}
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+    <ContactForm lang={lang} />
+  </div>
+</section>
+
+<script>
+  // "Copiar email": only shown when the Clipboard API exists.
+  for (const button of document.querySelectorAll<HTMLButtonElement>('[data-copy]')) {
+    if (!navigator.clipboard) continue;
+    button.hidden = false;
+    const idle = button.querySelector('[data-copy-idle]');
+    const done = button.querySelector('[data-copy-done]');
+    const status = button.parentElement?.querySelector('[data-copy-status]');
+    let timer: number | undefined;
+    button.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(button.dataset.copy ?? '');
+      } catch {
+        return;
+      }
+      idle?.classList.replace('inline-flex', 'hidden');
+      done?.classList.replace('hidden', 'inline-flex');
+      if (status) status.textContent = done?.textContent?.trim() ?? '';
+      window.clearTimeout(timer);
+      timer = window.setTimeout(() => {
+        done?.classList.replace('inline-flex', 'hidden');
+        idle?.classList.replace('hidden', 'inline-flex');
+        if (status) status.textContent = '';
+      }, 2000);
+    });
+  }
+</script>

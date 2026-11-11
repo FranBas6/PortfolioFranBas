@@ -1,0 +1,34 @@
+---
+import ProjectCard from '../project/ProjectCard.astro';
+import { sections, type Lang } from '../../i18n/routes';
+import { useTranslations, type Project } from '../../i18n/utils';
+
+interface Props {
+  lang: Lang;
+  projects: Project[];
+  skillName: Map<string, string>;
+}
+
+const { lang, projects, skillName } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<section id={sections.projects[lang]} aria-labelledby="projects-title" class="py-16 lg:py-24">
+  <div class="container-site">
+    <h2 id="projects-title" class="section-title">{t('projects.title')}</h2>
+    <ul class="mt-8 grid gap-6 md:grid-cols-2 lg:mt-10 lg:grid-cols-1">
+      {
+        projects.map((project, index) => (
+          <li class="flex">
+            <ProjectCard
+              lang={lang}
+              project={project}
+              variant={index === 0 ? 'featured' : 'secondary'}
+              skillName={skillName}
+            />
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
