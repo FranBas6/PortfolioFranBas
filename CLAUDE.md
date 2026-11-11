@@ -48,7 +48,7 @@ npm run check:content:strict   # same, but the term list is required (used by pr
 npm test                       # tests for the forbidden-term matcher
 ```
 
-Requires Node ≥ 22.23.4 (Astro 7). Netlify builds with Node 24.
+Node 24, pinned in `.nvmrc` (Astro 7 needs ≥ 22.23.4; Netlify also builds with 24). Run `nvm use` in this folder first: the machine's default Node is older and is used by other projects, so never change the global nvm default.
 
 ## Architecture
 

@@ -17,9 +17,10 @@ No analytics, no cookies, no third-party scripts.
 
 ## Getting started
 
-Requires Node 22.23.4 or newer.
+Requires Node 22.23.4 or newer; the project pins Node 24 in `.nvmrc`.
 
 ```bash
+nvm use
 npm install
 npm run dev
 ```
