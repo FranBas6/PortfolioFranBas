@@ -48,7 +48,7 @@ const personJsonLd = {
 >
   <script slot="head" type="application/ld+json" set:html={JSON.stringify(personJsonLd)} />
 
-  <Hero lang={lang} site={site} />
+  <Hero lang={lang} site={site} skillName={skillName} />
   <Projects lang={lang} projects={projects} skillName={skillName} />
   <Experience lang={lang} experience={experience} skillName={skillName} />
   <Skills lang={lang} groups={skillGroups} languages={site.languages} />

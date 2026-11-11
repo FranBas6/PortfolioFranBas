@@ -6,6 +6,7 @@ highlights:
   - Web with Laravel
   - Mobile with Flutter
   - AI and OCR in production
+mainStack: [laravel, php, flutter, dart, mariadb]
 email: franbasguil@gmail.com
 links:
   github: https://github.com/FranBas6

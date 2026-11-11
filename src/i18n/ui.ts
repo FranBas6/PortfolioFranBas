@@ -28,6 +28,7 @@ const es = {
 
   'hero.viewProjects': 'Ver proyectos',
   'hero.downloadCv': 'Descargar CV',
+  'hero.mainStack': 'Stack principal',
 
   'projects.title': 'Proyectos',
   'projects.viewProject': 'Ver proyecto',
@@ -131,6 +132,7 @@ const en = {
 
   'hero.viewProjects': 'View projects',
   'hero.downloadCv': 'Download CV',
+  'hero.mainStack': 'Main stack',
 
   'projects.title': 'Projects',
   'projects.viewProject': 'View project',

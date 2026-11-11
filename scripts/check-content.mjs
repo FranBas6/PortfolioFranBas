@@ -175,6 +175,7 @@ if (Object.keys(projects).length === 0) error('src/content/projects', 'no projec
 const yamlCollections = {
   site: {
     email: (d) => d.email,
+    mainStack: (d) => d.mainStack,
     links: (d) => d.links,
     'highlights count': (d) => d.highlights?.length,
   },

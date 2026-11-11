@@ -121,7 +121,7 @@ Manrope variable (200–800), autoalojada en `public/fonts/`, con fuentes del si
 | --- | --- |
 | Estructura | Cabecera fija (con «Proyectos» activo en la página de proyecto), menú móvil desplegable sobre la página oscurecida, selector de idioma «ES / EN», pie, enlace de salto al contenido |
 | Base | Botón principal y secundario, botón de icono (48 × 48), etiqueta de tecnología, etiqueta de plataforma, pastilla de periodo, título de sección, icono SVG en línea |
-| Inicio | Presentación con hueco para la ilustración, tarjeta de proyecto destacada, tarjeta de proyecto secundaria (horizontal) y vertical (móvil), experiencia, grupo de habilidades, bloque de contacto con botón de copiar |
+| Inicio | Presentación con la ilustración y una fila «Stack principal» con las tecnologías más usadas (chips, `mainStack` de `site/*.yaml`), tarjeta de proyecto destacada, tarjeta de proyecto secundaria (horizontal) y vertical (móvil), experiencia, grupo de habilidades, bloque de contacto con botón de copiar |
 | Experiencia | Ficha fija del puesto actual (`sticky` en escritorio, con tecnologías como chips), fila de punto con etiquetas de plataforma, tarjeta de puesto anterior, franja de formación |
 | Proyecto | Cabecera, ficha en cuatro columnas (filas en móvil), aviso de interfaz (solo en inglés), portada, apartado de contenido (título a la izquierda), cifra, galería con selector, tarjeta de proyecto siguiente con miniatura, tarjeta «¿Hablamos?» |
 | Galería | Selector de dispositivo y modo (`fieldset` con radios, sin JavaScript), rejilla en escritorio, carrusel con `scroll-snap` en móvil, enlace «Ampliar» |
