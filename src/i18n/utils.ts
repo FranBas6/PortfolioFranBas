@@ -23,16 +23,21 @@ export function useTranslations(lang: Lang) {
 // Dates: stored as `2026-10`, shown per language
 // ---------------------------------------------------------------------------
 
-const intlLocale: Record<Lang, string> = { es: 'es', en: 'en-GB' };
+/*
+ * Fixed three-letter months instead of Intl: Intl writes September as
+ * "sept" / "Sept" while every other month has three letters.
+ */
+const months: Record<Lang, readonly string[]> = {
+  es: ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'],
+  en: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+};
 
 /** `2026-10` → "oct 2026" (es) / "Oct 2026" (en). */
 export function formatYearMonth(value: string, lang: Lang): string {
-  const [year, month] = value.split('-').map(Number);
-  return new Intl.DateTimeFormat(intlLocale[lang], {
-    month: 'short',
-    year: 'numeric',
-    timeZone: 'UTC',
-  }).format(Date.UTC(year, month - 1, 1));
+  const [year, month] = value.split('-');
+  const name = months[lang][Number(month) - 1];
+  if (!year || !name) throw new Error(`Invalid year-month "${value}": use YYYY-MM`);
+  return `${name} ${year}`;
 }
 
 /** "oct 2026 – actualidad", "sep 2026 – oct 2026", or a single month. */
