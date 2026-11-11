@@ -102,8 +102,6 @@ function checkLength(where, text, limitKey) {
 const projects = loadProjects(ROOT);
 
 const projectPick = {
-  kind: (d) => d.kind,
-  company: (d) => d.company,
   order: (d) => d.order,
   draft: (d) => d.draft,
   period: (d) => d.period,
@@ -175,11 +173,8 @@ const yamlCollections = {
   },
   experience: {
     'jobs[].period': (d) => d.jobs?.map((j) => j.period),
+    'jobs[].stack': (d) => d.jobs?.map((j) => j.stack),
     'education[].years': (d) => d.education?.map((e) => e.years),
-  },
-  'more-fleetx': {
-    'mentions[].period': (d) => d.mentions?.map((m) => m.period),
-    'mentions[].stack': (d) => d.mentions?.map((m) => m.stack),
   },
 };
 
@@ -209,12 +204,12 @@ for (const lang of LANGS) {
       warn(where, `share image not found yet: ${site.og.image} (designed in phase 3)`);
     }
   }
-  const more = yamlData['more-fleetx'][lang];
-  for (const mention of more?.mentions ?? []) {
-    checkLength(`more-fleetx/${lang}.yaml`, mention.text, 'moreWorkMention');
-  }
-  for (const line of more?.lines ?? []) {
-    checkLength(`more-fleetx/${lang}.yaml`, line.text, 'moreWorkLine');
+  for (const job of yamlData.experience[lang]?.jobs ?? []) {
+    checkLength(`experience/${lang}.yaml`, job.summary, 'jobSummary');
+    for (const item of job.highlights ?? []) {
+      const shown = item.title ? `${item.title}: ${item.text}` : item.text;
+      checkLength(`experience/${lang}.yaml`, shown, 'jobHighlight');
+    }
   }
 
   const legal = join(CONTENT, 'legal', lang, 'privacy.md');

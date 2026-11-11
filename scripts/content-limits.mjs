@@ -9,7 +9,7 @@ export const LIMITS = {
   whatIDidItem: { max: 110, label: 'whatIDid point' },
   whyItMatters: { max: 200, label: 'whyItMatters' },
   tagline: { max: 160, label: 'home introduction' },
-  moreWorkLine: { max: 120, label: 'more-work line' },
-  moreWorkMention: { max: 220, label: 'more-work mention' },
+  jobSummary: { max: 120, label: 'experience summary line' },
+  jobHighlight: { max: 220, label: 'experience point' },
   seoDescription: { min: 120, max: 160, label: 'SEO description' },
 };

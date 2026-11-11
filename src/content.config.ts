@@ -8,7 +8,7 @@ import { parse as parseYaml } from 'yaml';
  * Schemas for every piece of content (plan, section 8).
  *
  * Structural rules make the build fail: missing fields, wrong counts,
- * fields a company project may not have, unknown stack ids. Text lengths
+ * unknown stack ids. Text lengths
  * only warn, so they live in scripts/content-limits.mjs and are checked by
  * scripts/check-content.mjs.
  */
@@ -65,61 +65,37 @@ const projects = defineCollection({
     // pairing of translations by file name.
     generateId: idFromPath,
   }),
+  // Personal projects only. Professional work lives in the Experience section.
   schema: ({ image }) =>
-    z
-      .object({
-        slug: z
-          .string()
-          .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, 'slug: lowercase words joined by hyphens'),
-        kind: z.enum(['company', 'personal']),
-        company: text.optional(),
-        order: z.number().int().positive(),
-        draft: z.boolean().default(false),
-        title: text,
-        summary: text,
-        period,
-        role: text,
-        platforms: z.array(z.enum(['web', 'mobile', 'ai'])).min(1),
-        stack: z.array(skillId).min(1),
-        whatItIs: text,
-        whatIDid: z.array(text).min(4).max(6),
-        whyItMatters: text,
-        metrics: z.array(z.object({ value: text, label: text })).optional(),
-        cover: z.object({ src: image(), alt: text }),
-        links: z.object({ demo: z.url(), repo: z.url() }).optional(),
-        gallery: z
-          .array(
-            z.object({ src: image(), alt: text, type: z.enum(['mobile', 'desktop']) }),
-          )
-          .optional(),
-        howIWork: z.array(text).length(3).optional(),
-        uiNote: z.boolean().optional(),
-        seo,
-      })
-      .superRefine((project, ctx) => {
-        const fail = (path: string, message: string) =>
-          ctx.addIssue({ code: 'custom', path: [path], message });
-
-        if (project.kind === 'company') {
-          if (!project.company) fail('company', 'A company project needs `company`');
-          // Company code is private: no links, no screenshots, no personal extras.
-          for (const field of ['links', 'gallery', 'howIWork', 'uiNote'] as const) {
-            if (project[field] !== undefined) {
-              fail(field, `A company project may not have \`${field}\``);
-            }
-          }
-        } else {
-          if (project.company !== undefined) {
-            fail('company', 'Only company projects have `company`');
-          }
-          if (!project.links) fail('links', 'A personal project needs demo and repo links');
-          if (!project.howIWork) fail('howIWork', 'A personal project needs `howIWork`');
-        }
-      }),
+    z.object({
+      slug: z
+        .string()
+        .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, 'slug: lowercase words joined by hyphens'),
+      order: z.number().int().positive(),
+      draft: z.boolean().default(false),
+      title: text,
+      summary: text,
+      period,
+      role: text,
+      platforms: z.array(z.enum(['web', 'mobile', 'ai'])).min(1),
+      stack: z.array(skillId).min(1),
+      whatItIs: text,
+      whatIDid: z.array(text).min(4).max(6),
+      whyItMatters: text,
+      metrics: z.array(z.object({ value: text, label: text })).optional(),
+      cover: z.object({ src: image(), alt: text }),
+      links: z.object({ demo: z.url(), repo: z.url() }),
+      gallery: z
+        .array(z.object({ src: image(), alt: text, type: z.enum(['mobile', 'desktop']) }))
+        .optional(),
+      howIWork: z.array(text).length(3),
+      uiNote: z.boolean().optional(),
+      seo,
+    }),
 });
 
 // ---------------------------------------------------------------------------
-// One YAML file per language: site, experience, more-fleetx
+// One YAML file per language: site, experience
 // ---------------------------------------------------------------------------
 
 const perLanguageYaml = (folder: string) =>
@@ -154,8 +130,12 @@ const experience = defineCollection({
           company: text,
           location: text,
           period,
+          /** One line about the company or the job. */
           summary: text,
-          bullets: z.array(text).max(3).default([]),
+          /** CV-style points: optional bold title, then the text. */
+          highlights: z.array(z.object({ title: text.optional(), text })).max(7).default([]),
+          /** Technologies used in this job, shown as one line. */
+          stack: z.array(skillId).default([]),
         }),
       )
       .min(1),
@@ -169,16 +149,6 @@ const experience = defineCollection({
         }),
       )
       .min(1),
-  }),
-});
-
-const moreFleetx = defineCollection({
-  loader: perLanguageYaml('more-fleetx'),
-  schema: z.object({
-    mentions: z
-      .array(z.object({ title: text, period, text, stack: z.array(skillId).min(1) }))
-      .length(2),
-    lines: z.array(z.object({ title: text, text })).length(6),
   }),
 });
 
@@ -207,7 +177,6 @@ export const collections = {
   projects,
   site,
   experience,
-  'more-fleetx': moreFleetx,
   skills,
   legal,
 };

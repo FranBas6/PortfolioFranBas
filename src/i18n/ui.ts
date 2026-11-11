@@ -30,10 +30,6 @@ const es = {
   'hero.downloadCv': 'Descargar CV',
 
   'projects.title': 'Proyectos',
-  'projects.group.company': 'En producción',
-  'projects.group.personal': 'Proyectos personales',
-  'projects.origin.company': 'Profesional',
-  'projects.origin.personal': 'Personal',
   'projects.viewProject': 'Ver proyecto',
   'projects.demo': 'Demo',
   'projects.repo': 'Repositorio',
@@ -41,8 +37,6 @@ const es = {
   'platform.web': 'Web',
   'platform.mobile': 'Móvil',
   'platform.ai': 'IA',
-
-  'moreWork.title': 'Más trabajo profesional',
 
   'experience.title': 'Experiencia',
   'experience.education': 'Formación',
@@ -70,7 +64,6 @@ const es = {
 
   'project.back': 'Volver a proyectos',
   'project.facts': 'Ficha del proyecto',
-  'project.company': 'Empresa',
   'project.period': 'Periodo',
   'project.role': 'Rol',
   'project.platforms': 'Plataformas',
@@ -82,7 +75,6 @@ const es = {
   'project.metrics': 'En cifras',
   'project.gallery': 'Capturas',
   'project.howIWork': 'Cómo trabajo',
-  'project.privateNotice': 'Proyecto de empresa: el código es privado.',
   'project.uiNote': 'La interfaz está en español.',
   'project.previous': 'Proyecto anterior',
   'project.next': 'Proyecto siguiente',
@@ -122,10 +114,6 @@ const en = {
   'hero.downloadCv': 'Download CV',
 
   'projects.title': 'Projects',
-  'projects.group.company': 'In production',
-  'projects.group.personal': 'Personal projects',
-  'projects.origin.company': 'Professional',
-  'projects.origin.personal': 'Personal',
   'projects.viewProject': 'View project',
   'projects.demo': 'Demo',
   'projects.repo': 'Repository',
@@ -133,8 +121,6 @@ const en = {
   'platform.web': 'Web',
   'platform.mobile': 'Mobile',
   'platform.ai': 'AI',
-
-  'moreWork.title': 'More professional work',
 
   'experience.title': 'Experience',
   'experience.education': 'Education',
@@ -162,7 +148,6 @@ const en = {
 
   'project.back': 'Back to projects',
   'project.facts': 'Project facts',
-  'project.company': 'Company',
   'project.period': 'Period',
   'project.role': 'Role',
   'project.platforms': 'Platforms',
@@ -174,7 +159,6 @@ const en = {
   'project.metrics': 'In numbers',
   'project.gallery': 'Screenshots',
   'project.howIWork': 'How I work',
-  'project.privateNotice': 'Company project: the code is private.',
   'project.uiNote': 'The interface is in Spanish.',
   'project.previous': 'Previous project',
   'project.next': 'Next project',

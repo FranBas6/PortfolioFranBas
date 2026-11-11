@@ -34,7 +34,7 @@ Personal portfolio of Francisco José Bas Guil (Fran). Static Astro site, Spanis
 
 Only *what Fran did, with which technologies and why it matters* reaches this repository. Never: FleetX code (not even paraphrased), screenshots or internal diagrams, client or colleague names, internal names (repositories and their folders, services, tables, classes, branches, tickets, environments), company business figures, or local paths. This applies to content, code, comments, `docs/`, this file, `README.md` and commit messages.
 
-"FleetX" appears only in the Experience section of the home page and on company project pages (facts list, and if needed their text and SEO).
+Professional work is told only in the Experience section (`src/content/experience/`), CV-style. "FleetX" appears only there. Projects are personal only; there are no company project pages and no company images of any kind.
 
 The forbidden-term list lives in `.private/forbidden-terms.txt`. Never print it, copy it, or use its terms in examples, tests, comments or commit messages.
 

@@ -48,9 +48,6 @@ export function formatPeriod(period: { start: string; end?: string }, lang: Lang
   return `${start} – ${end}`;
 }
 
-/** `2026-01` → "01/2026", the format used in the CV for the experience. */
-export const formatNumericYearMonth = (value: string) => value.split('-').reverse().join('/');
-
 // ---------------------------------------------------------------------------
 // Projects: translations are paired by file name (`es/x.md` ↔ `en/x.md`)
 // ---------------------------------------------------------------------------
@@ -60,19 +57,14 @@ export type Project = CollectionEntry<'projects'>;
 /** `es/bulk-transport` → `bulk-transport`. */
 export const projectKey = (entry: Project) => entry.id.slice(entry.id.indexOf('/') + 1);
 
-const kindOrder = { company: 0, personal: 1 } as const;
-
-/** Published projects of one language, in home-page order (company first, then `order`). */
+/** Published projects of one language, in home-page order (`order`). */
 export async function getProjects(lang: Lang): Promise<Project[]> {
   const entries = await getCollection(
     'projects',
     (entry) => entry.id.startsWith(`${lang}/`) && !entry.data.draft,
   );
   return entries.sort(
-    (a, b) =>
-      kindOrder[a.data.kind] - kindOrder[b.data.kind] ||
-      a.data.order - b.data.order ||
-      a.id.localeCompare(b.id),
+    (a, b) => a.data.order - b.data.order || a.id.localeCompare(b.id),
   );
 }
 

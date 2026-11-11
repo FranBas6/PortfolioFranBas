@@ -54,7 +54,7 @@ Interlineado de 1,6 en texto corrido y 1,1 en titulares; unos 65 caracteres por 
 - Separación entre secciones: 64 px en móvil y 96 px en escritorio.
 - Radios: 8 px en botones y campos, 16 px en tarjetas, redondeo total en etiquetas.
 - Cortes de pantalla: 640, 768 y 1.024 px; diseño primero para móvil.
-- Rejilla de proyectos: una columna en móvil, dos en tableta, tres en escritorio para el grupo "En producción".
+- Rejilla de proyectos: una columna en móvil y dos desde tableta (solo hay proyectos personales).
 - Profundidad con resplandores suaves en azul, no con sombras negras.
 
 ## Responsive (requisitos, no borrador)
@@ -75,8 +75,8 @@ El sitio se diseña y se implementa primero para móvil y se amplía para tablet
 | --- | --- |
 | Estructura | Cabecera fija, menú móvil, selector de idioma, pie, enlace de salto al contenido |
 | Base | Botón (principal, secundario, de texto), etiqueta de tecnología, etiqueta de plataforma, título de sección, subtítulo de grupo, icono |
-| Inicio | Presentación, tarjeta de proyecto, lista de más trabajo profesional, fila de experiencia, grupo de habilidades, bloque de contacto |
-| Proyecto | Cabecera, ficha de datos, lista de puntos, cifras, galería, aviso de código privado, navegación anterior y siguiente |
+| Inicio | Presentación, tarjeta de proyecto, línea de tiempo de experiencia (fechas, empresa, puesto, línea, puntos con título en negrita, línea de tecnologías), grupo de habilidades, bloque de contacto |
+| Proyecto | Cabecera, ficha de datos, lista de puntos, cifras, galería, aviso de interfaz en español, navegación anterior y siguiente |
 | Formulario | Campo, área de texto, mensaje de error, estado de enviado |
 
 Cada componente interactivo tiene estados de reposo, ratón encima, foco de teclado, pulsado y desactivado.
@@ -94,6 +94,5 @@ Cada componente interactivo tiene estados de reposo, ratón encima, foco de tecl
 Vectoriales, salen de la fase 3:
 
 - Escena de la presentación.
-- Una ilustración abstracta por cada proyecto de FleetX: motivos genéricos, nada que represente el producto.
 - Icono del sitio.
 - Las dos imágenes para compartir (una por idioma), sin nombre de empresa.
