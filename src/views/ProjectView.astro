@@ -1,14 +1,15 @@
 ---
-/*
- * Project page, shared by /es/proyectos/<slug>/ and /en/projects/<slug>/.
- * Personal projects only. Phase 1: semantic HTML without design.
- */
+/* Project page, shared by /es/proyectos/<slug>/ and /en/projects/<slug>/. */
 import { getCollection, render } from 'astro:content';
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { projectPath, sectionPath, type Lang } from '../i18n/routes';
+import Gallery from '../components/project/Gallery.astro';
+import ProjectFacts from '../components/project/ProjectFacts.astro';
+import ProjectNav from '../components/project/ProjectNav.astro';
+import ProjectSection from '../components/project/ProjectSection.astro';
+import Icon from '../components/ui/Icon.astro';
+import { sectionPath, type Lang } from '../i18n/routes';
 import {
-  formatPeriod,
   getProjectAlternates,
   getProjects,
   projectKey,
@@ -26,8 +27,9 @@ const t = useTranslations(lang);
 const project = entry.data;
 
 const alternates = await getProjectAlternates(entry);
-// Free Markdown body (e.g. data attributions), shown after the facts.
+// Free Markdown body (data attributions such as TMDB's), shown near the end.
 const { Content } = await render(entry);
+const hasBody = Boolean(entry.body?.trim());
 
 const all = await getProjects(lang);
 const index = all.findIndex((p) => projectKey(p) === projectKey(entry));
@@ -46,136 +48,157 @@ const skillName = new Map(
   title={project.seo?.title ?? project.title}
   description={project.seo?.description ?? project.summary}
   alternates={alternates}
+  current="projects"
 >
   <article>
-    <header>
-      <p><a href={sectionPath(lang, 'projects')}>{t('project.back')}</a></p>
-      <p>{project.platforms.map((p) => t(`platform.${p}`)).join(' · ')}</p>
-      <h1>{project.title}</h1>
-      <p>{project.summary}</p>
+    <header class="bg-project-header pt-4 pb-10 lg:pt-10 lg:pb-14">
+      <div class="container-site">
+        <a
+          href={sectionPath(lang, 'projects')}
+          class="back link-underline inline-flex min-h-11 items-center gap-2 text-[15px] font-semibold text-text-secondary"
+        >
+          <Icon name="arrow-left" class="arrow transition-transform duration-160" />
+          {t('project.back')}
+        </a>
+        <ul class="mt-5 flex flex-wrap gap-2 lg:mt-8">
+          {
+            project.platforms.map((platform) => (
+              <li class="tag-platform" data-platform={platform}>
+                {t(`platform.${platform}`)}
+              </li>
+            ))
+          }
+        </ul>
+        <h1
+          class="mt-5 text-[40px] leading-[1.1] font-extrabold tracking-[-0.025em] lg:text-[64px] lg:leading-[1.05] lg:tracking-[-0.03em]"
+        >
+          {project.title}
+        </h1>
+        <p class="mt-4 max-w-[34em] text-lg font-medium text-text-secondary lg:text-xl">
+          {project.summary}
+        </p>
+
+        <ProjectFacts lang={lang} project={project} />
+
+        {
+          project.uiNote && lang === 'en' && (
+            <p class="mt-5 inline-flex items-center gap-2.5 rounded-lg border border-border bg-surface px-4 py-3 text-[15px] font-semibold">
+              <Icon name="info" size={18} class="text-accent" />
+              {t('project.uiNote')}
+            </p>
+          )
+        }
+      </div>
     </header>
 
-    <section aria-labelledby="facts-title">
-      <h2 id="facts-title">{t('project.facts')}</h2>
-      <dl>
-        <dt>{t('project.period')}</dt>
-        <dd>{formatPeriod(project.period, lang)}</dd>
-        <dt>{t('project.role')}</dt>
-        <dd>{project.role}</dd>
-        <dt>{t('project.platforms')}</dt>
-        <dd>{project.platforms.map((p) => t(`platform.${p}`)).join(', ')}</dd>
-        <dt>{t('project.links')}</dt>
-        <dd>
-          <a href={project.links.demo}>{t('projects.demo')}</a>{' '}
-          <a href={project.links.repo}>{t('projects.repo')}</a>
-        </dd>
-      </dl>
-      {project.uiNote && lang === 'en' && <p>{t('project.uiNote')}</p>}
-    </section>
+    <div class="container-site">
+      <Image
+        src={project.cover.src}
+        alt={project.cover.alt}
+        widths={[720, 1120, 1680, 2240]}
+        sizes="(min-width: 1184px) 1120px, calc(100vw - 40px)"
+        loading="eager"
+        fetchpriority="high"
+        class="cover aspect-[16/10] h-auto w-full rounded-xl border border-border object-cover object-left-top lg:rounded-2xl"
+      />
 
-    <Image src={project.cover.src} alt={project.cover.alt} widths={[640, 1024, 1280]} sizes="(min-width: 1120px) 1120px, 100vw" />
+      <div class="mt-2 lg:mt-20">
+        <ProjectSection id="what-it-is" title={t('project.whatItIs')}>
+          <p class="text-text-secondary lg:text-[17px]">{project.whatItIs}</p>
+        </ProjectSection>
 
-    <section aria-labelledby="what-title">
-      <h2 id="what-title">{t('project.whatItIs')}</h2>
-      <p>{project.whatItIs}</p>
-    </section>
+        <ProjectSection id="what-i-did" title={t('project.whatIDid')}>
+          <ul class="flex flex-col gap-2.5 text-text-secondary lg:gap-3 lg:text-[17px]">
+            {
+              project.whatIDid.map((point) => (
+                <li class="flex gap-3">
+                  <span aria-hidden="true" class="text-text-muted">
+                    –
+                  </span>
+                  <span>{point}</span>
+                </li>
+              ))
+            }
+          </ul>
+        </ProjectSection>
 
-    <section aria-labelledby="did-title">
-      <h2 id="did-title">{t('project.whatIDid')}</h2>
-      <ul>
-        {project.whatIDid.map((point) => <li>{point}</li>)}
-      </ul>
-    </section>
+        {
+          project.metrics && (
+            <ProjectSection id="metrics" title={t('project.metrics')}>
+              <dl class="lg:grid lg:grid-cols-3 lg:gap-6">
+                {project.metrics.map((metric) => (
+                  <div class="grid grid-cols-[96px_1fr] items-baseline gap-3 border-b border-border py-3 lg:flex lg:flex-col-reverse lg:justify-end lg:gap-1 lg:border-0 lg:py-0">
+                    <dt class="text-[15px] text-text-secondary">{metric.label}</dt>
+                    <dd class="order-first text-[32px] leading-[1.1] font-extrabold tracking-[-0.02em] tabular-nums lg:order-none lg:text-5xl lg:leading-none lg:tracking-[-0.03em]">
+                      {metric.value}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </ProjectSection>
+          )
+        }
 
-    {
-      project.metrics && (
-        <section aria-labelledby="metrics-title">
-          <h2 id="metrics-title">{t('project.metrics')}</h2>
-          <dl>
-            {project.metrics.map((metric) => (
-              <>
-                <dt>{metric.label}</dt>
-                <dd>{metric.value}</dd>
-              </>
-            ))}
-          </dl>
-        </section>
-      )
-    }
+        <ProjectSection id="stack" title={t('project.stack')}>
+          <ul class="flex flex-wrap gap-2">
+            {project.stack.map((id) => <li class="tag-tech lg:min-h-8">{skillName.get(id)}</li>)}
+          </ul>
+        </ProjectSection>
 
-    <section aria-labelledby="stack-title">
-      <h2 id="stack-title">{t('project.stack')}</h2>
-      <ul>
-        {project.stack.map((id) => <li>{skillName.get(id)}</li>)}
-      </ul>
-    </section>
-
-    <section aria-labelledby="why-title">
-      <h2 id="why-title">{t('project.whyItMatters')}</h2>
-      <p>{project.whyItMatters}</p>
-    </section>
+        <ProjectSection id="why" title={t('project.whyItMatters')}>
+          <p class="max-w-[34em] text-lg font-medium lg:text-xl lg:leading-[1.55]">{project.whyItMatters}</p>
+        </ProjectSection>
+      </div>
+    </div>
 
     {
       project.gallery && (
-        <section aria-labelledby="gallery-title">
-          <h2 id="gallery-title">{t('project.gallery')}</h2>
-          {/* Phase 4 turns this into a CSS-only switch (device + theme) over
-              the same markup: every version is rendered, one is shown. */}
-          <ul>
-            {project.gallery.map((shot) => (
-              <li>
-                <figure>
-                  {(['desktop', 'mobile'] as const).map((device) =>
-                    (['dark', 'light'] as const).map((theme) => (
-                      <Image
-                        src={shot.images[device][theme]}
-                        alt={shot.alt}
-                        data-device={device}
-                        data-theme={theme}
-                        widths={device === 'desktop' ? [720, 1440] : [390, 780]}
-                        sizes={device === 'desktop' ? '(min-width: 1120px) 1120px, 100vw' : '390px'}
-                      />
-                    )),
-                  )}
-                  <figcaption>{shot.alt}</figcaption>
-                </figure>
-              </li>
-            ))}
-          </ul>
-        </section>
+        <div class="mt-14 lg:mt-10">
+          <Gallery lang={lang} gallery={project.gallery} />
+        </div>
       )
     }
 
-    <section aria-labelledby="how-title">
-      <h2 id="how-title">{t('project.howIWork')}</h2>
-      <ul>
-        {project.howIWork.map((line) => <li>{line}</li>)}
-      </ul>
-    </section>
+    <div class="container-site">
+      <div class="lg:pt-4">
+        <ProjectSection id="how-i-work" title={t('project.howIWork')} border={false}>
+          <ul class="flex flex-col gap-2.5 text-text-secondary lg:gap-3 lg:text-[17px]">
+            {
+              project.howIWork.map((line) => (
+                <li class="flex gap-3">
+                  <span aria-hidden="true" class="text-text-muted">
+                    –
+                  </span>
+                  <span>{line}</span>
+                </li>
+              ))
+            }
+          </ul>
+        </ProjectSection>
+      </div>
 
-    <Content />
+      {
+        hasBody && (
+          <div class="mt-10 border-t border-border pt-5 text-sm text-text-muted lg:mt-0 lg:pl-[320px]">
+            <Content />
+          </div>
+        )
+      }
 
-    <nav aria-label={t('projects.title')}>
-      <ul>
-        {
-          previous && (
-            <li>
-              {t('project.previous')}:{' '}
-              <a href={projectPath(lang, previous.data.slug)}>{previous.data.title}</a>
-            </li>
-          )
-        }
-        {
-          next && (
-            <li>
-              {t('project.next')}:{' '}
-              <a href={projectPath(lang, next.data.slug)}>{next.data.title}</a>
-            </li>
-          )
-        }
-      </ul>
-    </nav>
-
-    <p><a href={sectionPath(lang, 'contact')}>{t('project.contactCta')}</a></p>
+      <ProjectNav lang={lang} previous={previous} next={next} />
+    </div>
   </article>
 </BaseLayout>
+
+<style>
+  @media (width >= 64rem) {
+    .cover {
+      box-shadow: 0 40px 120px -40px rgba(80, 130, 255, 0.45);
+    }
+  }
+  @media (hover: hover) {
+    .back:hover .arrow {
+      transform: translateX(-2px);
+    }
+  }
+</style>

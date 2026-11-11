@@ -48,6 +48,8 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     -webkit-tap-highlight-color: transparent;
+    /* Manrope joins "--" into a long dash; keep technical text ("--no-ff") literal. */
+    font-variant-ligatures: no-common-ligatures no-contextual;
   }
 
   h1,
