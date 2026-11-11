@@ -14,11 +14,21 @@ Personal portfolio of Francisco José Bas Guil (Fran). Static Astro site, Spanis
 
 - Work one phase at a time (plan, section 12). At the end of each phase: stop, summarise, wait for confirmation. Before each phase, explain the plan in a few lines.
 - Talk to Fran in Spanish. Code, file names and commit messages in English.
-- Small, descriptive commits. Never push or create remotes unless Fran asks. Create the git repository and its first commits together with Fran.
+- Small, descriptive commits. Never push or create remotes unless Fran asks. The remote (`FranBas6/portfolio`) is created in phase 5.
 - A decision that is not in the plan is proposed with a recommendation, never improvised. Once approved, record it in `.private/plan-full.md` and in `docs/plan.md` (section 14), the latter without paths or internal names.
 - Never invent facts about Fran or Fran's projects. If something is not in the plan or the repositories, ask.
 - No design work until the phase 3 sketches and `docs/design-system.md` are approved.
 - Check every visual change in a real browser at 375, 768 and 1280 px.
+
+## Branches
+
+- Never commit directly to `main` or `develop`. Every change starts on a branch cut from `develop`.
+- Names, in English: `phase/<n>-<topic>` for a phase (`phase/2-content`); `feat/…`, `fix/…`, `docs/…`, `chore/…` for anything smaller (`fix/month-format`).
+- A phase branch is merged into `develop` with a merge commit (`git merge --no-ff`, message `merge(phase <n>): …`) so each phase stays one block in the history. Smaller branches are fast-forwarded (`git merge --ff-only`).
+- Delete the branch after merging, locally and on the remote if it was pushed.
+- `main` is fast-forwarded to `develop` only when Fran approves a phase. From phase 5 on, `main` is what is in production.
+- Branch and tag names are public while they exist on the remote: the pre-push hook checks them for forbidden terms too.
+- Commit author for this repository: Fran's GitHub noreply address (set in the local git config).
 
 ## FleetX rule (summary; full text in docs/fleetx-rules.md)
 

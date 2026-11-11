@@ -456,4 +456,13 @@ Cada cambio visual se comprueba en un navegador real, en móvil y escritorio, an
 
 ## 14. Decisiones aprobadas después del plan
 
-Ninguna todavía.
+### 2026-11-11 · Repositorio y ramas
+
+- **Repositorio:** git local desde la fase 1. El remoto `FranBas6/portfolio` se crea en la fase 5, como dice el plan.
+- **Autor de los commits:** el email privado de GitHub de Fran (`…@users.noreply.github.com`), configurado solo en este repositorio. Los commits se asocian a su cuenta sin exponer ningún email.
+- **Ramas:** `main` y `develop`. Nunca se trabaja directamente en ninguna de las dos: cada cambio sale de `develop` en su propia rama, con nombre en inglés.
+  - `phase/<n>-<tema>` para una fase (`phase/2-content`). Se une a `develop` con merge commit (`--no-ff`) para que cada fase quede como un bloque en el historial.
+  - `feat/…`, `fix/…`, `docs/…`, `chore/…` para lo demás. Se unen sin merge commit (`--ff-only`).
+  - Después del merge, la rama se borra (en local y en el remoto, si se subió).
+  - `main` avanza hasta `develop` solo cuando Fran aprueba una fase. Desde la fase 5, `main` es lo que está en producción.
+- **Hook `pre-push`:** además del contenido y de los mensajes de commit, revisa los nombres de las ramas y etiquetas que se suben, porque son públicos mientras existen en el remoto.
