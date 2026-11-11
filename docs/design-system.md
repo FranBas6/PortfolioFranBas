@@ -1,6 +1,6 @@
 # Sistema de diseño
 
-> **⚠ BORRADOR.** Recoge las tres entregas de la fase 3: bocetos aprobados el 2026-11-11 y estados, formulario, páginas y recursos de la tercera entrega. Deja de ser borrador cuando Fran apruebe el sistema completo. Hasta entonces no se implementa ningún componente con diseño.
+> **✅ Aprobado** por Fran el 2026-11-11. Recoge las tres entregas de la fase 3: bocetos, estados, formulario, páginas y recursos. Es la referencia de la implementación (fase 4). Cualquier cambio posterior se propone, se aprueba y se anota aquí y en el plan.
 
 Los tokens están en `src/styles/tokens.css` (bloque `@theme` de Tailwind 4): cada uno es a la vez variable CSS (`var(--color-surface)`) y utilidad (`bg-surface`). Si cambia un valor aquí, cambia allí, y al revés.
 

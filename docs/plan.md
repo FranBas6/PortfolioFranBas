@@ -525,3 +525,8 @@ Sustituye a lo que dicen los apartados 6, 8 y 10 sobre proyectos de empresa.
 - **Textos aprobados:** «Mensaje enviado», «Gracias por escribirme. Te responderé lo antes posible.» y los dos mensajes de error, con su versión en inglés.
 - **Presentación en móvil sin ilustración.**
 - **Credenciales C2PA:** la ilustración y el favicon conservan la credencial de contenido de Anthropic que llevan incrustada.
+
+### 2026-11-11 · Sistema de diseño aprobado
+
+- Fran aprueba `docs/design-system.md` completo. Deja de ser borrador y pasa a ser la referencia de la fase 4.
+- Se cierra la fase 3.
