@@ -1,0 +1,24 @@
+---
+/*
+ * Fallback for `/`. On Netlify the root is redirected by language in
+ * netlify.toml before this page is reached; this only shows if that fails.
+ * Not indexed.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { homePath } from '../i18n/routes';
+import { ui } from '../i18n/ui';
+---
+
+<BaseLayout
+  lang="en"
+  title="Francisco José Bas Guil"
+  description={`${ui.en['root.title']} · ${ui.es['root.title']}`}
+  noindex
+  chrome={false}
+>
+  <h1>Francisco José Bas Guil</h1>
+  <ul>
+    <li><a href={homePath('es')} hreflang="es" lang="es">{ui.es['lang.es']}</a></li>
+    <li><a href={homePath('en')} hreflang="en" lang="en">{ui.en['lang.en']}</a></li>
+  </ul>
+</BaseLayout>

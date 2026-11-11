@@ -1,0 +1,52 @@
+---
+import { getEntry } from 'astro:content';
+import Footer from '../components/layout/Footer.astro';
+import Header from '../components/layout/Header.astro';
+import Seo from '../components/layout/Seo.astro';
+import SkipLink from '../components/layout/SkipLink.astro';
+import type { Alternates, Lang } from '../i18n/routes';
+import '../styles/global.css';
+
+interface Props {
+  lang: Lang;
+  title: string;
+  description: string;
+  /** URL of this page in each language; drives hreflang and the switcher. */
+  alternates?: Alternates;
+  noindex?: boolean;
+  /** `false` for the root fallback and the 404: no header or footer. */
+  chrome?: boolean;
+}
+
+const { lang, title, description, alternates, noindex = false, chrome = true } = Astro.props;
+const site = await getEntry('site', lang);
+if (!site) throw new Error(`Missing src/content/site/${lang}.yaml`);
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <Seo
+      lang={lang}
+      title={title}
+      description={description}
+      alternates={alternates}
+      noindex={noindex}
+      ogImage={site.data.og.image}
+      ogAlt={site.data.og.alt}
+    />
+    <slot name="head" />
+  </head>
+  <body>
+    {chrome && <SkipLink lang={lang} />}
+    {chrome && <Header lang={lang} alternates={alternates} />}
+    <main id="content">
+      <slot />
+    </main>
+    {chrome && <Footer lang={lang} alternates={alternates} />}
+  </body>
+</html>

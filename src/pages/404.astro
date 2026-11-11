@@ -1,0 +1,25 @@
+---
+/* Bilingual 404, served by Netlify for any unknown URL. Not indexed. */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { homePath } from '../i18n/routes';
+import { ui } from '../i18n/ui';
+---
+
+<BaseLayout
+  lang="en"
+  title={`404 · ${ui.en['notFound.title']} · ${ui.es['notFound.title']}`}
+  description={ui.en['notFound.text']}
+  noindex
+  chrome={false}
+>
+  <section lang="en">
+    <h1>{ui.en['notFound.title']}</h1>
+    <p>{ui.en['notFound.text']}</p>
+    <p><a href={homePath('en')}>{ui.en['notFound.home']}</a></p>
+  </section>
+  <section lang="es">
+    <h2>{ui.es['notFound.title']}</h2>
+    <p>{ui.es['notFound.text']}</p>
+    <p><a href={homePath('es')}>{ui.es['notFound.home']}</a></p>
+  </section>
+</BaseLayout>

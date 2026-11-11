@@ -1,0 +1,240 @@
+---
+/*
+ * Home page, shared by /es/ and /en/.
+ * Phase 1: semantic HTML without design. In phase 4 each section moves to
+ * src/components/home/ once the sketches are approved.
+ */
+import { getCollection, getEntry } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import {
+  privacyPath,
+  projectPath,
+  sections,
+  staticAlternates,
+  type Lang,
+} from '../i18n/routes';
+import {
+  formatNumericYearMonth,
+  formatPeriod,
+  getProjects,
+  useTranslations,
+} from '../i18n/utils';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const required = <T,>(entry: T | undefined, what: string): T => {
+  if (!entry) throw new Error(`Missing content: ${what}`);
+  return entry;
+};
+const site = required(await getEntry('site', lang), `site/${lang}.yaml`).data;
+const experience = required(await getEntry('experience', lang), `experience/${lang}.yaml`).data;
+const moreWork = required(await getEntry('more-fleetx', lang), `more-fleetx/${lang}.yaml`).data;
+
+const skillGroups = (await getCollection('skills')).sort((a, b) => a.data.order - b.data.order);
+const skillName = new Map(
+  skillGroups.flatMap((group) => group.data.items.map((item) => [item.id, item.name] as const)),
+);
+
+const projects = await getProjects(lang);
+const projectGroups = (['company', 'personal'] as const).map((kind) => ({
+  kind,
+  items: projects.filter((p) => p.data.kind === kind),
+}));
+
+const personJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: site.name,
+  jobTitle: site.role,
+  url: new URL(staticAlternates.home[lang], Astro.site).href,
+  sameAs: [site.links.github, site.links.linkedin],
+};
+---
+
+<BaseLayout
+  lang={lang}
+  title={site.seo.title}
+  description={site.seo.description}
+  alternates={staticAlternates.home}
+>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(personJsonLd)} />
+
+  <section aria-labelledby="hero-title">
+    <h1 id="hero-title">{site.name}</h1>
+    <p>{site.role}</p>
+    <p>{site.tagline}</p>
+    <ul>
+      {site.highlights.map((item) => <li>{item}</li>)}
+    </ul>
+    <p>
+      <a href={`#${sections.projects[lang]}`}>{t('hero.viewProjects')}</a>
+      <a href={site.cv}>{t('hero.downloadCv')}</a>
+      <a href={site.links.github}>GitHub</a>
+      <a href={site.links.linkedin}>LinkedIn</a>
+    </p>
+  </section>
+
+  <section id={sections.projects[lang]} aria-labelledby="projects-title">
+    <h2 id="projects-title">{t('projects.title')}</h2>
+    {
+      projectGroups.map((group) => (
+        <section aria-labelledby={`projects-${group.kind}`}>
+          <h3 id={`projects-${group.kind}`}>{t(`projects.group.${group.kind}`)}</h3>
+          <ul>
+            {group.items.map((project) => (
+              <li>
+                <article>
+                  <p>
+                    {t(`projects.origin.${project.data.kind}`)} ·{' '}
+                    {project.data.platforms.map((p) => t(`platform.${p}`)).join(' · ')}
+                  </p>
+                  <h4>
+                    <a href={projectPath(lang, project.data.slug)}>{project.data.title}</a>
+                  </h4>
+                  <p>{project.data.summary}</p>
+                  <ul>
+                    {project.data.stack.slice(0, 5).map((id) => (
+                      <li>{skillName.get(id)}</li>
+                    ))}
+                  </ul>
+                  <p>
+                    <a href={projectPath(lang, project.data.slug)}>{t('projects.viewProject')}</a>
+                    {project.data.links && (
+                      <>
+                        {' '}
+                        <a href={project.data.links.demo}>{t('projects.demo')}</a>{' '}
+                        <a href={project.data.links.repo}>{t('projects.repo')}</a>
+                      </>
+                    )}
+                  </p>
+                </article>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))
+    }
+
+    <section aria-labelledby="more-work-title">
+      <h3 id="more-work-title">{t('moreWork.title')}</h3>
+      <ul>
+        {
+          moreWork.mentions.map((mention) => (
+            <li>
+              <strong>{mention.title}</strong> ({formatPeriod(mention.period, lang)}):{' '}
+              {mention.text} [{mention.stack.map((id) => skillName.get(id)).join(', ')}]
+            </li>
+          ))
+        }
+      </ul>
+      <ul>
+        {
+          moreWork.lines.map((line) => (
+            <li>
+              <strong>{line.title}</strong>: {line.text}
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </section>
+
+  <section id={sections.experience[lang]} aria-labelledby="experience-title">
+    <h2 id="experience-title">{t('experience.title')}</h2>
+    <ol>
+      {
+        experience.jobs.map((job) => (
+          <li>
+            <h3>
+              {job.title} · {job.company} ·{' '}
+              {formatNumericYearMonth(job.period.start)} –{' '}
+              {job.period.end ? formatNumericYearMonth(job.period.end) : t('date.present')}
+            </h3>
+            <p>{job.location}</p>
+            <p>{job.summary}</p>
+            {job.bullets.length > 0 && (
+              <ul>
+                {job.bullets.map((bullet) => (
+                  <li>{bullet}</li>
+                ))}
+              </ul>
+            )}
+          </li>
+        ))
+      }
+    </ol>
+    <h3>{t('experience.education')}</h3>
+    <ul>
+      {
+        experience.education.map((item) => (
+          <li>
+            {item.title} · {item.school}
+            {item.location && `, ${item.location}`} · {item.years.start} – {item.years.end}
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section id={sections.skills[lang]} aria-labelledby="skills-title">
+    <h2 id="skills-title">{t('skills.title')}</h2>
+    {
+      skillGroups.map((group) => (
+        <section aria-labelledby={`skills-${group.id}`}>
+          <h3 id={`skills-${group.id}`}>{t(`skills.group.${group.id}` as Parameters<typeof t>[0])}</h3>
+          <ul>
+            {group.data.items.map((item) => (
+              <li>{item.name}</li>
+            ))}
+          </ul>
+        </section>
+      ))
+    }
+    <p>
+      <strong>{t('experience.languages')}:</strong>
+      {site.languages}
+    </p>
+  </section>
+
+  <section id={sections.contact[lang]} aria-labelledby="contact-title">
+    <h2 id="contact-title">{t('contact.title')}</h2>
+    <p>
+      {t('contact.email')}: <a href={`mailto:${site.email}`}>{site.email}</a>
+      <button type="button" disabled>{t('contact.copyEmail')}</button>
+    </p>
+    <p>
+      <a href={site.links.github}>GitHub</a>
+      <a href={site.links.linkedin}>LinkedIn</a>
+    </p>
+    <form name={`contact-${lang}`} method="POST" data-netlify="true" netlify-honeypot="bot-field">
+      <input type="hidden" name="form-name" value={`contact-${lang}`} />
+      <p hidden>
+        <label>
+          {t('contact.form.honeypot')}
+          <input name="bot-field" tabindex="-1" autocomplete="off" />
+        </label>
+      </p>
+      <p>
+        <label for={`name-${lang}`}>{t('contact.form.name')}</label>
+        <input id={`name-${lang}`} name="name" type="text" autocomplete="name" required />
+      </p>
+      <p>
+        <label for={`email-${lang}`}>{t('contact.form.email')}</label>
+        <input id={`email-${lang}`} name="email" type="email" autocomplete="email" required />
+      </p>
+      <p>
+        <label for={`message-${lang}`}>{t('contact.form.message')}</label>
+        <textarea id={`message-${lang}`} name="message" rows="5" required></textarea>
+      </p>
+      <p>
+        {t('contact.form.privacy')} <a href={privacyPath(lang)}>{t('contact.form.privacyLink')}</a>
+      </p>
+      <button type="submit">{t('contact.form.submit')}</button>
+    </form>
+  </section>
+</BaseLayout>

@@ -1,0 +1,59 @@
+---
+/*
+ * Per-page SEO: title, description, canonical to itself, hreflang for es, en
+ * and x-default (English), and share data with one image per language.
+ */
+import {
+  languages,
+  xDefaultLang,
+  type Alternates,
+  type Lang,
+} from '../../i18n/routes';
+
+interface Props {
+  lang: Lang;
+  title: string;
+  description: string;
+  alternates?: Alternates;
+  noindex?: boolean;
+  ogImage: string;
+  ogAlt: string;
+}
+
+const { lang, title, description, alternates, noindex = false, ogImage, ogAlt } = Astro.props;
+const site = Astro.site;
+if (!site) throw new Error('`site` must be set in astro.config.mjs');
+
+const absolute = (path: string) => new URL(path, site).href;
+const canonical = absolute(Astro.url.pathname);
+const ogLocale: Record<Lang, string> = { es: 'es_ES', en: 'en_GB' };
+---
+
+<title>{title}</title>
+<meta name="description" content={description} />
+{noindex && <meta name="robots" content="noindex" />}
+{!noindex && <link rel="canonical" href={canonical} />}
+{
+  !noindex &&
+    alternates &&
+    languages.map((alt) => <link rel="alternate" hreflang={alt} href={absolute(alternates[alt])} />)
+}
+{
+  !noindex && alternates && (
+    <link rel="alternate" hreflang="x-default" href={absolute(alternates[xDefaultLang])} />
+  )
+}
+
+<meta property="og:type" content="website" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={absolute(ogImage)} />
+<meta property="og:image:alt" content={ogAlt} />
+<meta property="og:locale" content={ogLocale[lang]} />
+{
+  languages
+    .filter((alt) => alt !== lang)
+    .map((alt) => <meta property="og:locale:alternate" content={ogLocale[alt]} />)
+}
+<meta name="twitter:card" content="summary_large_image" />

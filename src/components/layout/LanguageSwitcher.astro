@@ -1,0 +1,42 @@
+---
+/*
+ * "ES / EN": a plain link to the same page in the other language. No
+ * JavaScript, no cookies, no flags. The active language is not a link and is
+ * announced to screen readers as the current one.
+ */
+import { homePath, languages, type Alternates, type Lang } from '../../i18n/routes';
+import { useTranslations } from '../../i18n/utils';
+
+interface Props {
+  lang: Lang;
+  /** URL of this page in each language. Pages without one link to the home. */
+  alternates?: Alternates;
+}
+
+const { lang, alternates } = Astro.props;
+const t = useTranslations(lang);
+const hrefFor = (target: Lang) => alternates?.[target] ?? homePath(target);
+---
+
+<nav aria-label={t('lang.switcherLabel')}>
+  {
+    languages.map((target, index) => (
+      <>
+        {index > 0 && <span aria-hidden="true"> / </span>}
+        {target === lang ? (
+          <span>
+            <span aria-hidden="true">{target.toUpperCase()}</span>
+            <span class="sr-only">
+              {t(`lang.${target}` as const)} ({t('lang.current')})
+            </span>
+          </span>
+        ) : (
+          <a href={hrefFor(target)} hreflang={target} lang={target}>
+            <span aria-hidden="true">{target.toUpperCase()}</span>
+            <span class="sr-only">{t(`lang.${target}` as const)}</span>
+          </a>
+        )}
+      </>
+    ))
+  }
+</nav>

@@ -1,0 +1,31 @@
+---
+// Phase 1: semantic markup only. The mobile menu arrives with the design.
+import { getEntry } from 'astro:content';
+import { homePath, sectionPath, type Alternates, type Lang } from '../../i18n/routes';
+import { useTranslations } from '../../i18n/utils';
+import LanguageSwitcher from './LanguageSwitcher.astro';
+
+interface Props {
+  lang: Lang;
+  alternates?: Alternates;
+}
+
+const { lang, alternates } = Astro.props;
+const t = useTranslations(lang);
+const site = await getEntry('site', lang);
+if (!site) throw new Error(`Missing src/content/site/${lang}.yaml`);
+---
+
+<header>
+  <a href={homePath(lang)}>{site.data.name}</a>
+  <nav aria-label={t('site.mainNav')}>
+    <ul>
+      <li><a href={sectionPath(lang, 'projects')}>{t('nav.projects')}</a></li>
+      <li><a href={sectionPath(lang, 'experience')}>{t('nav.experience')}</a></li>
+      <li><a href={sectionPath(lang, 'skills')}>{t('nav.skills')}</a></li>
+      <li><a href={sectionPath(lang, 'contact')}>{t('nav.contact')}</a></li>
+    </ul>
+  </nav>
+  <LanguageSwitcher lang={lang} alternates={alternates} />
+  <a href={site.data.cv}>{t('nav.cv')}</a>
+</header>
