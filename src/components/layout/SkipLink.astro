@@ -9,4 +9,9 @@ interface Props {
 const t = useTranslations(Astro.props.lang);
 ---
 
-<a href="#content">{t('site.skipLink')}</a>
+<a
+  href="#content"
+  class="sr-only z-[60] rounded-lg bg-accent px-4 py-3 font-bold text-bg-base focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
+>
+  {t('site.skipLink')}
+</a>

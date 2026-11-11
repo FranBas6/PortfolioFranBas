@@ -1,31 +1,173 @@
 ---
-// Phase 1: semantic markup only. The mobile menu arrives with the design.
+/*
+ * Sticky header. Desktop (≥ lg): name, section links, ES / EN and the CV
+ * button. Mobile: name and a "Menú" button that opens a full-screen panel.
+ *
+ * The mobile menu is a <details> element, so it works without JavaScript.
+ * The script only adds Escape to close, the body scroll lock and closing the
+ * panel after picking a link.
+ *
+ * The blur lives on its own layer: a backdrop-filter on the <header> itself
+ * would make it the containing block of the fixed menu panel.
+ */
 import { getEntry } from 'astro:content';
-import { homePath, sectionPath, type Alternates, type Lang } from '../../i18n/routes';
-import { useTranslations } from '../../i18n/utils';
+import Icon from '../ui/Icon.astro';
 import LanguageSwitcher from './LanguageSwitcher.astro';
+import { homePath, sectionPath, type Alternates, type Lang, type Section } from '../../i18n/routes';
+import { useTranslations } from '../../i18n/utils';
 
 interface Props {
   lang: Lang;
   alternates?: Alternates;
+  /** Section shown as current, e.g. "projects" on a project page. */
+  current?: Section;
 }
 
-const { lang, alternates } = Astro.props;
+const { lang, alternates, current } = Astro.props;
 const t = useTranslations(lang);
-const site = await getEntry('site', lang);
+const site = (await getEntry('site', lang))?.data;
 if (!site) throw new Error(`Missing src/content/site/${lang}.yaml`);
+
+const links = (['projects', 'experience', 'skills', 'contact'] as const).map((section) => ({
+  section,
+  href: sectionPath(lang, section),
+  label: t(`nav.${section}`),
+}));
 ---
 
-<header>
-  <a href={homePath(lang)}>{site.data.name}</a>
-  <nav aria-label={t('site.mainNav')}>
-    <ul>
-      <li><a href={sectionPath(lang, 'projects')}>{t('nav.projects')}</a></li>
-      <li><a href={sectionPath(lang, 'experience')}>{t('nav.experience')}</a></li>
-      <li><a href={sectionPath(lang, 'skills')}>{t('nav.skills')}</a></li>
-      <li><a href={sectionPath(lang, 'contact')}>{t('nav.contact')}</a></li>
-    </ul>
-  </nav>
-  <LanguageSwitcher lang={lang} alternates={alternates} />
-  <a href={site.data.cv}>{t('nav.cv')}</a>
+<header class="sticky top-0 z-50">
+  <div
+    aria-hidden="true"
+    class="absolute inset-0 border-b border-border bg-[rgba(10,15,36,0.9)] backdrop-blur-[12px] lg:bg-[rgba(10,15,36,0.88)]"
+  >
+  </div>
+  <div class="container-site relative flex h-16 items-center justify-between gap-3 lg:h-[72px]">
+    <a href={homePath(lang)} class="rounded text-base font-extrabold tracking-[-0.01em] lg:text-[17px]">
+      {site.name}
+    </a>
+
+    <div class="hidden items-center gap-8 lg:flex">
+      <nav aria-label={t('site.mainNav')}>
+        <ul class="flex items-center gap-1">
+          {
+            links.map((link) => (
+              <li>
+                <a
+                  href={link.href}
+                  aria-current={link.section === current ? 'page' : undefined}
+                  class="nav-link inline-flex min-h-11 items-center rounded-lg px-3 text-[15px] font-semibold text-text-secondary transition-colors duration-160"
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+      <LanguageSwitcher lang={lang} alternates={alternates} />
+      <a href={site.cv} class="btn btn-secondary btn-sm">
+        <Icon name="download" />
+        {t('nav.cv')}
+      </a>
+    </div>
+
+    <details class="mobile-menu lg:hidden" data-mobile-menu>
+      <summary
+        class="btn btn-sm cursor-pointer list-none border-border px-3.5 text-text [&::-webkit-details-marker]:hidden"
+      >
+        <span class="menu-closed inline-flex items-center gap-2">
+          <Icon name="menu" />
+          {t('site.menu')}
+        </span>
+        <span class="menu-open hidden items-center gap-2">
+          <Icon name="close" />
+          {t('site.menuClose')}
+        </span>
+      </summary>
+      <div class="fixed inset-x-0 top-16 bottom-0 overflow-y-auto bg-bg-base px-5 pt-2 pb-8">
+        <nav aria-label={t('site.mainNav')}>
+          <ul>
+            {
+              links.map((link) => (
+                <li class="border-b border-border">
+                  <a
+                    href={link.href}
+                    data-menu-link
+                    class="menu-link flex min-h-14 items-center rounded-lg text-lg font-bold"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+        <div class="mt-6 flex items-center justify-between gap-4">
+          <LanguageSwitcher lang={lang} alternates={alternates} class="text-base" />
+          <a href={site.cv} class="btn btn-secondary">
+            <Icon name="download" />
+            {t('nav.cv')}
+          </a>
+        </div>
+      </div>
+    </details>
+  </div>
 </header>
+
+<style>
+  @media (hover: hover) {
+    .nav-link:hover {
+      background-color: var(--color-surface);
+      color: var(--color-text);
+    }
+  }
+  .nav-link[aria-current='page'] {
+    background-color: var(--color-surface);
+    color: var(--color-text);
+  }
+  .nav-link:active {
+    background-color: var(--color-surface-raised);
+    box-shadow: inset 0 -2px 0 var(--color-accent-strong);
+  }
+
+  .mobile-menu[open] summary {
+    background-color: var(--color-surface-raised);
+  }
+  .mobile-menu[open] .menu-closed {
+    display: none;
+  }
+  .mobile-menu[open] .menu-open {
+    display: inline-flex;
+  }
+  .menu-link:active {
+    background-color: var(--color-surface-raised);
+    box-shadow: inset 3px 0 0 var(--color-accent-strong);
+    padding-left: 12px;
+  }
+</style>
+
+<script>
+  // Progressive enhancement for the <details> mobile menu.
+  for (const menu of document.querySelectorAll<HTMLDetailsElement>('[data-mobile-menu]')) {
+    const summary = menu.querySelector('summary');
+    const close = () => {
+      menu.open = false;
+      summary?.focus();
+    };
+    menu.addEventListener('toggle', () => {
+      document.documentElement.style.overflow = menu.open ? 'hidden' : '';
+    });
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && menu.open) close();
+    });
+    for (const link of menu.querySelectorAll('[data-menu-link]')) {
+      link.addEventListener('click', () => {
+        menu.open = false;
+      });
+    }
+    // Leaving the mobile layout with the menu open must not keep the scroll locked.
+    window.matchMedia('(min-width: 64rem)').addEventListener('change', (query) => {
+      if (query.matches && menu.open) menu.open = false;
+    });
+  }
+</script>
