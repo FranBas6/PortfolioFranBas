@@ -1,0 +1,21 @@
+# Inicio: presentación, contacto y SEO.
+# CONTENIDO DE PRUEBA (fase 1) en los campos marcados con [PRUEBA].
+name: Francisco José Bas Guil
+role: Software Developer
+tagline: "[PRUEBA] Frase de presentación de prueba, de dos líneas como máximo y sin nombre de empresa."
+highlights:
+  - "[PRUEBA] Web con Laravel"
+  - "[PRUEBA] Móvil con Flutter"
+  - "[PRUEBA] IA y OCR en producción"
+email: franbasguil@gmail.com
+links:
+  github: https://github.com/FranBas6
+  linkedin: https://www.linkedin.com/in/franbasguil
+languages: Español nativo · Inglés profesional (B2), idioma de trabajo diario
+cv: /cv/francisco-bas-guil-cv-es.pdf
+seo:
+  title: "[PRUEBA] Francisco José Bas Guil · Software Developer"
+  description: "[PRUEBA] Descripción SEO de prueba del inicio, sin nombre de empresa. Debe tener entre 120 y 160 caracteres al final."
+og:
+  image: /og/og-es.png
+  alt: "[PRUEBA] Imagen para compartir del portfolio"

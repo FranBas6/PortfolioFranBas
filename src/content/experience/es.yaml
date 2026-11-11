@@ -1,0 +1,35 @@
+# Experiencia y formación. Puestos, empresas y fechas del CV.
+# Los resúmenes y puntos se revisan en la fase 2; los marcados con [PRUEBA] son de prueba.
+jobs:
+  - title: Software Developer
+    company: FleetX (Frakt24)
+    location: Orihuela, presencial
+    period: { start: "2026-01" }
+    summary: TMS SaaS multi-tenant (Laravel 10, PHP 8.3, MariaDB, Livewire, JavaScript) y app de conductores (Flutter/Dart, Firebase).
+    bullets:
+      - "[PRUEBA] Punto de prueba 1."
+      - "[PRUEBA] Punto de prueba 2."
+  - title: Soporte Técnico
+    company: Mercaluz – EAS Electric
+    location: Redován
+    period: { start: "2025-07", end: "2025-08" }
+    summary: Soporte a usuarios (hardware, software y red) y mantenimiento de equipos.
+  - title: Desarrollador (prácticas FCT)
+    company: Damián Montoya – Abogados Asociados
+    location: Murcia
+    period: { start: "2025-03", end: "2025-06" }
+    summary: Módulos en Odoo 18 con Python y SQL para automatizar procesos internos.
+  - title: Técnico Informático (prácticas FCT)
+    company: Ticarum – Universidad de Murcia
+    location: Espinardo
+    period: { start: "2023-03", end: "2023-06" }
+    summary: Mantenimiento y reparación de equipos, soporte técnico e inventario.
+education:
+  - title: CFGS Desarrollo de Aplicaciones Multiplataforma
+    school: IES Las Espeñetas
+    location: Orihuela
+    years: { start: 2023, end: 2025 }
+  - title: CFGM Sistemas Microinformáticos y Redes
+    school: IES Las Espeñetas
+    location: Orihuela
+    years: { start: 2021, end: 2023 }

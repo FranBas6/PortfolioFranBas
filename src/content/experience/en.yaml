@@ -1,0 +1,35 @@
+# Experience and education. Titles, companies and dates from the English CV.
+# Summaries and bullets are written in phase 2; [PLACEHOLDER] marks placeholder text.
+jobs:
+  - title: Software Developer
+    company: FleetX (Frakt24)
+    location: Orihuela, on-site
+    period: { start: "2026-01" }
+    summary: "[PLACEHOLDER] One-line summary."
+    bullets:
+      - "[PLACEHOLDER] Placeholder point 1."
+      - "[PLACEHOLDER] Placeholder point 2."
+  - title: IT Support Technician
+    company: Mercaluz – EAS Electric
+    location: Redován
+    period: { start: "2025-07", end: "2025-08" }
+    summary: "[PLACEHOLDER] One-line summary."
+  - title: Developer (internship)
+    company: Damián Montoya – Abogados Asociados
+    location: Murcia
+    period: { start: "2025-03", end: "2025-06" }
+    summary: "[PLACEHOLDER] One-line summary."
+  - title: IT Technician (internship)
+    company: Ticarum – University of Murcia
+    location: Espinardo
+    period: { start: "2023-03", end: "2023-06" }
+    summary: "[PLACEHOLDER] One-line summary."
+education:
+  - title: Higher VET in Multiplatform App Development
+    school: IES Las Espeñetas
+    location: Orihuela
+    years: { start: 2023, end: 2025 }
+  - title: Intermediate VET in Microcomputer Systems and Networks
+    school: IES Las Espeñetas
+    location: Orihuela
+    years: { start: 2021, end: 2023 }

@@ -1,0 +1,72 @@
+# Technologies, grouped for the Skills section. Shared by both languages.
+# `id` is what project `stack` fields reference; `name` is what is shown.
+# Group titles live in src/i18n/ui.ts (skills.group.<id>).
+# DRAFT (phase 1): grouping to be reviewed with the real content in phase 2.
+# Only list what appears in the experience or the projects.
+
+- id: backend
+  order: 1
+  items:
+    - { id: laravel, name: Laravel }
+    - { id: php, name: PHP }
+    - { id: python, name: Python }
+    - { id: odoo, name: Odoo }
+    - { id: deno, name: Deno }
+    - { id: edge-functions, name: Supabase Edge Functions }
+    - { id: netlify-functions, name: Netlify Functions }
+    - { id: rest-api, name: REST APIs }
+    - { id: tmdb-api, name: TMDB API }
+
+- id: frontend
+  order: 2
+  items:
+    - { id: javascript, name: JavaScript }
+    - { id: typescript, name: TypeScript }
+    - { id: livewire, name: Livewire }
+    - { id: astro, name: Astro }
+    - { id: react, name: React }
+    - { id: tanstack, name: TanStack Query/Router }
+    - { id: tailwind, name: Tailwind CSS }
+    - { id: pwa, name: PWA }
+    - { id: web-push, name: Web Push }
+
+- id: mobile
+  order: 3
+  items:
+    - { id: flutter, name: Flutter }
+    - { id: dart, name: Dart }
+    - { id: firebase, name: Firebase }
+    - { id: fcm, name: FCM }
+    - { id: crashlytics, name: Crashlytics }
+
+- id: ai
+  order: 4
+  items:
+    - { id: llm, name: LLMs }
+    - { id: ocr, name: OCR }
+    - { id: ml-kit, name: Google ML Kit }
+    - { id: ai-agents, name: AI agents }
+
+- id: data
+  order: 5
+  items:
+    - { id: mariadb, name: MariaDB }
+    - { id: mysql, name: MySQL }
+    - { id: postgresql, name: PostgreSQL }
+    - { id: supabase, name: Supabase }
+    - { id: supabase-realtime, name: Supabase Realtime }
+    - { id: rls, name: Row Level Security }
+    - { id: firestore, name: Firestore }
+    - { id: pg-cron, name: pg_cron }
+    - { id: sql, name: SQL }
+
+- id: quality-tools
+  order: 6
+  items:
+    - { id: phpunit, name: PHPUnit }
+    - { id: vitest, name: Vitest }
+    - { id: pgtap, name: pgTAP }
+    - { id: git, name: Git }
+    - { id: github, name: GitHub }
+    - { id: docker, name: Docker }
+    - { id: netlify, name: Netlify }
