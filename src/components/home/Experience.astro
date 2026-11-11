@@ -1,0 +1,145 @@
+---
+/*
+ * Experience, option B of the approved sketches: the current job as a card
+ * (sticky on desktop) next to its points in rows, previous jobs as cards and
+ * education as a band. No timeline, no dashes, no slash-separated stack.
+ */
+import type { CollectionEntry } from 'astro:content';
+import { sections, type Lang } from '../../i18n/routes';
+import { formatPeriod, useTranslations } from '../../i18n/utils';
+
+interface Props {
+  lang: Lang;
+  experience: CollectionEntry<'experience'>['data'];
+  skillName: Map<string, string>;
+}
+
+const { lang, experience, skillName } = Astro.props;
+const t = useTranslations(lang);
+const [current, ...previous] = experience.jobs;
+---
+
+<section id={sections.experience[lang]} aria-labelledby="experience-title" class="py-16 lg:py-24">
+  <div class="container-site">
+    <h2 id="experience-title" class="section-title">{t('experience.title')}</h2>
+
+    <article
+      class="mt-8 lg:mt-10 lg:grid lg:grid-cols-[380px_minmax(0,1fr)] lg:items-start lg:gap-14"
+    >
+      <div
+        class="rounded-2xl border border-border bg-surface p-5 lg:sticky lg:top-24 lg:p-7"
+      >
+        <p class="pill-period" data-current>{formatPeriod(current.period, lang)}</p>
+        <h3
+          class="mt-4 text-2xl leading-[1.15] font-extrabold tracking-[-0.02em] lg:text-[26px]"
+        >
+          {current.company}
+        </h3>
+        <p class="mt-1.5 text-text-secondary">
+          <strong class="font-semibold text-text">{current.title}</strong> · {current.location}
+        </p>
+        <p class="mt-4">{current.summary}</p>
+        {
+          current.stack.length > 0 && (
+            <div class="mt-6 hidden border-t border-border pt-5 lg:block">
+              <p class="text-sm font-semibold text-text-muted">{t('project.stack')}</p>
+              <ul class="mt-3 flex flex-wrap gap-1.5">
+                {current.stack.map((id) => (
+                  <li class="tag-tech px-[11px]">{skillName.get(id)}</li>
+                ))}
+              </ul>
+            </div>
+          )
+        }
+      </div>
+
+      <ul class="mt-2 lg:mt-0 lg:border-t lg:border-border">
+        {
+          current.highlights.map((item) => (
+            <li class="border-b border-border py-5 lg:py-[26px]">
+              <div class="flex items-center justify-between gap-4">
+                {item.title && (
+                  <h4 class="text-lg leading-[1.35] font-bold lg:text-[19px]">{item.title}</h4>
+                )}
+                {item.platforms && (
+                  <ul class="hidden flex-none gap-1.5 lg:flex">
+                    {item.platforms.map((platform) => (
+                      <li class="tag-platform" data-platform={platform}>
+                        {t(`platform.${platform}`)}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+              <p class="mt-2 max-w-[38em] text-text-secondary lg:mt-2.5 lg:text-[17px]">
+                {item.text}
+              </p>
+              {item.platforms && (
+                <ul class="mt-3 flex flex-wrap gap-1.5 lg:hidden">
+                  {item.platforms.map((platform) => (
+                    <li class="tag-platform" data-platform={platform}>
+                      {t(`platform.${platform}`)}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </li>
+          ))
+        }
+      </ul>
+
+      {
+        current.stack.length > 0 && (
+          <div class="mt-6 lg:hidden">
+            <p class="text-sm font-semibold text-text-muted">{t('project.stack')}</p>
+            <ul class="mt-3 flex flex-wrap gap-1.5">
+              {current.stack.map((id) => (
+                <li class="tag-tech px-[11px]">{skillName.get(id)}</li>
+              ))}
+            </ul>
+          </div>
+        )
+      }
+    </article>
+
+    <ul class="mt-10 grid gap-3 lg:mt-14 lg:grid-cols-3 lg:gap-6">
+      {
+        previous.map((job) => (
+          <li class="flex flex-col rounded-2xl border border-border bg-surface p-5 lg:p-6">
+            <p class="pill-period">{formatPeriod(job.period, lang)}</p>
+            <h3 class="mt-4 text-lg leading-[1.35] font-bold">{job.company}</h3>
+            <p class="mt-1 text-[15px] text-text-secondary">
+              {job.title} · {job.location}
+            </p>
+            <p class="mt-3 text-text-secondary">{job.summary}</p>
+            {job.stack.length > 0 && (
+              <ul class="mt-auto flex flex-wrap gap-1.5 pt-4">
+                {job.stack.map((id) => (
+                  <li class="tag-tech tag-tech-on-card">{skillName.get(id)}</li>
+                ))}
+              </ul>
+            )}
+          </li>
+        ))
+      }
+    </ul>
+
+    <div
+      class="mt-10 lg:mt-12 lg:grid lg:grid-cols-[200px_repeat(2,minmax(0,1fr))] lg:gap-8 lg:border-y lg:border-border lg:py-7"
+    >
+      <h3 class="text-xl font-bold">{t('experience.education')}</h3>
+      <ul class="lg:col-span-2 lg:grid lg:grid-cols-2 lg:gap-8">
+        {
+          experience.education.map((item) => (
+            <li class="border-b border-border py-4 lg:border-0 lg:py-0">
+              <p class="font-bold lg:text-[17px]">{item.title}</p>
+              <p class="mt-1.5 text-[15px] text-text-secondary">
+                {`${[item.school, item.location].filter(Boolean).join(', ')} · ${item.years.start} – ${item.years.end}`}
+              </p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>

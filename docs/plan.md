@@ -530,3 +530,19 @@ Sustituye a lo que dicen los apartados 6, 8 y 10 sobre proyectos de empresa.
 
 - Fran aprueba `docs/design-system.md` completo. Deja de ser borrador y pasa a ser la referencia de la fase 4.
 - Se cierra la fase 3.
+
+### 2026-11-11 · Menú móvil desplegable
+
+- El menú móvil deja de ocupar toda la pantalla: baja solo hasta su contenido y la página queda oscurecida debajo. Tocar la zona oscurecida lo cierra, igual que «Cerrar», Escape o elegir un enlace.
+
+### 2026-11-11 · Stack principal en la presentación
+
+- Debajo de las tres ideas, una fila «Stack principal» («Main stack») con las tecnologías que Fran más usa ahora: Laravel, PHP, Flutter, Dart y MariaDB, como chips.
+- Viene del campo `mainStack` de `site/*.yaml` (ids de `skills.yaml`), igual en los dos idiomas.
+
+### 2026-11-11 · Fase 4 cerrada
+
+- Implementación completa del diseño aprobado. Lighthouse en móvil: 100 en las cuatro categorías, en los dos idiomas.
+- Content-Security-Policy estricta (sin `'unsafe-inline'`); nada de scripts ni estilos en línea.
+- La pasada con lector de pantalla (VoiceOver) la hace Fran antes de publicar.
+- La ilustración de la presentación se queda como está.

@@ -1,0 +1,211 @@
+---
+/*
+ * Contact form handled by Netlify Forms (no backend of our own).
+ *
+ * Validation works without JavaScript: the browser checks `required` and
+ * `type="email"`, and :user-invalid shows the error only after the person has
+ * touched the field or tried to send. With `placeholder=" "`,
+ * :placeholder-shown tells an empty field from a malformed email.
+ *
+ * The small script only adds the "Enviando…" state.
+ */
+import Icon from './Icon.astro';
+import { privacyPath, thanksPath, type Lang } from '../../i18n/routes';
+import { useTranslations } from '../../i18n/utils';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const formName = `contact-${lang}`;
+const id = (field: string) => `${field}-${lang}`;
+---
+
+<form
+  name={formName}
+  method="POST"
+  action={thanksPath(lang)}
+  data-netlify="true"
+  netlify-honeypot="bot-field"
+  data-contact-form
+  class="rounded-2xl border border-border bg-surface p-5 lg:p-8"
+>
+  <input type="hidden" name="form-name" value={formName} />
+  <p class="hidden">
+    <label>
+      {t('contact.form.honeypot')}
+      <input name="bot-field" tabindex="-1" autocomplete="off" />
+    </label>
+  </p>
+
+  <div class="grid gap-5 lg:grid-cols-2">
+    <div class="field">
+      <label for={id('name')}>{t('contact.form.name')}</label>
+      <input id={id('name')} name="name" type="text" autocomplete="name" required placeholder=" " />
+      <p class="field-error" data-error="empty">
+        <Icon name="error" size={16} />
+        {t('contact.form.errorRequired')}
+      </p>
+    </div>
+    <div class="field">
+      <label for={id('email')}>{t('contact.form.email')}</label>
+      <input
+        id={id('email')}
+        name="email"
+        type="email"
+        autocomplete="email"
+        required
+        placeholder=" "
+      />
+      <p class="field-error" data-error="empty">
+        <Icon name="error" size={16} />
+        {t('contact.form.errorRequired')}
+      </p>
+      <p class="field-error" data-error="format">
+        <Icon name="error" size={16} />
+        {t('contact.form.errorEmail')}
+      </p>
+    </div>
+    <div class="field lg:col-span-2">
+      <label for={id('message')}>{t('contact.form.message')}</label>
+      <textarea id={id('message')} name="message" rows="6" required placeholder=" "></textarea>
+      <p class="field-error" data-error="empty">
+        <Icon name="error" size={16} />
+        {t('contact.form.errorRequired')}
+      </p>
+    </div>
+  </div>
+
+  <div class="mt-6 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+    <p class="text-sm text-text-secondary">
+      {t('contact.form.privacy')}
+      <a
+        href={privacyPath(lang)}
+        class="rounded text-accent underline underline-offset-[3px] hover:text-text"
+      >
+        {t('contact.form.privacyLink')}
+      </a>
+    </p>
+    <button type="submit" class="btn btn-primary w-full lg:w-auto lg:px-7" data-submit>
+      <Icon name="spinner" class="spinner hidden" />
+      <span data-label>{t('contact.form.submit')}</span>
+    </button>
+  </div>
+  <span class="hidden" data-sending-text>{t('contact.form.sending')}</span>
+</form>
+
+<style>
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .field label {
+    font-size: 15px;
+    font-weight: 600;
+  }
+  .field input,
+  .field textarea {
+    width: 100%;
+    min-height: 48px;
+    padding: 0 14px;
+    border: 1px solid var(--color-border-field);
+    border-radius: 8px;
+    background-color: var(--color-surface-raised);
+    color: var(--color-text);
+    font-size: 16px;
+    transition:
+      border-color 160ms ease,
+      background-color 160ms ease;
+  }
+  .field textarea {
+    min-height: 140px;
+    padding: 12px 14px;
+    resize: vertical;
+    @media (width >= 64rem) {
+      min-height: 160px;
+    }
+  }
+  @media (hover: hover) {
+    .field input:hover,
+    .field textarea:hover {
+      border-color: var(--color-text-secondary);
+    }
+  }
+  .field input:focus,
+  .field textarea:focus {
+    border-color: var(--color-accent);
+  }
+  .field input:focus-visible,
+  .field textarea:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  /* Errors: border, icon and message, never colour alone. */
+  .field :user-invalid {
+    border-color: var(--color-danger);
+  }
+  .field input:user-invalid {
+    padding-right: 44px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ff9d9d' stroke-width='1.8' stroke-linecap='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M12 7.5v5.5M12 16.5v.01'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 18px 18px;
+  }
+  .field-error {
+    display: none;
+    align-items: flex-start;
+    gap: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--color-danger);
+  }
+  .field-error :global(svg) {
+    margin-top: 1px;
+  }
+  .field :user-invalid:placeholder-shown ~ [data-error='empty'],
+  .field :user-invalid:not(:placeholder-shown) ~ [data-error='format'] {
+    display: flex;
+  }
+
+  /* Sending: read-only fields while the browser submits. */
+  form[aria-busy='true'] input,
+  form[aria-busy='true'] textarea {
+    border-color: var(--color-border);
+    background-color: var(--color-surface);
+    color: var(--color-text-secondary);
+  }
+  .spinner {
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+</style>
+
+<script>
+  // "Enviando…": progressive enhancement; without it the form submits the same.
+  for (const form of document.querySelectorAll<HTMLFormElement>('[data-contact-form]')) {
+    form.addEventListener('submit', () => {
+      if (!form.checkValidity()) return;
+      const button = form.querySelector<HTMLButtonElement>('[data-submit]');
+      const label = form.querySelector('[data-label]');
+      const sending = form.querySelector('[data-sending-text]')?.textContent;
+      form.setAttribute('aria-busy', 'true');
+      for (const field of form.querySelectorAll<HTMLInputElement>('input:not([type=hidden]), textarea')) {
+        field.readOnly = true;
+      }
+      if (button) {
+        button.disabled = true;
+        button.querySelector('.spinner')?.classList.remove('hidden');
+      }
+      if (label && sending) label.textContent = sending;
+    });
+  }
+</script>

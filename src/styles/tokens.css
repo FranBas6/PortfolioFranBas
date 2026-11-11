@@ -1,7 +1,6 @@
 /*
- * Design tokens. DRAFT (see docs/design-system.md): values may change after
- * the phase 3 sketches are reviewed. Names describe the role, not the colour,
- * so a future light mode only changes values.
+ * Design tokens, as approved in docs/design-system.md. Names describe the
+ * role, not the colour, so a future light mode only changes values.
  *
  * Declared with Tailwind's @theme so each token is both a CSS variable
  * (var(--color-surface)) and a utility (bg-surface).

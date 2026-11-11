@@ -91,7 +91,7 @@ Solo en la Experiencia. Todo lo demás está en [`fleetx-rules.md`](fleetx-rules
 
 | Archivo | Contenido |
 | --- | --- |
-| `site/<idioma>.yaml` | Presentación, email, enlaces, idiomas, ruta del CV, SEO del inicio e imagen para compartir |
+| `site/<idioma>.yaml` | Presentación, stack principal (`mainStack`, ids de `skills.yaml`, igual en los dos idiomas), email, enlaces, idiomas, ruta del CV, SEO del inicio e imagen para compartir |
 | `experience/<idioma>.yaml` | Puestos (`period` en `"YYYY-MM"`, `highlights`, `stack`) y formación (`years`) |
 | `skills/skills.yaml` | Grupos de tecnologías, compartido por los dos idiomas. El título de cada grupo está en `ui.ts` (`skills.group.<id>`) |
 | `legal/<idioma>/privacy.md` | Texto de privacidad |

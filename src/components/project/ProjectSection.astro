@@ -1,0 +1,29 @@
+---
+/* One content block of a project page: title on the left, content on the right (≥ lg). */
+interface Props {
+  id: string;
+  title: string;
+  /** Top border between blocks; off for the block right after the gallery band. */
+  border?: boolean;
+}
+
+const { id, title, border = true } = Astro.props;
+---
+
+<section
+  aria-labelledby={id}
+  class:list={[
+    'pt-10 lg:grid lg:grid-cols-[280px_minmax(0,1fr)] lg:gap-10 lg:py-10',
+    border && 'lg:border-t lg:border-border',
+  ]}
+>
+  <h2
+    id={id}
+    class="text-xl leading-[1.2] font-extrabold tracking-[-0.01em] lg:text-2xl lg:tracking-[-0.015em]"
+  >
+    {title}
+  </h2>
+  <div class="mt-3 max-w-[40em] lg:mt-0">
+    <slot />
+  </div>
+</section>

@@ -1,13 +1,16 @@
 ---
 import { getEntry, render } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { staticAlternates, type Lang } from '../i18n/routes';
+import Icon from '../components/ui/Icon.astro';
+import { homePath, staticAlternates, type Lang } from '../i18n/routes';
+import { formatDate, useTranslations } from '../i18n/utils';
 
 interface Props {
   lang: Lang;
 }
 
 const { lang } = Astro.props;
+const t = useTranslations(lang);
 const entry = await getEntry('legal', `${lang}/privacy`);
 if (!entry) throw new Error(`Missing src/content/legal/${lang}/privacy.md`);
 const { Content } = await render(entry);
@@ -19,9 +22,73 @@ const { Content } = await render(entry);
   description={entry.data.seo.description}
   alternates={staticAlternates.privacy}
 >
-  <article>
-    <h1>{entry.data.title}</h1>
-    <p><time datetime={entry.data.updated}>{entry.data.updated}</time></p>
-    <Content />
+  <article class="container-site pt-4 pb-16 lg:pt-10 lg:pb-24">
+    <a
+      href={homePath(lang)}
+      class="back link-underline inline-flex min-h-11 items-center gap-2 text-[15px] font-semibold text-text-secondary"
+    >
+      <Icon name="arrow-left" class="arrow transition-transform duration-160" />
+      {t('privacy.home')}
+    </a>
+    <div class="mt-6 lg:mt-8 lg:grid lg:grid-cols-[280px_minmax(0,1fr)] lg:items-start lg:gap-10">
+      <header class="lg:sticky lg:top-[104px]">
+        <h1
+          class="text-[40px] leading-[1.1] font-extrabold tracking-[-0.025em] lg:text-[56px] lg:leading-[1.05]"
+        >
+          {entry.data.title}
+        </h1>
+        <p class="mt-3 text-sm font-semibold text-text-muted">
+          {t('privacy.updated')}
+          <time datetime={entry.data.updated}>{formatDate(entry.data.updated, lang)}</time>
+        </p>
+      </header>
+      <div class="legal mt-8 max-w-[40em] border-t border-border lg:mt-0">
+        <Content />
+      </div>
+    </div>
   </article>
 </BaseLayout>
+
+<style>
+  /* Each "##" of the Markdown is a block separated by a line. */
+  .legal :global(h2) {
+    padding-top: 28px;
+    margin-top: 28px;
+    border-top: 1px solid var(--color-border);
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 1.25;
+    @media (width >= 64rem) {
+      font-size: 22px;
+    }
+  }
+  .legal :global(h2:first-child) {
+    margin-top: 0;
+    border-top: 0;
+  }
+  .legal :global(p) {
+    margin-top: 10px;
+    color: var(--color-text-secondary);
+    @media (width >= 64rem) {
+      font-size: 17px;
+    }
+  }
+  .legal :global(a) {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    overflow-wrap: anywhere;
+  }
+  .legal :global(a:hover) {
+    color: var(--color-text);
+  }
+  .legal {
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--color-border);
+  }
+  @media (hover: hover) {
+    .back:hover .arrow {
+      transform: translateX(-2px);
+    }
+  }
+</style>

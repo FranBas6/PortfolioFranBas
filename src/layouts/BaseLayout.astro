@@ -4,7 +4,7 @@ import Footer from '../components/layout/Footer.astro';
 import Header from '../components/layout/Header.astro';
 import Seo from '../components/layout/Seo.astro';
 import SkipLink from '../components/layout/SkipLink.astro';
-import type { Alternates, Lang } from '../i18n/routes';
+import type { Alternates, Lang, Section } from '../i18n/routes';
 import '../styles/global.css';
 
 interface Props {
@@ -14,12 +14,25 @@ interface Props {
   /** URL of this page in each language; drives hreflang and the switcher. */
   alternates?: Alternates;
   noindex?: boolean;
-  /** `false` for the root fallback and the 404: no header or footer. */
-  chrome?: boolean;
+  /**
+   * full: header and footer. minimal: only a bar with the name (404 and the
+   * root fallback, where the visitor's language is unknown).
+   */
+  chrome?: 'full' | 'minimal';
+  /** Section marked as current in the header. */
+  current?: Section;
 }
 
-const { lang, title, description, alternates, noindex = false, chrome = true } = Astro.props;
-const site = await getEntry('site', lang);
+const {
+  lang,
+  title,
+  description,
+  alternates,
+  noindex = false,
+  chrome = 'full',
+  current,
+} = Astro.props;
+const site = (await getEntry('site', lang))?.data;
 if (!site) throw new Error(`Missing src/content/site/${lang}.yaml`);
 ---
 
@@ -28,6 +41,14 @@ if (!site) throw new Error(`Missing src/content/site/${lang}.yaml`);
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0a0f24" />
+    <link
+      rel="preload"
+      href="/fonts/manrope-latin-variable.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="sitemap" href="/sitemap-index.xml" />
@@ -37,17 +58,29 @@ if (!site) throw new Error(`Missing src/content/site/${lang}.yaml`);
       description={description}
       alternates={alternates}
       noindex={noindex}
-      ogImage={site.data.og.image}
-      ogAlt={site.data.og.alt}
+      ogImage={site.og.image}
+      ogAlt={site.og.alt}
     />
     <slot name="head" />
   </head>
-  <body>
-    {chrome && <SkipLink lang={lang} />}
-    {chrome && <Header lang={lang} alternates={alternates} />}
-    <main id="content">
+  <body class="flex min-h-dvh flex-col">
+    {
+      chrome === 'full' ? (
+        <>
+          <SkipLink lang={lang} />
+          <Header lang={lang} alternates={alternates} current={current} />
+        </>
+      ) : (
+        <div class="border-b border-border bg-bg-base">
+          <div class="container-site flex h-16 items-center lg:h-[72px]">
+            <p class="text-base font-extrabold tracking-[-0.01em] lg:text-[17px]">{site.name}</p>
+          </div>
+        </div>
+      )
+    }
+    <main id="content" class:list={['flex-1', chrome === 'minimal' && 'flex flex-col *:flex-1']}>
       <slot />
     </main>
-    {chrome && <Footer lang={lang} alternates={alternates} />}
+    {chrome === 'full' && <Footer lang={lang} alternates={alternates} />}
   </body>
 </html>

@@ -26,12 +26,15 @@
   force = true
 
 # --- Headers -----------------------------------------------------------------
-# Content-Security-Policy is added in phase 4, once the final scripts and the
-# Netlify form are in place and it can be tested in the browser.
+# Strict CSP: every script and stylesheet is an external file from this site
+# (astro.config.mjs disables inlining). Images may be data: URIs (the 1 × 1
+# placeholder of the hero picture and the form's error icon). The form posts to
+# this same site (Netlify Forms). JSON-LD is a data block, not a script.
 
 [[headers]]
   for = "/*"
   [headers.values]
+    Content-Security-Policy = "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests"
     X-Content-Type-Options = "nosniff"
     X-Frame-Options = "DENY"
     Referrer-Policy = "strict-origin-when-cross-origin"

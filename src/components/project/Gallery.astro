@@ -1,0 +1,275 @@
+---
+/*
+ * Screenshot gallery with a device (desktop / mobile) and theme (dark / light)
+ * switch for the whole gallery, without JavaScript.
+ *
+ * Every version of every screen is in the markup; radio buttons plus :has()
+ * show only the chosen one. Hidden images are lazy and display:none, so the
+ * browser does not fetch them until they are chosen.
+ *
+ * Below md the screens sit in a horizontal scroll-snap carousel, each with an
+ * "Ampliar ↗" link to a large WebP. From md they go back to a grid.
+ */
+import { getImage, Image } from 'astro:assets';
+import Icon from '../ui/Icon.astro';
+import type { Lang } from '../../i18n/routes';
+import { useTranslations, type Project } from '../../i18n/utils';
+
+interface Props {
+  lang: Lang;
+  gallery: NonNullable<Project['data']['gallery']>;
+}
+
+const { lang, gallery } = Astro.props;
+const t = useTranslations(lang);
+
+const devices = ['desktop', 'mobile'] as const;
+const themes = ['dark', 'light'] as const;
+
+const shots = await Promise.all(
+  gallery.map(async (shot, index) => ({
+    alt: shot.alt,
+    versions: await Promise.all(
+      devices.flatMap((device) =>
+        themes.map(async (theme) => {
+          const src = shot.images[device][theme];
+          const large = await getImage({
+            src,
+            width: device === 'desktop' ? 1440 : 780,
+            format: 'webp',
+          });
+          return {
+            key: `${device}-${theme}`,
+            device,
+            src,
+            enlarge: large.src,
+            sizes:
+              device === 'desktop'
+                ? index === 0
+                  ? '(min-width: 1024px) 1120px, (min-width: 768px) 100vw, 90vw'
+                  : '(min-width: 1024px) 544px, (min-width: 768px) 50vw, 90vw'
+                : '(min-width: 1024px) 200px, (min-width: 768px) 33vw, 82vw',
+          };
+        }),
+      ),
+    ),
+  })),
+);
+---
+
+<section aria-labelledby="gallery-title" class="gallery border-y border-border bg-bg-deep py-10 lg:pt-16 lg:pb-[72px]">
+  <div class="container-site">
+    <div class="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+      <h2 id="gallery-title" class="text-xl font-extrabold lg:text-[36px] lg:leading-[1.1] lg:tracking-[-0.02em]">
+        {t('project.gallery')}
+      </h2>
+      <div class="flex flex-col gap-3.5 sm:flex-row sm:gap-6">
+        <fieldset>
+          <legend class="mb-2 text-sm font-semibold text-text-muted">{t('gallery.device')}</legend>
+          <div class="seg">
+            <input type="radio" name="g-device" id="g-desktop" value="desktop" checked class="sr-only" />
+            <label for="g-desktop" class="sm:min-w-[120px]">{t('gallery.desktop')}</label>
+            <input type="radio" name="g-device" id="g-mobile" value="mobile" class="sr-only" />
+            <label for="g-mobile" class="sm:min-w-[120px]">{t('gallery.mobile')}</label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend class="mb-2 text-sm font-semibold text-text-muted">{t('gallery.theme')}</legend>
+          <div class="seg">
+            <input type="radio" name="g-theme" id="g-dark" value="dark" checked class="sr-only" />
+            <label for="g-dark" class="sm:min-w-[104px]">{t('gallery.dark')}</label>
+            <input type="radio" name="g-theme" id="g-light" value="light" class="sr-only" />
+            <label for="g-light" class="sm:min-w-[104px]">{t('gallery.light')}</label>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+
+    <!-- No tabindex: on phones the "Ampliar" links inside are focusable and the
+         carousel scrolls to each one; on desktop there is nothing to scroll. -->
+    <div class="shots mt-8 lg:mt-10" role="region" aria-label={t('project.gallery')}>
+      {
+        shots.map((shot) => (
+          <figure class="shot">
+            {shot.versions.map((version) => (
+              <Image
+                src={version.src}
+                alt={shot.alt}
+                data-v={version.key}
+                widths={version.device === 'desktop' ? [720, 1120, 1440] : [390, 780]}
+                sizes={version.sizes}
+                class:list={['variant', `variant-${version.device}`]}
+              />
+            ))}
+            <figcaption class="mt-2 text-sm text-text-muted lg:mt-3 lg:text-[15px]">
+              <span aria-hidden="true">{shot.alt}</span>
+              {shot.versions.map((version) => (
+                <a
+                  href={version.enlarge}
+                  target="_blank"
+                  rel="noopener"
+                  data-v={version.key}
+                  class="enlarge link-underline min-h-11 items-center gap-1 text-[15px] font-bold text-accent"
+                >
+                  {t('gallery.enlarge')}
+                  <Icon name="external" size={14} />
+                  <span class="sr-only">
+                    {shot.alt} {t('link.newTab')}
+                  </span>
+                </a>
+              ))}
+            </figcaption>
+          </figure>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style is:global>
+  /* Segmented control: the chosen option is filled, not just a different tone. */
+  .gallery .seg {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 3px;
+    border: 1px solid var(--color-border-field);
+    border-radius: 10px;
+  }
+  .gallery .seg label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding-inline: 16px;
+    border-radius: 7px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    transition:
+      background-color 160ms ease,
+      color 160ms ease;
+  }
+  @media (hover: hover) {
+    .gallery .seg input:not(:checked) + label:hover {
+      background-color: var(--color-surface-raised);
+      color: var(--color-text);
+    }
+  }
+  .gallery .seg input:not(:checked) + label:active {
+    background-color: var(--color-accent-strong);
+    color: var(--color-bg-base);
+    font-weight: 700;
+  }
+  .gallery .seg input:checked + label {
+    background-color: var(--color-accent);
+    color: var(--color-bg-base);
+    font-weight: 700;
+  }
+  .gallery .seg input:focus-visible + label {
+    outline: 2px solid var(--color-accent);
+    outline-offset: -2px;
+  }
+  /* On the filled option the ring goes in bg-base: accent on accent would not show. */
+  .gallery .seg input:checked:focus-visible + label {
+    outline-color: var(--color-bg-base);
+    outline-offset: -4px;
+  }
+
+  /* Only the chosen version of each screen is shown. */
+  .gallery .variant,
+  .gallery .enlarge {
+    display: none;
+  }
+  .gallery:has(#g-desktop:checked):has(#g-dark:checked) .variant[data-v='desktop-dark'],
+  .gallery:has(#g-desktop:checked):has(#g-light:checked) .variant[data-v='desktop-light'],
+  .gallery:has(#g-mobile:checked):has(#g-dark:checked) .variant[data-v='mobile-dark'],
+  .gallery:has(#g-mobile:checked):has(#g-light:checked) .variant[data-v='mobile-light'] {
+    display: block;
+  }
+  .gallery:has(#g-desktop:checked):has(#g-dark:checked) .enlarge[data-v='desktop-dark'],
+  .gallery:has(#g-desktop:checked):has(#g-light:checked) .enlarge[data-v='desktop-light'],
+  .gallery:has(#g-mobile:checked):has(#g-dark:checked) .enlarge[data-v='mobile-dark'],
+  .gallery:has(#g-mobile:checked):has(#g-light:checked) .enlarge[data-v='mobile-light'] {
+    display: flex;
+  }
+  .gallery .enlarge {
+    width: max-content;
+    margin-top: 2px;
+  }
+
+  .gallery .variant {
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--color-border);
+    object-fit: cover;
+  }
+  .gallery .variant-desktop {
+    aspect-ratio: 16 / 10;
+    border-radius: 10px;
+    object-position: top left;
+  }
+  .gallery .variant-mobile {
+    aspect-ratio: 390 / 844;
+    border-radius: 16px;
+    object-position: top;
+  }
+
+  /* Below md: a carousel that bleeds to the screen edge; the next screen peeks in. */
+  .gallery .shots {
+    /* Containing block for the sr-only texts inside the "Ampliar" links: without
+       it they escape the scroller and widen the page on phones. */
+    position: relative;
+    display: flex;
+    gap: 12px;
+    margin-inline: -20px;
+    padding: 0 20px 12px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 20px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-border) transparent;
+  }
+  .gallery .shot {
+    flex: 0 0 82%;
+    margin: 0;
+    scroll-snap-align: start;
+  }
+  .gallery:has(#g-desktop:checked) .shot {
+    flex-basis: 90%;
+  }
+
+  /* From md: a grid, and no "Ampliar" (the screens are big enough). */
+  @media (width >= 48rem) {
+    .gallery .shots {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 40px 32px;
+      margin-inline: 0;
+      padding: 0;
+      overflow: visible;
+    }
+    .gallery:has(#g-desktop:checked) .shot:first-child {
+      grid-column: 1 / -1;
+    }
+    .gallery:has(#g-mobile:checked) .shots {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 24px;
+    }
+    .gallery .enlarge {
+      display: none !important;
+    }
+    .gallery .variant-desktop {
+      border-radius: 12px;
+    }
+    .gallery .variant-mobile {
+      border-radius: 18px;
+    }
+  }
+  @media (width >= 64rem) {
+    .gallery:has(#g-mobile:checked) .shots {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+  }
+</style>

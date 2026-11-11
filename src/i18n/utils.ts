@@ -10,6 +10,9 @@ export function getLang(locale: string | undefined): Lang {
 
 export const otherLang = (lang: Lang): Lang => (lang === 'es' ? 'en' : 'es');
 
+/** UI keys that start with a prefix, for keys built at runtime (`skills.group.${id}`). */
+export type UiKeyOf<Prefix extends string> = Extract<UiKey, `${Prefix}${string}`>;
+
 /** `t('nav.projects')`. Throws on an unknown key: there is no fallback text. */
 export function useTranslations(lang: Lang) {
   return (key: UiKey): string => {
@@ -38,6 +41,14 @@ export function formatYearMonth(value: string, lang: Lang): string {
   const name = months[lang][Number(month) - 1];
   if (!year || !name) throw new Error(`Invalid year-month "${value}": use YYYY-MM`);
   return `${name} ${year}`;
+}
+
+/** `2026-11-11` → "11 nov 2026" (es) / "11 Nov 2026" (en). */
+export function formatDate(value: string, lang: Lang): string {
+  const [year, month, day] = value.split('-');
+  const name = months[lang][Number(month) - 1];
+  if (!year || !name || !day) throw new Error(`Invalid date "${value}": use YYYY-MM-DD`);
+  return `${Number(day)} ${name} ${year}`;
 }
 
 /** "oct 2026 – actualidad", "sep 2026 – oct 2026", or a single month. */

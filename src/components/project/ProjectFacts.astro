@@ -1,0 +1,86 @@
+---
+import Icon from '../ui/Icon.astro';
+import type { Lang } from '../../i18n/routes';
+import { formatPeriod, useTranslations, type Project } from '../../i18n/utils';
+
+interface Props {
+  lang: Lang;
+  project: Project['data'];
+}
+
+const { lang, project } = Astro.props;
+const t = useTranslations(lang);
+const platforms = project.platforms.map((p) => t(`platform.${p}`)).join(', ');
+---
+
+<dl
+  class="mt-10 lg:grid lg:grid-cols-[200px_minmax(0,1.3fr)_160px_minmax(0,1fr)] lg:border-y lg:border-border"
+>
+  <div class="fact">
+    <dt>{t('project.period')}</dt>
+    <dd>{formatPeriod(project.period, lang)}</dd>
+  </div>
+  <div class="fact">
+    <dt>{t('project.role')}</dt>
+    <dd>{project.role}</dd>
+  </div>
+  <div class="fact">
+    <dt>{t('project.platforms')}</dt>
+    <dd>{platforms}</dd>
+  </div>
+  <div class="fact">
+    <dt>{t('project.links')}</dt>
+    <dd class="flex flex-wrap gap-x-6">
+      <a href={project.links.demo} target="_blank" rel="noopener" class="fact-link link-underline">
+        {t('projects.demo')}
+        <Icon name="external" size={14} />
+        <span class="sr-only">{t('link.newTab')}</span>
+      </a>
+      <a href={project.links.repo} target="_blank" rel="noopener" class="fact-link link-underline">
+        {t('projects.repo')}
+        <Icon name="external" size={14} />
+        <span class="sr-only">{t('link.newTab')}</span>
+      </a>
+    </dd>
+  </div>
+</dl>
+
+<style>
+  .fact {
+    display: grid;
+    grid-template-columns: 104px minmax(0, 1fr);
+    gap: 12px;
+    align-items: baseline;
+    padding-block: 14px;
+    border-bottom: 1px solid var(--color-border);
+    @media (width >= 64rem) {
+      display: block;
+      padding: 18px 24px;
+      border-bottom: 0;
+      border-left: 1px solid var(--color-border);
+      &:first-child {
+        padding-left: 0;
+        border-left: 0;
+      }
+    }
+  }
+  dt {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-text-muted);
+  }
+  dd {
+    @media (width >= 64rem) {
+      margin-top: 8px;
+      font-size: 17px;
+    }
+  }
+  .fact-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    min-height: 44px;
+    font-weight: 700;
+    color: var(--color-accent);
+  }
+</style>

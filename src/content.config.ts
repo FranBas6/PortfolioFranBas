@@ -118,6 +118,8 @@ const site = defineCollection({
     role: text,
     tagline: text,
     highlights: z.array(text).length(3),
+    /** Technologies used most right now, shown in the hero (ids from skills.yaml). */
+    mainStack: z.array(skillId).min(3).max(6),
     email: z.email(),
     links: z.object({ github: z.url(), linkedin: z.url() }),
     languages: text,
