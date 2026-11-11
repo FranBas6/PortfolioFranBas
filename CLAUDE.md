@@ -14,7 +14,7 @@ Personal portfolio of Francisco José Bas Guil (Fran). Static Astro site, Spanis
 
 - Work one phase at a time (plan, section 12). At the end of each phase: stop, summarise, wait for confirmation. Before each phase, explain the plan in a few lines.
 - Talk to Fran in Spanish. Code, file names and commit messages in English.
-- Small, descriptive commits. Never push or create remotes unless Fran asks. The remote (`FranBas6/portfolio`) is created in phase 5.
+- Small, descriptive commits. Never push unless Fran asks. The remote is the public repository `FranBas6/PortfolioFranBas` (`origin`); pushing runs the pre-push hook.
 - A decision that is not in the plan is proposed with a recommendation, never improvised. Once approved, record it in `.private/plan-full.md` and in `docs/plan.md` (section 14), the latter without paths or internal names.
 - Never invent facts about Fran or Fran's projects. If something is not in the plan or the repositories, ask.
 - Implement the design exactly as approved; any change to it is proposed first and recorded in `docs/design-system.md`.

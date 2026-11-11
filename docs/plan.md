@@ -52,7 +52,7 @@ Los dos CV se copian a `public/cv/` con esos nombres exactos, sin espacios ni ti
 
 ## 4. Regla de FleetX: qué no se puede publicar
 
-El repositorio del portfolio será **público** (`FranBas6/portfolio`). El código de FleetX es privado. Se pueden leer los tres repositorios de FleetX para entender y verificar qué hice, pero al portfolio solo llega **qué hice, con qué tecnologías y por qué es interesante**.
+El repositorio del portfolio será **público** (`FranBas6/PortfolioFranBas`; en el plan original, `FranBas6/portfolio`). El código de FleetX es privado. Se pueden leer los tres repositorios de FleetX para entender y verificar qué hice, pero al portfolio solo llega **qué hice, con qué tecnologías y por qué es interesante**.
 
 Nunca puede aparecer en el repositorio del portfolio (ni en contenido, ni en código, ni en comentarios, ni en mensajes de commit, ni en `docs/`):
 
@@ -436,7 +436,7 @@ Cada cambio visual se comprueba en un navegador real, en móvil y escritorio, an
 
 ### Fase 5: publicación
 
-- Repositorio público `FranBas6/portfolio` y despliegue en Netlify como `franbasguil.netlify.app`.
+- Repositorio público `FranBas6/PortfolioFranBas` y despliegue en Netlify como `franbasguil.netlify.app`.
 - Prueba de la redirección con el navegador en español, en inglés y en un tercer idioma.
 - Prueba del formulario de principio a fin, incluido que el mensaje me llega.
 - Comprobación de `hreflang`, sitemap y vista previa al compartir en LinkedIn.
@@ -546,3 +546,9 @@ Sustituye a lo que dicen los apartados 6, 8 y 10 sobre proyectos de empresa.
 - Content-Security-Policy estricta (sin `'unsafe-inline'`); nada de scripts ni estilos en línea.
 - La pasada con lector de pantalla (VoiceOver) la hace Fran antes de publicar.
 - La ilustración de la presentación se queda como está.
+
+### 2026-11-11 · Publicación del repositorio
+
+- Antes de publicar se revisó todo el historial (archivos de cada commit, nombres de archivo, mensajes y ramas): sin términos prohibidos, rutas locales ni archivos privados.
+- Repositorio público creado y subidas `main` (rama por defecto) y `develop`.
+- **Nombre:** `FranBas6/PortfolioFranBas` en lugar de `FranBas6/portfolio`, a petición de Fran, coherente con YourFavs y OnMyMind. GitHub redirige el nombre antiguo. La web sigue siendo `franbasguil.netlify.app`.
