@@ -12,9 +12,11 @@
 // Usage:
 //   node scripts/check-content.mjs                 errors fail, warnings print
 //   node scripts/check-content.mjs --strict        the term list is required
-//   node scripts/check-content.mjs --strict --commits <sha>...
-//                                                  also scan the messages of
-//                                                  those commits not yet on a remote
+//   node scripts/check-content.mjs --strict --ref <name> --commits <sha>...
+//                                                  also scan the pushed branch or
+//                                                  tag names (--ref, repeatable) and
+//                                                  the messages of those commits
+//                                                  not yet on a remote
 
 import { execFileSync } from 'node:child_process';
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
@@ -31,8 +33,16 @@ const TERMS_FILE = process.env.FORBIDDEN_TERMS_FILE ?? join(ROOT, '.private/forb
 
 const args = process.argv.slice(2);
 const strict = args.includes('--strict');
-const commitsIndex = args.indexOf('--commits');
-const commitShas = commitsIndex === -1 ? [] : args.slice(commitsIndex + 1);
+/** Values after `flag` up to the next `--option`. */
+const valuesOf = (flag) => {
+  const start = args.indexOf(flag);
+  if (start === -1) return [];
+  const rest = args.slice(start + 1);
+  const end = rest.findIndex((arg) => arg.startsWith('--'));
+  return end === -1 ? rest : rest.slice(0, end);
+};
+const commitShas = valuesOf('--commits');
+const refNames = args.flatMap((arg, i) => (arg === '--ref' && args[i + 1] ? [args[i + 1]] : []));
 
 const errors = [];
 const warnings = [];
@@ -296,6 +306,13 @@ if (!existsSync(TERMS_FILE)) {
       error(`${path}:${line}`, 'forbidden term');
     }
   }
+  // Branch and tag names are public while they exist on the remote. The name
+  // itself is not printed: it may contain the term.
+  refNames.forEach((name, i) => {
+    if (findMatchingLines(name, regExps).length) {
+      error(`pushed ref ${i + 1} of ${refNames.length}`, 'forbidden term in the branch or tag name');
+    }
+  });
   for (const { sha, message } of unpushedCommitMessages(commitShas)) {
     for (const line of findMatchingLines(message, regExps)) {
       error(`commit ${sha}, message line ${line}`, 'forbidden term');

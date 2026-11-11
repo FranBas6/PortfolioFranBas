@@ -1,16 +1,20 @@
 #!/bin/sh
 # Blocks a push when the content checks fail, when the private forbidden-term
-# list is missing, or when a pushed commit message contains a forbidden term.
+# list is missing, or when a pushed branch or tag name, or a pushed commit
+# message, contains a forbidden term.
 # Enabled with: git config core.hooksPath .githooks (npm install does it).
 set -e
 
 zero=0000000000000000000000000000000000000000
 shas=""
+refs=""
 while read -r local_ref local_sha remote_ref remote_sha; do
   [ "$local_sha" = "$zero" ] && continue # branch deletion: nothing to check
   shas="$shas $local_sha"
+  # refs/heads/x and refs/tags/x -> x; both local and remote names are checked.
+  refs="$refs --ref ${local_ref#refs/*/} --ref ${remote_ref#refs/*/}"
 done
 
 node --test scripts/lib/forbidden.test.mjs >/dev/null
 # shellcheck disable=SC2086
-node scripts/check-content.mjs --strict --commits $shas
+node scripts/check-content.mjs --strict $refs --commits $shas
