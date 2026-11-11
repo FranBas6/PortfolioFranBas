@@ -1,0 +1,16 @@
+#!/bin/sh
+# Blocks a push when the content checks fail, when the private forbidden-term
+# list is missing, or when a pushed commit message contains a forbidden term.
+# Enabled with: git config core.hooksPath .githooks (npm install does it).
+set -e
+
+zero=0000000000000000000000000000000000000000
+shas=""
+while read -r local_ref local_sha remote_ref remote_sha; do
+  [ "$local_sha" = "$zero" ] && continue # branch deletion: nothing to check
+  shas="$shas $local_sha"
+done
+
+node --test scripts/lib/forbidden.test.mjs >/dev/null
+# shellcheck disable=SC2086
+node scripts/check-content.mjs --strict --commits $shas
