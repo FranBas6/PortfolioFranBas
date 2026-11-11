@@ -8,7 +8,7 @@ Personal portfolio of Francisco José Bas Guil (Fran). Static Astro site, Spanis
 - `docs/plan.md`: public version of the plan.
 - `docs/fleetx-rules.md`: what may and may not be published about FleetX. **Mandatory before writing any FleetX text.**
 - `docs/content-guide.md`: content model, lengths, tone, how to add a project.
-- `docs/design-system.md`: design tokens and components. **DRAFT until Fran approves it.**
+- `docs/design-system.md`: design tokens, components and states. **Approved**; it is the reference for the implementation. Pixel-level specs per screen are in the Claude Design handoff (`.private/design_handoff_portfolio_fase3/`).
 
 ## Working rules
 
@@ -17,7 +17,7 @@ Personal portfolio of Francisco José Bas Guil (Fran). Static Astro site, Spanis
 - Small, descriptive commits. Never push or create remotes unless Fran asks. The remote (`FranBas6/portfolio`) is created in phase 5.
 - A decision that is not in the plan is proposed with a recommendation, never improvised. Once approved, record it in `.private/plan-full.md` and in `docs/plan.md` (section 14), the latter without paths or internal names.
 - Never invent facts about Fran or Fran's projects. If something is not in the plan or the repositories, ask.
-- No design work until the phase 3 sketches and `docs/design-system.md` are approved.
+- Implement the design exactly as approved; any change to it is proposed first and recorded in `docs/design-system.md`.
 - Check every visual change in a real browser at 375, 768 and 1280 px.
 
 ## Branches
