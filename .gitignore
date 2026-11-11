@@ -1,6 +1,9 @@
 # Private material: never commit
 .private/
 
+# Local visual references for the design phase (third-party or personal images)
+design-refs/
+
 # Dependencies and build output
 node_modules/
 dist/
