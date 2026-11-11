@@ -1,0 +1,45 @@
+---
+/* "Mensaje enviado": where Netlify Forms sends people after the contact form. Not indexed. */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/ui/Icon.astro';
+import { homePath, staticAlternates, type Lang } from '../i18n/routes';
+import { useTranslations } from '../i18n/utils';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<BaseLayout
+  lang={lang}
+  title={t('thanks.title')}
+  description={t('thanks.text')}
+  alternates={staticAlternates.thanks}
+  noindex
+>
+  <section class="bg-hero">
+    <div class="container-site pt-[72px] pb-20 lg:pt-36 lg:pb-40">
+      <span
+        aria-hidden="true"
+        class="flex size-14 items-center justify-center rounded-full border border-border-field bg-surface text-accent lg:size-16"
+      >
+        <Icon name="check" size={24} />
+      </span>
+      <h1
+        class="mt-6 text-[40px] leading-[1.1] font-extrabold tracking-[-0.025em] lg:mt-8 lg:text-[56px] lg:leading-[1.05] lg:tracking-[-0.03em]"
+      >
+        {t('thanks.title')}
+      </h1>
+      <p class="mt-4 max-w-[34em] text-lg font-medium text-text-secondary lg:text-xl">
+        {t('thanks.text')}
+      </p>
+      <a href={homePath(lang)} class="btn btn-primary mt-8">
+        <Icon name="arrow-left" />
+        {t('thanks.home')}
+      </a>
+    </div>
+  </section>
+</BaseLayout>

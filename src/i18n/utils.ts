@@ -43,6 +43,14 @@ export function formatYearMonth(value: string, lang: Lang): string {
   return `${name} ${year}`;
 }
 
+/** `2026-11-11` → "11 nov 2026" (es) / "11 Nov 2026" (en). */
+export function formatDate(value: string, lang: Lang): string {
+  const [year, month, day] = value.split('-');
+  const name = months[lang][Number(month) - 1];
+  if (!year || !name || !day) throw new Error(`Invalid date "${value}": use YYYY-MM-DD`);
+  return `${Number(day)} ${name} ${year}`;
+}
+
 /** "oct 2026 – actualidad", "sep 2026 – oct 2026", or a single month. */
 export function formatPeriod(period: { start: string; end?: string }, lang: Lang): string {
   const start = formatYearMonth(period.start, lang);

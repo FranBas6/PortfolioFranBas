@@ -1,11 +1,12 @@
 ---
 /*
  * Fallback for `/`. On Netlify the root is redirected by language in
- * netlify.toml before this page is reached; this only shows if that fails.
- * Not indexed.
+ * netlify.toml before this page is reached; it shows locally with
+ * `npm run dev` and if the redirect ever fails. Not indexed.
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { homePath } from '../i18n/routes';
+import Icon from '../components/ui/Icon.astro';
+import { homePath, languages } from '../i18n/routes';
 import { ui } from '../i18n/ui';
 ---
 
@@ -16,9 +17,25 @@ import { ui } from '../i18n/ui';
   noindex
   chrome="minimal"
 >
-  <h1>Francisco José Bas Guil</h1>
-  <ul>
-    <li><a href={homePath('es')} hreflang="es" lang="es">{ui.es['lang.es']}</a></li>
-    <li><a href={homePath('en')} hreflang="en" lang="en">{ui.en['lang.en']}</a></li>
-  </ul>
+  <section class="bg-hero flex min-h-full items-center">
+    <div class="container-site py-16 lg:py-24">
+      <h1 class="text-[32px] leading-[1.1] font-extrabold tracking-[-0.02em] lg:text-5xl">
+        <span lang="en" class="block lg:inline">{ui.en['root.title']}</span>
+        <span aria-hidden="true" class="hidden text-text-muted lg:inline"> · </span>
+        <span lang="es" class="block lg:inline">{ui.es['root.title']}</span>
+      </h1>
+      <ul class="mt-8 flex flex-wrap gap-3">
+        {
+          languages.map((lang) => (
+            <li>
+              <a href={homePath(lang)} hreflang={lang} lang={lang} class="btn btn-secondary">
+                {ui[lang][`lang.${lang}`]}
+                <Icon name="arrow-right" />
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
 </BaseLayout>

@@ -78,7 +78,7 @@ if (!site) throw new Error(`Missing src/content/site/${lang}.yaml`);
         </div>
       )
     }
-    <main id="content" class="flex-1">
+    <main id="content" class:list={['flex-1', chrome === 'minimal' && 'flex flex-col *:flex-1']}>
       <slot />
     </main>
     {chrome === 'full' && <Footer lang={lang} alternates={alternates} />}
