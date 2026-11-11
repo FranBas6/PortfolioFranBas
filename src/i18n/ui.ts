@@ -90,6 +90,24 @@ const es = {
   'notFound.home': 'Ir al inicio',
 
   'root.title': 'Elige idioma',
+
+  'site.menuClose': 'Cerrar',
+  'contact.form.sending': 'Enviando…',
+  'contact.form.errorRequired': 'Rellena este campo.',
+  'contact.form.errorEmail': 'Escribe un email válido, como nombre@dominio.com.',
+  'gallery.device': 'Dispositivo',
+  'gallery.desktop': 'Escritorio',
+  'gallery.mobile': 'Móvil',
+  'gallery.theme': 'Modo',
+  'gallery.dark': 'Oscuro',
+  'gallery.light': 'Claro',
+  'gallery.enlarge': 'Ampliar',
+  'thanks.title': 'Mensaje enviado',
+  'thanks.text': 'Gracias por escribirme. Te responderé lo antes posible.',
+  'thanks.home': 'Volver al inicio',
+  'privacy.updated': 'Actualizada el',
+  'privacy.home': 'Ir al inicio',
+  'notFound.label': 'Error 404',
 } as const;
 
 type UiKey = keyof typeof es;
@@ -174,6 +192,24 @@ const en = {
   'notFound.home': 'Go to the home page',
 
   'root.title': 'Choose a language',
+
+  'site.menuClose': 'Close',
+  'contact.form.sending': 'Sending…',
+  'contact.form.errorRequired': 'Please fill in this field.',
+  'contact.form.errorEmail': 'Enter a valid email, such as name@domain.com.',
+  'gallery.device': 'Device',
+  'gallery.desktop': 'Desktop',
+  'gallery.mobile': 'Mobile',
+  'gallery.theme': 'Mode',
+  'gallery.dark': 'Dark',
+  'gallery.light': 'Light',
+  'gallery.enlarge': 'Enlarge',
+  'thanks.title': 'Message sent',
+  'thanks.text': "Thanks for getting in touch. I'll reply as soon as I can.",
+  'thanks.home': 'Back to the home page',
+  'privacy.updated': 'Last updated',
+  'privacy.home': 'Go to the home page',
+  'notFound.label': 'Error 404',
 } as const satisfies Record<UiKey, string>;
 
 export const ui: Record<Lang, Record<UiKey, string>> = { es, en };

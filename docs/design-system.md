@@ -1,6 +1,6 @@
 # Sistema de diseño
 
-> **⚠ BORRADOR.** Los bocetos de la fase 3 (entrega 2) están **aprobados** desde el 2026-11-11, y este documento ya recoge sus valores. Deja de ser borrador cuando Fran apruebe el sistema completo, después de la tercera entrega (estados, formulario, privacidad, 404, ilustración, icono e imágenes para compartir). Hasta entonces no se implementa ningún componente con diseño.
+> **⚠ BORRADOR.** Recoge las tres entregas de la fase 3: bocetos aprobados el 2026-11-11 y estados, formulario, páginas y recursos de la tercera entrega. Deja de ser borrador cuando Fran apruebe el sistema completo. Hasta entonces no se implementa ningún componente con diseño.
 
 Los tokens están en `src/styles/tokens.css` (bloque `@theme` de Tailwind 4): cada uno es a la vez variable CSS (`var(--color-surface)`) y utilidad (`bg-surface`). Si cambia un valor aquí, cambia allí, y al revés.
 
@@ -29,10 +29,11 @@ Solo hay modo oscuro en la primera versión. Los tokens llevan nombre de funció
 | `text-muted` | `#8f96b8` | Fechas, notas, rótulos de la ficha, pies de captura |
 | `accent` | `#a5b4fc` | Botón principal, enlaces, rol en la presentación, foco, opción elegida del selector |
 | `accent-hover` | `#c3cdfd` | **Nuevo.** Fondo del botón principal al pasar el ratón (`bg-base` encima: ≈ 11:1) |
-| `accent-strong` | `#7aa2f7` | Reservado para estados activos y pulsados (tercera entrega) |
+| `accent-strong` | `#7aa2f7` | Estado **pulsado** de botones, enlaces, tarjetas y selectores |
+| `danger` | `#ff9d9d` | **Nuevo.** Borde, icono y mensaje de un campo con error |
 | `warm` | `#ffd7a0` | **Solo** en la ilustración de la presentación (la lámpara) |
 
-**Contraste** con estos valores: todo el texto y los acentos superan 4,5:1 sobre todos los fondos y superficies (peor caso, `text-muted` sobre `surface-raised`: 5,2:1); el botón principal con texto `bg-base` sobre `accent` da 9,5:1 y sobre `accent-hover` unos 11:1; `border-field` da entre 3,6:1 y 4,8:1. `border` y `border-strong` son decorativos. **Si cambia algún valor, se recalcula.**
+**Contraste** con estos valores: todo el texto y los acentos superan 4,5:1 sobre todos los fondos y superficies (peor caso, `text-muted` sobre `surface-raised`: 5,2:1); el botón principal con texto `bg-base` sobre `accent` da 9,5:1 y sobre `accent-hover` unos 11:1; `border-field` da entre 3,6:1 y 4,8:1; `danger` da entre 7,6:1 y 10,1:1 y `accent-strong` entre 6,0:1 y 8,0:1 sobre fondos y superficies, y `bg-base` sobre `accent-strong`, 7,5:1. `border` y `border-strong` son decorativos. **Si cambia algún valor, se recalcula.**
 
 ### Colores de editor
 
@@ -124,11 +125,12 @@ Manrope variable (200–800), autoalojada en `public/fonts/`, con fuentes del si
 | Experiencia | Ficha fija del puesto actual (`sticky` en escritorio, con tecnologías como chips), fila de punto con etiquetas de plataforma, tarjeta de puesto anterior, franja de formación |
 | Proyecto | Cabecera, ficha en cuatro columnas (filas en móvil), aviso de interfaz (solo en inglés), portada, apartado de contenido (título a la izquierda), cifra, galería con selector, tarjeta de proyecto siguiente con miniatura, tarjeta «¿Hablamos?» |
 | Galería | Selector de dispositivo y modo (`fieldset` con radios, sin JavaScript), rejilla en escritorio, carrusel con `scroll-snap` en móvil, enlace «Ampliar» |
-| Formulario | Campo, área de texto, línea de privacidad; los estados de error y enviado llegan en la tercera entrega |
+| Formulario | Campo, área de texto, mensaje de error con icono, línea de privacidad, botón «Enviar» con estado «Enviando…» |
+| Páginas | «Mensaje enviado», página de texto legal (título fijo a la izquierda), 404 bilingüe con barra superior mínima |
 
 **Salen de la entrega 1:** la línea de tiempo con columna de fechas, punto y línea vertical; los puntos con guion en la experiencia; las tecnologías como texto separado por barras; el punto cálido de la ficha del proyecto.
 
-Cada componente interactivo tiene estados de reposo, ratón encima, foco de teclado, pulsado y desactivado (tercera entrega).
+Cada componente interactivo tiene estados de reposo, ratón encima, foco de teclado, pulsado y desactivado (ver «Estados»).
 
 ### Experiencia
 
@@ -145,6 +147,43 @@ Cada componente interactivo tiene estados de reposo, ratón encima, foco de tecl
 - Escritorio: la primera captura a lo ancho y el resto en dos columnas; las de móvil, en cinco columnas.
 - Móvil: carrusel sin flechas ni puntos, donde siempre asoma la captura siguiente. Cada captura ocupa el 90 % (escritorio) o el 82 % (móvil) del ancho, con un enlace «Ampliar ↗» a una versión grande en WebP (no al PNG original).
 
+## Estados
+
+Foco en todo: `outline: 2px solid var(--color-accent); outline-offset: 2px` con `:focus-visible`, salvo donde se indica. El ratón encima va solo en `@media (hover: hover)`; en pantalla táctil la respuesta es el pulsado (`:active`), con `-webkit-tap-highlight-color: transparent`.
+
+| Componente | Ratón encima | Pulsado | Desactivado o propio |
+| --- | --- | --- | --- |
+| Botón principal | `accent-hover` | `accent-strong` | `surface-raised` con texto `text-muted`. **Enviando:** igual, con un arco que gira (quieto con movimiento reducido) y «Enviando…» |
+| Botón secundario | fondo `surface-raised` | fondo `surface`, borde `accent-strong` | borde `border`, texto `text-muted` |
+| Botón de icono | fondo `surface-raised`, icono `text` | fondo `surface`, borde `accent-strong` | No se desactiva: sin enlace, no se pinta |
+| Copiar email | como el secundario | como el secundario | **Copiado:** ✓ en `accent` y «Email copiado» 2 s, con `aria-live="polite"` |
+| «Ver proyecto →», «Contacto →» | `text`, subrayado de 2 px en `accent`, flecha +2 px | `accent-strong`, subrayado | Anillo con radio de 4 px |
+| Demo, Repositorio, Ampliar, pie, Volver | `text`, subrayado de 2 px en `accent` | `accent-strong`, subrayado | Anillo con radio de 4 px |
+| Enlace del menú (escritorio) | `text` sobre `surface` | `surface-raised` con línea inferior de 2 px en `accent-strong` | **Activo:** `text` sobre `surface` y `aria-current="page"` |
+| Enlace del menú (móvil) | — | `surface-raised` con barra izquierda de 3 px en `accent-strong` | — |
+| Selector «ES / EN» | `text`, subrayado en `border-strong` | `accent-strong`, subrayado | Anillo hacia dentro (`-2px`). **Actual:** no es enlace, subrayado en `accent` y `aria-current` |
+| Tarjeta de proyecto | `surface-raised`, borde `border-strong`, resplandor azul | `surface`, borde `accent-strong`, sin resplandor | Foco: anillo en la tarjeta con `:has(.card-link:focus-visible)` |
+| Proyecto siguiente | `surface-raised`, borde `border-strong`, flecha +3 px | borde y flecha en `accent-strong` | Sin siguiente, no se pinta |
+| «¿Hablamos?» | fondo `surface`, «Contacto» subrayado | fondo `bg-base`, borde `accent-strong` | — |
+| Galería, opción no elegida | `text` sobre `surface-raised` | `accent-strong` con texto `bg-base` | Anillo hacia dentro (`-2px`) |
+| Galería, opción elegida | — | — | **Foco: anillo de 2 px en `bg-base` hacia dentro (`-4px`), 9,5:1 sobre `accent`.** (El handoff lo ponía en `text`, que solo da 1,8:1 y no cumple el 3:1 de WCAG.) |
+
+**Tarjeta clicable entera:** el enlace del título lleva un `::after` que cubre la tarjeta, y «Demo» y «Repositorio» van por encima con `position: relative; z-index: 1`. Una sola parada de tabulación por tarjeta, más los enlaces secundarios.
+
+## Formulario
+
+- **Campo:** reposo con borde `border-field`; ratón encima con borde `text-secondary`; foco con borde `accent` y anillo.
+- **Error:** borde `danger`, icono de 18 px (círculo con «!») dentro del campo a la derecha y mensaje de 14 px, 600, en `danger`, a 8 px. Nunca solo con color.
+- **Sin JavaScript:** `:user-invalid`, que solo se activa cuando la persona ha tocado el campo o ha intentado enviar. Con `placeholder=" "` y `:placeholder-shown` se distingue el campo vacío («Rellena este campo.») del email mal escrito («Escribe un email válido, como nombre@dominio.com.»). El aviso propio del navegador se mantiene.
+- **Enviando:** botón desactivado con «Enviando…», `aria-busy="true"` en el formulario y campos `readonly`.
+- **Enviado:** Netlify Forms lleva a la página «Mensaje enviado» del idioma (`action` del formulario).
+
+## Páginas
+
+- **Mensaje enviado** (`/es/gracias/`, `/en/thanks/`, `noindex` y fuera del sitemap): cabecera y pie normales, el degradado de la presentación, un círculo con ✓ en `accent`, el título «Mensaje enviado», la frase de agradecimiento y el botón «← Volver al inicio».
+- **Privacidad:** «← Ir al inicio»; en escritorio, el título y la fecha de actualización fijos a la izquierda y cada sección del Markdown a la derecha, separada por líneas; en móvil, apilado.
+- **404** (`noindex`): sin navegación ni selector de idioma, solo una barra con el nombre. «Error 404» y el mensaje en inglés y en español, cada uno con su `lang` y su botón al inicio de su idioma. En escritorio, dos columnas; en móvil, el inglés primero.
+
 ## Movimiento y accesibilidad (WCAG AA)
 
 - Transiciones de 160 ms en controles y 180 ms en tarjetas (`background`, `color`, `border-color`, `box-shadow`). Sin animaciones al hacer scroll ni efectos de escritura.
@@ -156,12 +195,16 @@ Cada componente interactivo tiene estados de reposo, ratón encima, foco de tecl
 
 ## JavaScript
 
-Solo en dos sitios, y el sitio funciona sin él:
+Solo en tres sitios, y el sitio funciona sin él:
 - **Menú móvil:** cambia `aria-expanded`, Escape lo cierra, el foco vuelve al botón y se bloquea el scroll del cuerpo. Sin JavaScript, la navegación sigue siendo accesible.
 - **Copiar email:** `navigator.clipboard.writeText`. El botón pasa a «Email copiado» durante 2 s y se anuncia con `aria-live`. Sin JavaScript, el botón no aparece y queda el enlace `mailto:`.
+- **Enviando el formulario:** desactiva el botón, cambia su texto a «Enviando…» y marca el formulario con `aria-busy`. Sin JavaScript se envía igual.
 
 ## Ilustraciones y recursos
 
 - **Iconos:** SVG en línea, con trazo de 1,6 a 2 px y `currentColor`, con `aria-hidden="true"`. Los de GitHub y LinkedIn son sus logotipos oficiales.
-- **Pendientes (tercera entrega):** escena de la presentación (con la luz cálida), icono del sitio y las dos imágenes para compartir (1200 × 630, una por idioma, sin nombre de empresa).
-- **Presentación en móvil:** sin ilustración (propuesta pendiente de confirmar).
+- **Escena de la presentación:** `src/assets/illustrations/hero-scene.svg` (1000 × 800, 5:4), con `alt=""` porque es decorativa. Solo desde `lg`: en móvil no se pinta ni se descarga. La luz cálida, solo en la lámpara y sus reflejos.
+- **Icono del sitio:** `public/favicon.svg` (monograma «FB» en `accent`) y `public/apple-touch-icon.png` (180 × 180).
+- **Imágenes para compartir:** `public/og/og-es.png` y `og-en.png` (1200 × 630), con nombre, rol y frase del idioma, sin nombre de empresa. Si cambia la frase, se regeneran.
+- **Presentación en móvil:** sin ilustración.
+- **Credenciales de contenido:** la ilustración y el favicon llevan incrustada la credencial C2PA de Anthropic que indica que los generó Claude. Se conservan a propósito: al optimizar los SVG hay que mantener la etiqueta `<metadata>`.

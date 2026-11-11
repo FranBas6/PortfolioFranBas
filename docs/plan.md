@@ -514,3 +514,14 @@ Sustituye a lo que dicen los apartados 6, 8 y 10 sobre proyectos de empresa.
 - **Luz cálida:** solo en la ilustración de la presentación.
 - **Tokens nuevos:** `accent-hover` y `border-strong`. La escala de espaciado gana 20 y 40 px.
 - `docs/design-system.md` recoge todo esto y sigue en BORRADOR hasta que Fran apruebe el sistema completo, tras la tercera entrega.
+
+### 2026-11-11 · Tercera entrega de diseño
+
+- **Estados, formulario, privacidad, 404, ilustración, icono e imágenes para compartir:** recogidos en `docs/design-system.md`.
+- **Color nuevo `danger`** para los errores del formulario, y `accent-strong` como estado pulsado.
+- **Corrección de accesibilidad:** el foco de la opción elegida del selector de la galería va en `bg-base` (9,5:1), no en `text` (1,8:1).
+- **Rutas nuevas:** `/es/gracias/` y `/en/thanks/` (página de «Mensaje enviado» de Netlify Forms), con `noindex` y fuera del sitemap.
+- **Tercer uso de JavaScript:** el estado «Enviando…» del formulario, como mejora progresiva.
+- **Textos aprobados:** «Mensaje enviado», «Gracias por escribirme. Te responderé lo antes posible.» y los dos mensajes de error, con su versión en inglés.
+- **Presentación en móvil sin ilustración.**
+- **Credenciales C2PA:** la ilustración y el favicon conservan la credencial de contenido de Anthropic que llevan incrustada.
