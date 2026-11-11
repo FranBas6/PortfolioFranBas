@@ -51,6 +51,11 @@ export default defineConfig({
   // Astro 7 defaults to 'jsx', which drops the space between an inline element
   // and the text next to it ("Idiomas:Español"). Keep the classic behaviour.
   compressHTML: true,
+  // No inline <style> or <script>: everything is an external, hashed file, so
+  // netlify.toml can send a strict Content-Security-Policy without 'unsafe-inline'.
+  build: {
+    inlineStylesheets: 'never',
+  },
   trailingSlash: 'always',
   i18n: {
     locales: [...languages],
@@ -76,5 +81,7 @@ export default defineConfig({
   ],
   vite: {
     plugins: [tailwindcss()],
+    // Small scripts would otherwise be inlined into the HTML (see CSP above).
+    build: { assetsInlineLimit: 0 },
   },
 });
