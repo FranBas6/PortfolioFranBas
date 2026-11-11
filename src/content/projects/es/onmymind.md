@@ -8,7 +8,7 @@ period:
   start: "2026-09"
 role: Proyecto personal, de la idea al despliegue
 platforms: [web, mobile]
-stack: [react, typescript, tanstack, supabase, pwa, tailwind, deno, edge-functions, pg-cron, web-push, vitest, pgtap]
+stack: [react, typescript, tanstack, supabase, pwa, tailwind, postgresql, rls, deno, edge-functions, pg-cron, web-push, vitest, pgtap]
 whatItIs: Una PWA instalable y responsive, hecha con React y Supabase y pensada primero para el móvil, en la que primero capturas y luego organizas. Las listas admiten cualquier tipo de elemento, sublistas, seguimiento de precios, vista de hoy y notas protegidas.
 whatIDid:
   - "Listas compartidas en tiempo real con Supabase Realtime: la base de datos (RLS) decide qué ve cada uno."

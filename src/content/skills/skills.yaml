@@ -1,7 +1,6 @@
 # Technologies, grouped for the Skills section. Shared by both languages.
 # `id` is what project `stack` fields reference; `name` is what is shown.
 # Group titles live in src/i18n/ui.ts (skills.group.<id>).
-# DRAFT (phase 1): grouping to be reviewed with the real content in phase 2.
 # Only list what appears in the experience or the projects.
 
 - id: backend
@@ -14,7 +13,6 @@
     - { id: deno, name: Deno }
     - { id: edge-functions, name: Supabase Edge Functions }
     - { id: netlify-functions, name: Netlify Functions }
-    - { id: rest-api, name: REST APIs }
     - { id: tmdb-api, name: TMDB API }
 
 - id: frontend
@@ -45,13 +43,12 @@
     - { id: llm, name: LLMs }
     - { id: ocr, name: OCR }
     - { id: ml-kit, name: Google ML Kit }
-    - { id: ai-agents, name: AI agents }
+    - { id: ai-agents, name: Claude Code · MCP }
 
 - id: data
   order: 5
   items:
     - { id: mariadb, name: MariaDB }
-    - { id: mysql, name: MySQL }
     - { id: postgresql, name: PostgreSQL }
     - { id: supabase, name: Supabase }
     - { id: supabase-realtime, name: Supabase Realtime }

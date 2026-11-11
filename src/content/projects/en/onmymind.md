@@ -8,7 +8,7 @@ period:
   start: "2026-09"
 role: Personal project, from idea to deployment
 platforms: [web, mobile]
-stack: [react, typescript, tanstack, supabase, pwa, tailwind, deno, edge-functions, pg-cron, web-push, vitest, pgtap]
+stack: [react, typescript, tanstack, supabase, pwa, tailwind, postgresql, rls, deno, edge-functions, pg-cron, web-push, vitest, pgtap]
 whatItIs: An installable, responsive PWA built with React and Supabase and designed mobile-first, where you capture first and organise later. Lists can hold any kind of item, sublists, price tracking, a Today view and protected notes.
 whatIDid:
   - "Lists shared in real time with Supabase Realtime: the database (RLS) decides what each person sees."

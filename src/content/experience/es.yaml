@@ -19,7 +19,7 @@ jobs:
         text: junto con un compañero, un asistente de IA en un panel único de ayuda, con guías visuales y tours guiados.
       - title: Además
         text: hojas de horas y tacógrafo, planes de rotación, disponibilidad de conductores, facturación, créditos de IA y 14 idiomas, y en el día a día tickets en Jira, errores y soporte a clientes.
-    stack: [laravel, php, livewire, mariadb, javascript, flutter, dart, firebase, llm, ml-kit]
+    stack: [laravel, php, livewire, mariadb, javascript, flutter, dart, firebase, firestore, fcm, crashlytics, llm, ocr, ml-kit, ai-agents, phpunit, git, github, docker]
   - title: Soporte Técnico
     company: Mercaluz – EAS Electric
     location: Redován

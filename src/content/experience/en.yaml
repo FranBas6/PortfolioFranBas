@@ -19,7 +19,7 @@ jobs:
         text: together with a colleague, an AI assistant in a single help panel, with visual guides and guided tours.
       - title: Also
         text: timesheets and tachograph, rotation plans, driver availability, invoicing, AI credits and 14 languages, plus day-to-day Jira tickets, bug fixing and customer support.
-    stack: [laravel, php, livewire, mariadb, javascript, flutter, dart, firebase, llm, ml-kit]
+    stack: [laravel, php, livewire, mariadb, javascript, flutter, dart, firebase, firestore, fcm, crashlytics, llm, ocr, ml-kit, ai-agents, phpunit, git, github, docker]
   - title: IT Support Technician
     company: Mercaluz – EAS Electric
     location: Redován

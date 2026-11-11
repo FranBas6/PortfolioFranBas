@@ -8,7 +8,7 @@ period:
   start: "2025-05"
 role: Proyecto personal, de la idea al despliegue
 platforms: [web, mobile]
-stack: [astro, typescript, supabase, tmdb-api, supabase-realtime, netlify-functions, tailwind, pgtap, pwa]
+stack: [astro, typescript, supabase, tmdb-api, supabase-realtime, postgresql, rls, netlify-functions, netlify, tailwind, pgtap, pwa]
 whatItIs: Una web app para llevar todo lo que ves en un solo sitio, con películas y series episodio a episodio, listas, valoraciones y recomendaciones. Se renderiza en el servidor, se instala como una app y es responsive, del móvil al escritorio.
 whatIDid:
   - Seguimiento episodio a episodio, listas y recomendaciones con Astro (SSR) y la API de TMDB.
