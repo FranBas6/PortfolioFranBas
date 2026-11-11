@@ -150,8 +150,12 @@ const links = (['projects', 'experience', 'skills', 'contact'] as const).map((se
   // Progressive enhancement for the <details> mobile menu.
   for (const menu of document.querySelectorAll<HTMLDetailsElement>('[data-mobile-menu]')) {
     const summary = menu.querySelector('summary');
+    const unlock = () => {
+      document.documentElement.style.overflow = '';
+    };
     const close = () => {
       menu.open = false;
+      unlock();
       summary?.focus();
     };
     menu.addEventListener('toggle', () => {
@@ -163,6 +167,7 @@ const links = (['projects', 'experience', 'skills', 'contact'] as const).map((se
     for (const link of menu.querySelectorAll('[data-menu-link]')) {
       link.addEventListener('click', () => {
         menu.open = false;
+        unlock();
       });
     }
     // Leaving the mobile layout with the menu open must not keep the scroll locked.
