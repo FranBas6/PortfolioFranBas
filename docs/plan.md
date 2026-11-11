@@ -496,3 +496,10 @@ Sustituye a lo que dicen los apartados 6, 8 y 10 sobre proyectos de empresa.
   - el asistente de IA es trabajo conjunto con un compañero.
 - **Capturas** de YourFavs y OnMyMind: las hacen los agentes de esos proyectos con cuentas de demo, al final de la fase 2. Las portadas deben explicar en qué consiste cada app, no una función secundaria.
 - Cada texto, en la experiencia y en los proyectos, nombra las tecnologías con las que está hecho.
+
+### 2026-11-11 · Galería con cuatro versiones por pantalla
+
+- Cada captura de un proyecto existe en cuatro versiones: escritorio oscuro, escritorio claro, móvil oscuro y móvil claro. Enseñan lo mismo, con los mismos datos de demo.
+- En la página del proyecto, un selector para toda la galería permite elegir escritorio o móvil, y oscuro o claro. Se hará **sin JavaScript** (botones de opción y CSS), en la fase 4, con el diseño aprobado.
+- La portada es una sola imagen: la pantalla principal en escritorio y en oscuro.
+- Las capturas las hacen los agentes de cada proyecto con cuentas de demo y datos inventados, y Fran las revisa antes de usarlas.

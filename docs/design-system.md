@@ -76,7 +76,7 @@ El sitio se diseña y se implementa primero para móvil y se amplía para tablet
 | Estructura | Cabecera fija, menú móvil, selector de idioma, pie, enlace de salto al contenido |
 | Base | Botón (principal, secundario, de texto), etiqueta de tecnología, etiqueta de plataforma, título de sección, subtítulo de grupo, icono |
 | Inicio | Presentación, tarjeta de proyecto, línea de tiempo de experiencia (fechas, empresa, puesto, línea, puntos con título en negrita, línea de tecnologías), grupo de habilidades, bloque de contacto |
-| Proyecto | Cabecera, ficha de datos, lista de puntos, cifras, galería, aviso de interfaz en español, navegación anterior y siguiente |
+| Proyecto | Cabecera, ficha de datos, lista de puntos, cifras, galería con selector de dispositivo (escritorio/móvil) y modo (oscuro/claro) sin JavaScript, aviso de interfaz en español, navegación anterior y siguiente |
 | Formulario | Campo, área de texto, mensaje de error, estado de enviado |
 
 Cada componente interactivo tiene estados de reposo, ratón encima, foco de teclado, pulsado y desactivado.

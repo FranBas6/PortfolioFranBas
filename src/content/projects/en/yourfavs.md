@@ -26,8 +26,49 @@ metrics:
   - value: "400+"
     label: commits
 cover:
-  src: ../../../assets/illustrations/placeholder-cover.svg
-  alt: YourFavs screenshot showing the home page and what you are watching, on mobile and desktop
+  src: ../../../assets/projects/yourfavs/00-portada-desktop-dark.png
+  alt: "YourFavs home page: today's picks and the series you are watching, with the next episode of each."
+gallery:
+  - alt: "Series page with seasons, progress and episodes coloured by rating."
+    images:
+      desktop:
+        dark: ../../../assets/projects/yourfavs/01-serie-desktop-dark.png
+        light: ../../../assets/projects/yourfavs/01-serie-desktop-light.png
+      mobile:
+        dark: ../../../assets/projects/yourfavs/01-serie-mobile-dark.png
+        light: ../../../assets/projects/yourfavs/01-serie-mobile-light.png
+  - alt: "Film page with the action bar."
+    images:
+      desktop:
+        dark: ../../../assets/projects/yourfavs/02-pelicula-desktop-dark.png
+        light: ../../../assets/projects/yourfavs/02-pelicula-desktop-light.png
+      mobile:
+        dark: ../../../assets/projects/yourfavs/02-pelicula-mobile-dark.png
+        light: ../../../assets/projects/yourfavs/02-pelicula-mobile-light.png
+  - alt: "Favourites list, ranked, with the rating of each title."
+    images:
+      desktop:
+        dark: ../../../assets/projects/yourfavs/03-listas-desktop-dark.png
+        light: ../../../assets/projects/yourfavs/03-listas-desktop-light.png
+      mobile:
+        dark: ../../../assets/projects/yourfavs/03-listas-mobile-dark.png
+        light: ../../../assets/projects/yourfavs/03-listas-mobile-light.png
+  - alt: "Import from IMDb, Letterboxd and TMDB, with undo."
+    images:
+      desktop:
+        dark: ../../../assets/projects/yourfavs/04-importar-desktop-dark.png
+        light: ../../../assets/projects/yourfavs/04-importar-desktop-light.png
+      mobile:
+        dark: ../../../assets/projects/yourfavs/04-importar-mobile-dark.png
+        light: ../../../assets/projects/yourfavs/04-importar-mobile-light.png
+  - alt: "Chat with a friend, with a suggestion of what to watch and a plan for Saturday."
+    images:
+      desktop:
+        dark: ../../../assets/projects/yourfavs/05-chat-desktop-dark.png
+        light: ../../../assets/projects/yourfavs/05-chat-desktop-light.png
+      mobile:
+        dark: ../../../assets/projects/yourfavs/05-chat-mobile-dark.png
+        light: ../../../assets/projects/yourfavs/05-chat-mobile-light.png
 links:
   demo: https://yourfavs.netlify.app
   repo: https://github.com/FranBas6/YourFavs

@@ -23,8 +23,49 @@ metrics:
   - value: "32"
     label: migraciones de base de datos
 cover:
-  src: ../../../assets/illustrations/placeholder-cover.svg
-  alt: Captura de OnMyMind con varias listas en el móvil y en el escritorio
+  src: ../../../assets/projects/onmymind/00-portada-desktop-dark.png
+  alt: "OnMyMind en escritorio: la barra lateral con listas de todo tipo y un viaje abierto con tareas, compras y notas."
+gallery:
+  - alt: "Captura rápida que entiende «el viernes a las 21h» y lo guarda como evento."
+    images:
+      desktop:
+        dark: ../../../assets/projects/onmymind/01-captura-desktop-dark.png
+        light: ../../../assets/projects/onmymind/01-captura-desktop-light.png
+      mobile:
+        dark: ../../../assets/projects/onmymind/01-captura-mobile-dark.png
+        light: ../../../assets/projects/onmymind/01-captura-mobile-light.png
+  - alt: "La vista Hoy, con la agenda y lo que vence de cada lista."
+    images:
+      desktop:
+        dark: ../../../assets/projects/onmymind/02-hoy-desktop-dark.png
+        light: ../../../assets/projects/onmymind/02-hoy-desktop-light.png
+      mobile:
+        dark: ../../../assets/projects/onmymind/02-hoy-mobile-dark.png
+        light: ../../../assets/projects/onmymind/02-hoy-mobile-light.png
+  - alt: "Una lista compartida en vivo entre dos personas."
+    images:
+      desktop:
+        dark: ../../../assets/projects/onmymind/03-compartida-desktop-dark.png
+        light: ../../../assets/projects/onmymind/03-compartida-desktop-light.png
+      mobile:
+        dark: ../../../assets/projects/onmymind/03-compartida-mobile-dark.png
+        light: ../../../assets/projects/onmymind/03-compartida-mobile-light.png
+  - alt: "Una nota protegida, que se desbloquea con Face ID o con la clave."
+    images:
+      desktop:
+        dark: ../../../assets/projects/onmymind/04-nota-protegida-desktop-dark.png
+        light: ../../../assets/projects/onmymind/04-nota-protegida-desktop-light.png
+      mobile:
+        dark: ../../../assets/projects/onmymind/04-nota-protegida-mobile-dark.png
+        light: ../../../assets/projects/onmymind/04-nota-protegida-mobile-light.png
+  - alt: "Un producto con su precio actual, la bajada y el historial de seis meses."
+    images:
+      desktop:
+        dark: ../../../assets/projects/onmymind/05-precios-desktop-dark.png
+        light: ../../../assets/projects/onmymind/05-precios-desktop-light.png
+      mobile:
+        dark: ../../../assets/projects/onmymind/05-precios-mobile-dark.png
+        light: ../../../assets/projects/onmymind/05-precios-mobile-light.png
 links:
   demo: https://onmymind.pages.dev/
   repo: https://github.com/FranBas6/OnMyMind

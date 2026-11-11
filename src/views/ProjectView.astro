@@ -119,10 +119,26 @@ const skillName = new Map(
       project.gallery && (
         <section aria-labelledby="gallery-title">
           <h2 id="gallery-title">{t('project.gallery')}</h2>
+          {/* Phase 4 turns this into a CSS-only switch (device + theme) over
+              the same markup: every version is rendered, one is shown. */}
           <ul>
             {project.gallery.map((shot) => (
               <li>
-                <Image src={shot.src} alt={shot.alt} widths={[360, 720]} sizes="(min-width: 768px) 50vw, 100vw" />
+                <figure>
+                  {(['desktop', 'mobile'] as const).map((device) =>
+                    (['dark', 'light'] as const).map((theme) => (
+                      <Image
+                        src={shot.images[device][theme]}
+                        alt={shot.alt}
+                        data-device={device}
+                        data-theme={theme}
+                        widths={device === 'desktop' ? [720, 1440] : [390, 780]}
+                        sizes={device === 'desktop' ? '(min-width: 1120px) 1120px, 100vw' : '390px'}
+                      />
+                    )),
+                  )}
+                  <figcaption>{shot.alt}</figcaption>
+                </figure>
               </li>
             ))}
           </ul>

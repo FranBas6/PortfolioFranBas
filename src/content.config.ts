@@ -85,8 +85,18 @@ const projects = defineCollection({
       metrics: z.array(z.object({ value: text, label: text })).optional(),
       cover: z.object({ src: image(), alt: text }),
       links: z.object({ demo: z.url(), repo: z.url() }),
+      // Each screen comes in four versions; visitors pick device and theme
+      // for the whole gallery at once.
       gallery: z
-        .array(z.object({ src: image(), alt: text, type: z.enum(['mobile', 'desktop']) }))
+        .array(
+          z.object({
+            alt: text,
+            images: z.object({
+              desktop: z.object({ dark: image(), light: image() }),
+              mobile: z.object({ dark: image(), light: image() }),
+            }),
+          }),
+        )
         .optional(),
       howIWork: z.array(text).length(3),
       uiNote: z.boolean().optional(),

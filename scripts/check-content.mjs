@@ -111,8 +111,7 @@ const projectPick = {
   uiNote: (d) => d.uiNote,
   'metrics[].value': (d) => d.metrics?.map((m) => m.value),
   'cover.src': (d) => d.cover?.src,
-  'gallery[].src': (d) => d.gallery?.map((g) => g.src),
-  'gallery[].type': (d) => d.gallery?.map((g) => g.type),
+  'gallery[].images': (d) => d.gallery?.map((g) => g.images),
 };
 
 const slugsByLang = Object.fromEntries(LANGS.map((lang) => [lang, new Map()]));
@@ -143,7 +142,15 @@ for (const [id, byLang] of Object.entries(projects)) {
     const images = [];
     if (!data.cover?.src) error(where, 'every project needs a `cover`');
     else images.push(data.cover.src);
-    for (const shot of data.gallery ?? []) if (shot?.src) images.push(shot.src);
+    for (const shot of data.gallery ?? []) {
+      for (const device of ['desktop', 'mobile']) {
+        for (const theme of ['dark', 'light']) {
+          const src = shot?.images?.[device]?.[theme];
+          if (src) images.push(src);
+          else error(where, `gallery screen "${shot?.alt ?? '?'}" lacks ${device} ${theme}`);
+        }
+      }
+    }
     for (const src of images) {
       if (!existsSync(resolve(dirname(file), src))) error(where, `image not found: ${src}`);
     }
