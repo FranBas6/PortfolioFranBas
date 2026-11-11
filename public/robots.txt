@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://franbasguil.netlify.app/sitemap-index.xml

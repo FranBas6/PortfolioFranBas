@@ -1,0 +1,42 @@
+/*
+ * Design tokens. DRAFT (see docs/design-system.md): values may change after
+ * the phase 3 sketches are reviewed. Names describe the role, not the colour,
+ * so a future light mode only changes values.
+ *
+ * Declared with Tailwind's @theme so each token is both a CSS variable
+ * (var(--color-surface)) and a utility (bg-surface).
+ */
+@theme {
+  --color-bg-deep: #06060f;
+  --color-bg-base: #0a0f24;
+  --color-bg-glow: #120d2b;
+  --color-surface: #161a38;
+  --color-surface-raised: #1e2347;
+  --color-border: #2a3060;
+  --color-border-field: #7078b0;
+  --color-text: #eef0fb;
+  --color-text-secondary: #b8bedb;
+  --color-text-muted: #8f96b8;
+  --color-accent: #a5b4fc;
+  --color-accent-strong: #7aa2f7;
+  --color-warm: #ffd7a0;
+
+  /* Editor colours: illustrations and platform tags only. */
+  --color-editor-purple: #c792ea;
+  --color-editor-blue: #82aaff;
+  --color-editor-cyan: #89ddff;
+  --color-editor-green: #c3e88d;
+  --color-editor-orange: #f78c6c;
+  --color-editor-yellow: #ffcb6b;
+
+  --font-sans: 'Manrope', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  --breakpoint-sm: 40rem; /* 640px */
+  --breakpoint-md: 48rem; /* 768px */
+  --breakpoint-lg: 64rem; /* 1024px */
+
+  --container-site: 70rem; /* 1120px */
+
+  --radius-control: 0.5rem; /* buttons, fields */
+  --radius-card: 1rem;
+}

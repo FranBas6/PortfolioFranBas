@@ -1,0 +1,58 @@
+# Netlify: build, root redirect by language, security and cache headers.
+
+[build]
+  command = "npm run build"   # prebuild runs scripts/check-content.mjs
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "24"
+
+# --- Root redirect -----------------------------------------------------------
+# Spanish only if the browser prefers Spanish; English for everyone else.
+# Temporary (302) on purpose. Inner pages never redirect by language.
+# How Netlify handles a browser listing several languages is tested in phase 5.
+
+[[redirects]]
+  from = "/"
+  to = "/es/"
+  status = 302
+  force = true
+  conditions = { Language = ["es"] }
+
+[[redirects]]
+  from = "/"
+  to = "/en/"
+  status = 302
+  force = true
+
+# --- Headers -----------------------------------------------------------------
+# Content-Security-Policy is added in phase 4, once the final scripts and the
+# Netlify form are in place and it can be tested in the browser.
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+    Cross-Origin-Opener-Policy = "same-origin"
+    Strict-Transport-Security = "max-age=31536000"
+
+# Hashed build assets never change.
+[[headers]]
+  for = "/_astro/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Font files are not hashed: rename the file if it ever changes.
+[[headers]]
+  for = "/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# The CVs are replaced under the same name, so keep them fresh.
+[[headers]]
+  for = "/cv/*"
+  [headers.values]
+    Cache-Control = "public, max-age=3600, must-revalidate"
