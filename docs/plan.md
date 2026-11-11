@@ -539,3 +539,10 @@ Sustituye a lo que dicen los apartados 6, 8 y 10 sobre proyectos de empresa.
 
 - Debajo de las tres ideas, una fila «Stack principal» («Main stack») con las tecnologías que Fran más usa ahora: Laravel, PHP, Flutter, Dart y MariaDB, como chips.
 - Viene del campo `mainStack` de `site/*.yaml` (ids de `skills.yaml`), igual en los dos idiomas.
+
+### 2026-11-11 · Fase 4 cerrada
+
+- Implementación completa del diseño aprobado. Lighthouse en móvil: 100 en las cuatro categorías, en los dos idiomas.
+- Content-Security-Policy estricta (sin `'unsafe-inline'`); nada de scripts ni estilos en línea.
+- La pasada con lector de pantalla (VoiceOver) la hace Fran antes de publicar.
+- La ilustración de la presentación se queda como está.
