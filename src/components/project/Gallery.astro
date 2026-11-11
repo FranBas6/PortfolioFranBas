@@ -85,7 +85,9 @@ const shots = await Promise.all(
       </div>
     </div>
 
-    <div class="shots mt-8 lg:mt-10" role="region" aria-label={t('project.gallery')} tabindex="0">
+    <!-- No tabindex: on phones the "Ampliar" links inside are focusable and the
+         carousel scrolls to each one; on desktop there is nothing to scroll. -->
+    <div class="shots mt-8 lg:mt-10" role="region" aria-label={t('project.gallery')}>
       {
         shots.map((shot) => (
           <figure class="shot">
@@ -228,9 +230,6 @@ const shots = await Promise.all(
     scroll-padding-inline: 20px;
     scrollbar-width: thin;
     scrollbar-color: var(--color-border) transparent;
-  }
-  .gallery .shots:focus-visible {
-    outline-offset: -2px;
   }
   .gallery .shot {
     flex: 0 0 82%;
