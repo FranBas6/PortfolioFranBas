@@ -1,35 +1,41 @@
-# PLACEHOLDER CONTENT: English is written once the Spanish is approved.
-# Titles, companies and dates from the English CV.
+# Experience and education, as in the CV. All professional work is told here.
+# FleetX is only named in this file.
 jobs:
   - title: Software Developer
     company: FleetX (Frakt24)
     location: Orihuela, on-site
     period: { start: "2026-01" }
-    summary: "[PLACEHOLDER] summary"
+    summary: Multi-tenant SaaS TMS for Norwegian transport companies, with a web platform and a driver app.
     highlights:
-      - { title: "[PLACEHOLDER] title", text: "[PLACEHOLDER] text" }
-      - { title: "[PLACEHOLDER] title", text: "[PLACEHOLDER] text" }
-      - { title: "[PLACEHOLDER] title", text: "[PLACEHOLDER] text" }
-      - { title: "[PLACEHOLDER] title", text: "[PLACEHOLDER] text" }
-      - { title: "[PLACEHOLDER] title", text: "[PLACEHOLDER] text" }
-      - { title: "[PLACEHOLDER] title", text: "[PLACEHOLDER] text" }
+      - title: Bulk transport
+        text: a complete module on web and mobile, from planning workdays to invoicing, with load logging and weighbridge ticket OCR.
+      - title: AI email orders
+        text: classifies each email, reads PDF, image, Excel and Word files and creates the orders, with prompt-injection protection and human review.
+      - title: Driver app
+        text: incident reports with photos, timesheets, vehicle QR scanning and offline work, with 48 production crashes fixed.
+      - title: Special transport permits
+        text: from the official PDF to an order with its route and the bridges it crosses, with no manual work.
+      - title: AI assistant and training
+        text: together with a colleague, an AI assistant in a single help panel, with visual guides and guided tours.
+      - title: Also
+        text: timesheets and tachograph, rotation plans, driver availability, invoicing, AI credits and 14 languages, plus day-to-day Jira tickets, bug fixing and customer support.
     stack: [laravel, php, livewire, mariadb, javascript, flutter, dart, firebase, llm, ml-kit]
   - title: IT Support Technician
     company: Mercaluz – EAS Electric
     location: Redován
     period: { start: "2025-07", end: "2025-08" }
-    summary: "[PLACEHOLDER] summary"
+    summary: User support (hardware, software and network) and maintenance of the company's computers.
   - title: Developer (internship)
     company: Damián Montoya – Abogados Asociados
     location: Murcia
     period: { start: "2025-03", end: "2025-06" }
-    summary: "[PLACEHOLDER] summary"
+    summary: Odoo 18 modules built with Python and SQL to customise and automate internal processes.
     stack: [odoo, python, sql]
   - title: IT Technician (internship)
     company: Ticarum – University of Murcia
     location: Espinardo
     period: { start: "2023-03", end: "2023-06" }
-    summary: "[PLACEHOLDER] summary"
+    summary: Maintenance and repair of computers across several faculties, technical support and inventory.
 education:
   - title: Higher VET in Multiplatform App Development
     school: IES Las Espeñetas

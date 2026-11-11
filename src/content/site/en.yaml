@@ -1,20 +1,20 @@
-# PLACEHOLDER CONTENT: English is written once the Spanish is approved.
+# Home: introduction, contact and SEO. No company name.
 name: Francisco José Bas Guil
-role: "[PLACEHOLDER] role"
-tagline: "[PLACEHOLDER] tagline"
+role: Full stack Software Developer
+tagline: I take features from start to finish, from the database to the mobile app, on a SaaS TMS in production for transport companies.
 highlights:
-  - "[PLACEHOLDER] highlights"
-  - "[PLACEHOLDER] highlights"
-  - "[PLACEHOLDER] highlights"
+  - Web with Laravel
+  - Mobile with Flutter
+  - AI and OCR in production
 email: franbasguil@gmail.com
 links:
   github: https://github.com/FranBas6
   linkedin: https://www.linkedin.com/in/franbasguil
-languages: "[PLACEHOLDER] languages"
+languages: Spanish (native) · English (professional, B2), my daily working language
 cv: /cv/francisco-bas-guil-cv-en.pdf
 seo:
-  title: "[PLACEHOLDER] title"
-  description: "[PLACEHOLDER] description"
+  title: Francisco José Bas Guil · Full stack Software Developer
+  description: Portfolio of Francisco José Bas Guil, full stack developer. Web platform with Laravel, mobile app with Flutter, and AI and OCR in production.
 og:
   image: /og/og-en.png
-  alt: "[PLACEHOLDER] alt"
+  alt: Francisco José Bas Guil, full stack Software Developer

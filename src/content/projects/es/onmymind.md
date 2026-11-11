@@ -18,7 +18,7 @@ whatIDid:
   - Fechas en lenguaje natural en español, y repeticiones que se calculan igual en TypeScript y en SQL.
 whyItMatters: Junta en una app pequeña problemas difíciles de verdad (offline, tiempo real, cifrado y seguridad en la base de datos), todo cubierto con tests.
 metrics:
-  - value: "1.250+"
+  - value: "1250+"
     label: tests (Vitest y pgTAP)
   - value: "32"
     label: migraciones de base de datos
