@@ -1,29 +1,35 @@
-# Experience and education. Titles, companies and dates from the English CV.
-# Summaries and bullets are written in phase 2; [PLACEHOLDER] marks placeholder text.
+# PLACEHOLDER CONTENT: English is written once the Spanish is approved.
+# Titles, companies and dates from the English CV.
 jobs:
   - title: Software Developer
     company: FleetX (Frakt24)
     location: Orihuela, on-site
     period: { start: "2026-01" }
-    summary: "[PLACEHOLDER] One-line summary."
-    bullets:
-      - "[PLACEHOLDER] Placeholder point 1."
-      - "[PLACEHOLDER] Placeholder point 2."
+    summary: "[PLACEHOLDER] summary"
+    highlights:
+      - { title: "[PLACEHOLDER] title", text: "[PLACEHOLDER] text" }
+      - { title: "[PLACEHOLDER] title", text: "[PLACEHOLDER] text" }
+      - { title: "[PLACEHOLDER] title", text: "[PLACEHOLDER] text" }
+      - { title: "[PLACEHOLDER] title", text: "[PLACEHOLDER] text" }
+      - { title: "[PLACEHOLDER] title", text: "[PLACEHOLDER] text" }
+      - { title: "[PLACEHOLDER] title", text: "[PLACEHOLDER] text" }
+    stack: [laravel, php, livewire, mariadb, javascript, flutter, dart, firebase, llm, ml-kit]
   - title: IT Support Technician
     company: Mercaluz – EAS Electric
     location: Redován
     period: { start: "2025-07", end: "2025-08" }
-    summary: "[PLACEHOLDER] One-line summary."
+    summary: "[PLACEHOLDER] summary"
   - title: Developer (internship)
     company: Damián Montoya – Abogados Asociados
     location: Murcia
     period: { start: "2025-03", end: "2025-06" }
-    summary: "[PLACEHOLDER] One-line summary."
+    summary: "[PLACEHOLDER] summary"
+    stack: [odoo, python, sql]
   - title: IT Technician (internship)
     company: Ticarum – University of Murcia
     location: Espinardo
     period: { start: "2023-03", end: "2023-06" }
-    summary: "[PLACEHOLDER] One-line summary."
+    summary: "[PLACEHOLDER] summary"
 education:
   - title: Higher VET in Multiplatform App Development
     school: IES Las Espeñetas

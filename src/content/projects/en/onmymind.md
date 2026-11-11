@@ -1,32 +1,51 @@
 ---
-# PLACEHOLDER CONTENT (phase 1): replaced in phase 2.
+# PLACEHOLDER CONTENT: English is written once the Spanish is approved.
 slug: onmymind
-kind: personal
-order: 1
+order: 2
 draft: false
-title: "[PLACEHOLDER] OnMyMind"
-summary: "[PLACEHOLDER] Placeholder summary for the card and the page header."
+title: "[PLACEHOLDER] title"
+summary: "[PLACEHOLDER] summary"
 period:
-  start: "2026-09"
-role: "[PLACEHOLDER] Placeholder role in one line."
-platforms: [web]
-stack: [react, typescript, tanstack, supabase, deno, tailwind, pwa, web-push]
-whatItIs: "[PLACEHOLDER] Placeholder text: what the project is, in two sentences. Replaced in phase 2."
+  start: 2026-09
+role: "[PLACEHOLDER] role"
+platforms:
+  - web
+  - mobile
+stack:
+  - react
+  - typescript
+  - tanstack
+  - supabase
+  - pwa
+  - tailwind
+  - deno
+  - edge-functions
+  - pg-cron
+  - web-push
+  - vitest
+  - pgtap
+whatItIs: "[PLACEHOLDER] whatItIs"
 whatIDid:
-  - "[PLACEHOLDER] Placeholder point 1."
-  - "[PLACEHOLDER] Placeholder point 2."
-  - "[PLACEHOLDER] Placeholder point 3."
-  - "[PLACEHOLDER] Placeholder point 4."
-whyItMatters: "[PLACEHOLDER] Placeholder text: why it is interesting."
+  - "[PLACEHOLDER] whatIDid"
+  - "[PLACEHOLDER] whatIDid"
+  - "[PLACEHOLDER] whatIDid"
+  - "[PLACEHOLDER] whatIDid"
+  - "[PLACEHOLDER] whatIDid"
+whyItMatters: "[PLACEHOLDER] whyItMatters"
+metrics:
+  - value: 1.250+
+    label: "[PLACEHOLDER] label"
+  - value: "32"
+    label: "[PLACEHOLDER] label"
 cover:
   src: ../../../assets/illustrations/placeholder-cover.svg
-  alt: "[PLACEHOLDER] Placeholder cover"
+  alt: "[PLACEHOLDER] alt"
 links:
   demo: https://onmymind.pages.dev/
   repo: https://github.com/FranBas6/OnMyMind
 howIWork:
-  - "[PLACEHOLDER] Placeholder line about the method 1."
-  - "[PLACEHOLDER] Placeholder line about the method 2."
-  - "[PLACEHOLDER] Placeholder line about the method 3."
+  - "[PLACEHOLDER] howIWork"
+  - "[PLACEHOLDER] howIWork"
+  - "[PLACEHOLDER] howIWork"
 uiNote: true
 ---

@@ -1,32 +1,55 @@
 ---
-# PLACEHOLDER CONTENT (phase 1): replaced in phase 2.
+# PLACEHOLDER CONTENT: English is written once the Spanish is approved.
 slug: yourfavs
-kind: personal
-order: 2
+order: 1
 draft: false
-title: "[PLACEHOLDER] YourFavs"
-summary: "[PLACEHOLDER] Placeholder summary for the card and the page header."
+title: "[PLACEHOLDER] title"
+summary: "[PLACEHOLDER] summary"
 period:
-  start: "2025-05"
-role: "[PLACEHOLDER] Placeholder role in one line."
-platforms: [web]
-stack: [supabase-realtime, astro, typescript, supabase, tailwind, netlify-functions, tmdb-api]
-whatItIs: "[PLACEHOLDER] Placeholder text: what the project is, in two sentences. Replaced in phase 2."
+  start: 2025-05
+role: "[PLACEHOLDER] role"
+platforms:
+  - web
+  - mobile
+stack:
+  - astro
+  - typescript
+  - supabase
+  - tmdb-api
+  - supabase-realtime
+  - netlify-functions
+  - tailwind
+  - pgtap
+  - pwa
+whatItIs: "[PLACEHOLDER] whatItIs"
 whatIDid:
-  - "[PLACEHOLDER] Placeholder point 1."
-  - "[PLACEHOLDER] Placeholder point 2."
-  - "[PLACEHOLDER] Placeholder point 3."
-  - "[PLACEHOLDER] Placeholder point 4."
-whyItMatters: "[PLACEHOLDER] Placeholder text: why it is interesting."
+  - "[PLACEHOLDER] whatIDid"
+  - "[PLACEHOLDER] whatIDid"
+  - "[PLACEHOLDER] whatIDid"
+  - "[PLACEHOLDER] whatIDid"
+  - "[PLACEHOLDER] whatIDid"
+  - "[PLACEHOLDER] whatIDid"
+whyItMatters: "[PLACEHOLDER] whyItMatters"
+metrics:
+  - value: "344"
+    label: "[PLACEHOLDER] label"
+  - value: "27"
+    label: "[PLACEHOLDER] label"
+  - value: 400+
+    label: "[PLACEHOLDER] label"
 cover:
   src: ../../../assets/illustrations/placeholder-cover.svg
-  alt: "[PLACEHOLDER] Placeholder cover"
+  alt: "[PLACEHOLDER] alt"
 links:
   demo: https://yourfavs.netlify.app
   repo: https://github.com/FranBas6/YourFavs
 howIWork:
-  - "[PLACEHOLDER] Placeholder line about the method 1."
-  - "[PLACEHOLDER] Placeholder line about the method 2."
-  - "[PLACEHOLDER] Placeholder line about the method 3."
+  - "[PLACEHOLDER] howIWork"
+  - "[PLACEHOLDER] howIWork"
+  - "[PLACEHOLDER] howIWork"
 uiNote: true
+seo:
+  description: "[PLACEHOLDER] description"
 ---
+
+[PLACEHOLDER] English version of the body.

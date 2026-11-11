@@ -1,21 +1,20 @@
-# Home: introduction, contact and SEO.
-# PLACEHOLDER CONTENT (phase 1) in the fields marked [PLACEHOLDER].
+# PLACEHOLDER CONTENT: English is written once the Spanish is approved.
 name: Francisco José Bas Guil
-role: Software Developer
-tagline: "[PLACEHOLDER] Placeholder introduction, two lines at most and without the company name."
+role: "[PLACEHOLDER] role"
+tagline: "[PLACEHOLDER] tagline"
 highlights:
-  - "[PLACEHOLDER] Web with Laravel"
-  - "[PLACEHOLDER] Mobile with Flutter"
-  - "[PLACEHOLDER] AI and OCR in production"
+  - "[PLACEHOLDER] highlights"
+  - "[PLACEHOLDER] highlights"
+  - "[PLACEHOLDER] highlights"
 email: franbasguil@gmail.com
 links:
   github: https://github.com/FranBas6
   linkedin: https://www.linkedin.com/in/franbasguil
-languages: Spanish (native) · English (professional, B2), my daily working language
+languages: "[PLACEHOLDER] languages"
 cv: /cv/francisco-bas-guil-cv-en.pdf
 seo:
-  title: "[PLACEHOLDER] Francisco José Bas Guil · Software Developer"
-  description: "[PLACEHOLDER] Placeholder home SEO description, without the company name. It must end up between 120 and 160 characters."
+  title: "[PLACEHOLDER] title"
+  description: "[PLACEHOLDER] description"
 og:
   image: /og/og-en.png
-  alt: "[PLACEHOLDER] Portfolio share image"
+  alt: "[PLACEHOLDER] alt"

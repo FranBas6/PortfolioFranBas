@@ -1,21 +1,20 @@
-# Inicio: presentación, contacto y SEO.
-# CONTENIDO DE PRUEBA (fase 1) en los campos marcados con [PRUEBA].
+# Inicio: presentación, contacto y SEO. Sin nombre de empresa.
 name: Francisco José Bas Guil
-role: Software Developer
-tagline: "[PRUEBA] Frase de presentación de prueba, de dos líneas como máximo y sin nombre de empresa."
+role: Software Developer full stack
+tagline: Llevo funcionalidades de principio a fin, de la base de datos a la app móvil, en un TMS SaaS en producción para empresas de transporte.
 highlights:
-  - "[PRUEBA] Web con Laravel"
-  - "[PRUEBA] Móvil con Flutter"
-  - "[PRUEBA] IA y OCR en producción"
+  - Web con Laravel
+  - Móvil con Flutter
+  - IA y OCR en producción
 email: franbasguil@gmail.com
 links:
   github: https://github.com/FranBas6
   linkedin: https://www.linkedin.com/in/franbasguil
-languages: Español nativo · Inglés profesional (B2), idioma de trabajo diario
+languages: Español nativo · Inglés profesional (B2), mi idioma de trabajo diario
 cv: /cv/francisco-bas-guil-cv-es.pdf
 seo:
-  title: "[PRUEBA] Francisco José Bas Guil · Software Developer"
-  description: "[PRUEBA] Descripción SEO de prueba del inicio, sin nombre de empresa. Debe tener entre 120 y 160 caracteres al final."
+  title: Francisco José Bas Guil · Software Developer full stack
+  description: Portfolio de Francisco José Bas Guil, desarrollador full stack. Plataforma web con Laravel, app móvil con Flutter e IA y OCR en producción.
 og:
   image: /og/og-es.png
-  alt: "[PRUEBA] Imagen para compartir del portfolio"
+  alt: Francisco José Bas Guil, Software Developer full stack
