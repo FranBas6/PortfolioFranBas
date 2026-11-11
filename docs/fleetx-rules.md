@@ -12,18 +12,16 @@ En ningún archivo del repositorio: contenido, código, comentarios, mensajes de
 - Capturas de pantalla o diagramas internos, tampoco redibujados.
 - Nombres de clientes, de compañeros o datos de cuentas.
 - Nombres internos: de repositorios (incluidos los nombres de sus carpetas), servicios, tablas, clases, ramas, tickets o entornos.
-- Cifras de negocio de la empresa. En los proyectos de FleetX, `metrics` solo admite cifras de Fran (commits, funcionalidades, errores resueltos…).
+- Cifras de negocio de la empresa. Solo se admiten cifras de Fran (por ejemplo, fallos de producción resueltos), y por decisión suya no se usan cifras de commits.
 - Rutas locales del equipo de Fran.
 
 ## Sí
 
-- Nombrar la empresa, **solo** en estos sitios:
-  - **Experiencia del inicio:** "Software Developer · FleetX (Frakt24) · 01/2026 – actualidad" y sus líneas.
-  - **Páginas de los proyectos de empresa:** en la ficha de datos (campo `company`) y, si hace falta, en su texto y su SEO.
+- Nombrar la empresa, **solo** en la sección de Experiencia del inicio (`src/content/experience/`), como en el CV: "FleetX (Frakt24)". Todo el trabajo profesional se cuenta ahí; no hay páginas de proyectos de empresa.
 - Describir los módulos al nivel de detalle del resumen privado del trabajo de Fran en FleetX.
 - Nombrar tecnologías.
 
-En el resto del sitio no se nombra la empresa: ni en la cabecera, ni en la presentación, ni en los subtítulos o tarjetas de proyectos, ni en el bloque de más trabajo profesional, ni en el pie, ni en el título y la descripción SEO del inicio, ni en las imágenes para compartir, ni en los datos estructurados de persona. Ahí se habla de "un TMS SaaS para empresas de transporte" o de trabajo "profesional" o "en producción".
+En el resto del sitio no se nombra la empresa: ni en la cabecera, ni en la presentación, ni en los proyectos (que son solo personales), ni en el pie, ni en el título y la descripción SEO del inicio, ni en las imágenes para compartir, ni en los datos estructurados de persona. Ahí se habla de "un TMS SaaS para empresas de transporte" o de trabajo "profesional" o "en producción".
 
 ## Cómo se aplica
 
@@ -39,5 +37,5 @@ En el resto del sitio no se nombra la empresa: ni en la cabecera, ni en la prese
 - [ ] No describe más detalle que el resumen privado de Fran.
 - [ ] Las cifras, si las hay, son de Fran, no de la empresa.
 - [ ] "FleetX" solo aparece donde está permitido.
-- [ ] Las imágenes son ilustraciones abstractas, sin nada del producto real.
+- [ ] No hay imágenes de nada relacionado con la empresa.
 - [ ] `npm run check:content:strict` pasa sin errores.

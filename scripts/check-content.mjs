@@ -102,8 +102,6 @@ function checkLength(where, text, limitKey) {
 const projects = loadProjects(ROOT);
 
 const projectPick = {
-  kind: (d) => d.kind,
-  company: (d) => d.company,
   order: (d) => d.order,
   draft: (d) => d.draft,
   period: (d) => d.period,
@@ -113,8 +111,7 @@ const projectPick = {
   uiNote: (d) => d.uiNote,
   'metrics[].value': (d) => d.metrics?.map((m) => m.value),
   'cover.src': (d) => d.cover?.src,
-  'gallery[].src': (d) => d.gallery?.map((g) => g.src),
-  'gallery[].type': (d) => d.gallery?.map((g) => g.type),
+  'gallery[].images': (d) => d.gallery?.map((g) => g.images),
 };
 
 const slugsByLang = Object.fromEntries(LANGS.map((lang) => [lang, new Map()]));
@@ -145,7 +142,15 @@ for (const [id, byLang] of Object.entries(projects)) {
     const images = [];
     if (!data.cover?.src) error(where, 'every project needs a `cover`');
     else images.push(data.cover.src);
-    for (const shot of data.gallery ?? []) if (shot?.src) images.push(shot.src);
+    for (const shot of data.gallery ?? []) {
+      for (const device of ['desktop', 'mobile']) {
+        for (const theme of ['dark', 'light']) {
+          const src = shot?.images?.[device]?.[theme];
+          if (src) images.push(src);
+          else error(where, `gallery screen "${shot?.alt ?? '?'}" lacks ${device} ${theme}`);
+        }
+      }
+    }
     for (const src of images) {
       if (!existsSync(resolve(dirname(file), src))) error(where, `image not found: ${src}`);
     }
@@ -175,11 +180,8 @@ const yamlCollections = {
   },
   experience: {
     'jobs[].period': (d) => d.jobs?.map((j) => j.period),
+    'jobs[].stack': (d) => d.jobs?.map((j) => j.stack),
     'education[].years': (d) => d.education?.map((e) => e.years),
-  },
-  'more-fleetx': {
-    'mentions[].period': (d) => d.mentions?.map((m) => m.period),
-    'mentions[].stack': (d) => d.mentions?.map((m) => m.stack),
   },
 };
 
@@ -209,12 +211,12 @@ for (const lang of LANGS) {
       warn(where, `share image not found yet: ${site.og.image} (designed in phase 3)`);
     }
   }
-  const more = yamlData['more-fleetx'][lang];
-  for (const mention of more?.mentions ?? []) {
-    checkLength(`more-fleetx/${lang}.yaml`, mention.text, 'moreWorkMention');
-  }
-  for (const line of more?.lines ?? []) {
-    checkLength(`more-fleetx/${lang}.yaml`, line.text, 'moreWorkLine');
+  for (const job of yamlData.experience[lang]?.jobs ?? []) {
+    checkLength(`experience/${lang}.yaml`, job.summary, 'jobSummary');
+    for (const item of job.highlights ?? []) {
+      const shown = item.title ? `${item.title}: ${item.text}` : item.text;
+      checkLength(`experience/${lang}.yaml`, shown, 'jobHighlight');
+    }
   }
 
   const legal = join(CONTENT, 'legal', lang, 'privacy.md');

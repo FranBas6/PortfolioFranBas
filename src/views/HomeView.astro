@@ -13,12 +13,7 @@ import {
   staticAlternates,
   type Lang,
 } from '../i18n/routes';
-import {
-  formatNumericYearMonth,
-  formatPeriod,
-  getProjects,
-  useTranslations,
-} from '../i18n/utils';
+import { formatPeriod, getProjects, useTranslations } from '../i18n/utils';
 
 interface Props {
   lang: Lang;
@@ -33,7 +28,6 @@ const required = <T,>(entry: T | undefined, what: string): T => {
 };
 const site = required(await getEntry('site', lang), `site/${lang}.yaml`).data;
 const experience = required(await getEntry('experience', lang), `experience/${lang}.yaml`).data;
-const moreWork = required(await getEntry('more-fleetx', lang), `more-fleetx/${lang}.yaml`).data;
 
 const skillGroups = (await getCollection('skills')).sort((a, b) => a.data.order - b.data.order);
 const skillName = new Map(
@@ -41,10 +35,6 @@ const skillName = new Map(
 );
 
 const projects = await getProjects(lang);
-const projectGroups = (['company', 'personal'] as const).map((kind) => ({
-  kind,
-  items: projects.filter((p) => p.data.kind === kind),
-}));
 
 const personJsonLd = {
   '@context': 'https://schema.org',
@@ -81,67 +71,31 @@ const personJsonLd = {
 
   <section id={sections.projects[lang]} aria-labelledby="projects-title">
     <h2 id="projects-title">{t('projects.title')}</h2>
-    {
-      projectGroups.map((group) => (
-        <section aria-labelledby={`projects-${group.kind}`}>
-          <h3 id={`projects-${group.kind}`}>{t(`projects.group.${group.kind}`)}</h3>
-          <ul>
-            {group.items.map((project) => (
-              <li>
-                <article>
-                  <p>
-                    {t(`projects.origin.${project.data.kind}`)} ·{' '}
-                    {project.data.platforms.map((p) => t(`platform.${p}`)).join(' · ')}
-                  </p>
-                  <h4>
-                    <a href={projectPath(lang, project.data.slug)}>{project.data.title}</a>
-                  </h4>
-                  <p>{project.data.summary}</p>
-                  <ul>
-                    {project.data.stack.slice(0, 5).map((id) => (
-                      <li>{skillName.get(id)}</li>
-                    ))}
-                  </ul>
-                  <p>
-                    <a href={projectPath(lang, project.data.slug)}>{t('projects.viewProject')}</a>
-                    {project.data.links && (
-                      <>
-                        {' '}
-                        <a href={project.data.links.demo}>{t('projects.demo')}</a>{' '}
-                        <a href={project.data.links.repo}>{t('projects.repo')}</a>
-                      </>
-                    )}
-                  </p>
-                </article>
-              </li>
-            ))}
-          </ul>
-        </section>
-      ))
-    }
-
-    <section aria-labelledby="more-work-title">
-      <h3 id="more-work-title">{t('moreWork.title')}</h3>
-      <ul>
-        {
-          moreWork.mentions.map((mention) => (
-            <li>
-              <strong>{mention.title}</strong> ({formatPeriod(mention.period, lang)}):{' '}
-              {mention.text} [{mention.stack.map((id) => skillName.get(id)).join(', ')}]
-            </li>
-          ))
-        }
-      </ul>
-      <ul>
-        {
-          moreWork.lines.map((line) => (
-            <li>
-              <strong>{line.title}</strong>: {line.text}
-            </li>
-          ))
-        }
-      </ul>
-    </section>
+    <ul>
+      {
+        projects.map((project) => (
+          <li>
+            <article>
+              <p>{project.data.platforms.map((p) => t(`platform.${p}`)).join(' · ')}</p>
+              <h3>
+                <a href={projectPath(lang, project.data.slug)}>{project.data.title}</a>
+              </h3>
+              <p>{project.data.summary}</p>
+              <ul>
+                {project.data.stack.slice(0, 5).map((id) => (
+                  <li>{skillName.get(id)}</li>
+                ))}
+              </ul>
+              <p>
+                <a href={projectPath(lang, project.data.slug)}>{t('projects.viewProject')}</a>{' '}
+                <a href={project.data.links.demo}>{t('projects.demo')}</a>{' '}
+                <a href={project.data.links.repo}>{t('projects.repo')}</a>
+              </p>
+            </article>
+          </li>
+        ))
+      }
+    </ul>
   </section>
 
   <section id={sections.experience[lang]} aria-labelledby="experience-title">
@@ -150,20 +104,27 @@ const personJsonLd = {
       {
         experience.jobs.map((job) => (
           <li>
-            <h3>
-              {job.title} · {job.company} ·{' '}
-              {formatNumericYearMonth(job.period.start)} –{' '}
-              {job.period.end ? formatNumericYearMonth(job.period.end) : t('date.present')}
-            </h3>
-            <p>{job.location}</p>
-            <p>{job.summary}</p>
-            {job.bullets.length > 0 && (
-              <ul>
-                {job.bullets.map((bullet) => (
-                  <li>{bullet}</li>
-                ))}
-              </ul>
-            )}
+            <article>
+              <p>{formatPeriod(job.period, lang)}</p>
+              <h3>{job.company}</h3>
+              <p>
+                {job.title} · {job.location}
+              </p>
+              <p>{job.summary}</p>
+              {job.highlights.length > 0 && (
+                <ul>
+                  {job.highlights.map((item) => (
+                    <li>
+                      {item.title && <strong>{item.title}: </strong>}
+                      {item.text}
+                    </li>
+                  ))}
+                </ul>
+              )}
+              {job.stack.length > 0 && (
+                <p>{job.stack.map((id) => skillName.get(id)).join(' / ')}</p>
+              )}
+            </article>
           </li>
         ))
       }

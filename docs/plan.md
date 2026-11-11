@@ -474,3 +474,32 @@ Cada cambio visual se comprueba en un navegador real, en móvil y escritorio, an
 - **Licencia:** todos los derechos reservados (código y contenido). El repositorio es público para poder verlo, no para reutilizarlo. La fuente Manrope mantiene su licencia OFL.
 - **Meses:** tres letras fijas en los dos idiomas ("sep 2026" / "Sep 2026"), en lugar del formato de Intl, que escribe "sept" / "Sept".
 - **Fase 1 aprobada:** `main` avanza hasta `develop`.
+
+### 2026-11-11 · El trabajo profesional va en Experiencia, no en Proyectos
+
+Sustituye a lo que dicen los apartados 6, 8 y 10 sobre proyectos de empresa.
+
+- **Proyectos:** solo los personales, en una única lista sin subgrupos ni etiqueta de origen. **YourFavs va primero** y OnMyMind después.
+- **Experiencia:** todo el trabajo profesional se cuenta aquí, como en el CV. Cada puesto es una línea de tiempo con:
+  - fechas;
+  - empresa y puesto;
+  - una línea sobre la empresa o el trabajo;
+  - puntos con título en negrita (hasta 7);
+  - una línea de tecnologías.
+- **Se eliminan:** las páginas de proyectos de FleetX (transporte a granel, pedidos desde el correo con IA, app de conductores), el bloque "Más trabajo profesional", el aviso de código privado y las ilustraciones abstractas de FleetX. Todo ese contenido pasa a la entrada de FleetX en Experiencia.
+- **FleetX** solo se nombra en la sección de Experiencia del inicio.
+- **YourFavs:** el seguimiento de películas y series va delante. El chat es una función más, no lo primero de la tarjeta ni la portada.
+- **Contenido de FleetX:**
+  - sin cifras de commits;
+  - sin duración del transporte a granel;
+  - sin fechas en permisos ni en el asistente;
+  - el asistente de IA es trabajo conjunto con un compañero.
+- **Capturas** de YourFavs y OnMyMind: las hacen los agentes de esos proyectos con cuentas de demo, al final de la fase 2. Las portadas deben explicar en qué consiste cada app, no una función secundaria.
+- Cada texto, en la experiencia y en los proyectos, nombra las tecnologías con las que está hecho.
+
+### 2026-11-11 · Galería con cuatro versiones por pantalla
+
+- Cada captura de un proyecto existe en cuatro versiones: escritorio oscuro, escritorio claro, móvil oscuro y móvil claro. Enseñan lo mismo, con los mismos datos de demo.
+- En la página del proyecto, un selector para toda la galería permite elegir escritorio o móvil, y oscuro o claro. Se hará **sin JavaScript** (botones de opción y CSS), en la fase 4, con el diseño aprobado.
+- La portada es una sola imagen: la pantalla principal en escritorio y en oscuro.
+- Las capturas las hacen los agentes de cada proyecto con cuentas de demo y datos inventados, y Fran las revisa antes de usarlas.
