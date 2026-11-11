@@ -115,8 +115,11 @@ const personJsonLd = {
                 <ul>
                   {job.highlights.map((item) => (
                     <li>
-                      {item.title && <strong>{item.title}: </strong>}
-                      {item.text}
+                      {item.title && <strong>{item.title}</strong>}
+                      {item.platforms && (
+                        <span> [{item.platforms.map((p) => t(`platform.${p}`)).join(' · ')}]</span>
+                      )}
+                      <p>{item.text}</p>
                     </li>
                   ))}
                 </ul>

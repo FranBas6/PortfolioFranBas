@@ -8,17 +8,22 @@ jobs:
     summary: TMS SaaS multi-tenant para empresas de transporte noruegas, con plataforma web y app para conductores.
     highlights:
       - title: Transporte a granel
-        text: módulo completo en la web y en la app, de la planificación de jornadas a la factura, con registro de cargas y OCR del ticket de báscula.
+        text: Módulo completo en la web y en la app, de la planificación de jornadas a la factura, con registro de cargas y OCR del ticket de báscula.
+        platforms: [web, mobile, ai]
       - title: Pedidos desde el correo con IA
-        text: clasifica cada correo, lee PDF, imágenes, Excel y Word y crea los pedidos, con protección contra prompt injection y revisión humana.
+        text: Clasifica cada correo, lee PDF, imágenes, Excel y Word y crea los pedidos, con protección contra prompt injection y revisión humana.
+        platforms: [web, ai]
       - title: App de conductores
-        text: incidencias con fotos, hojas de horas, escaneo de QR de vehículos y trabajo sin conexión, con 48 fallos de producción resueltos.
+        text: Incidencias con fotos, hojas de horas, escaneo de QR de vehículos y trabajo sin conexión, con 48 fallos de producción resueltos.
+        platforms: [mobile]
       - title: Permisos de transporte especial
-        text: del PDF oficial al pedido con su ruta y los puentes que cruza, sin trabajo manual.
+        text: Del PDF oficial al pedido con su ruta y los puentes que cruza, sin trabajo manual.
+        platforms: [web]
       - title: Asistente de IA y formación
-        text: junto con un compañero, un asistente de IA en un panel único de ayuda, con guías visuales y tours guiados.
+        text: Junto con un compañero, un asistente de IA en un panel único de ayuda, con guías visuales y tours guiados.
+        platforms: [web, ai]
       - title: Además
-        text: hojas de horas y tacógrafo, planes de rotación, disponibilidad de conductores, facturación, créditos de IA y 14 idiomas, y en el día a día tickets en Jira, errores y soporte a clientes.
+        text: Hojas de horas y tacógrafo, planes de rotación, disponibilidad de conductores, facturación, créditos de IA y 14 idiomas, y en el día a día tickets en Jira, errores y soporte a clientes.
     stack: [laravel, php, livewire, mariadb, javascript, flutter, dart, firebase, firestore, fcm, crashlytics, llm, ocr, ml-kit, ai-agents, phpunit, git, github, docker]
   - title: Soporte Técnico
     company: Mercaluz – EAS Electric

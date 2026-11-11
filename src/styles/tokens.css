@@ -13,11 +13,13 @@
   --color-surface: #161a38;
   --color-surface-raised: #1e2347;
   --color-border: #2a3060;
+  --color-border-strong: #3a4278;
   --color-border-field: #7078b0;
   --color-text: #eef0fb;
   --color-text-secondary: #b8bedb;
   --color-text-muted: #8f96b8;
   --color-accent: #a5b4fc;
+  --color-accent-hover: #c3cdfd;
   --color-accent-strong: #7aa2f7;
   --color-warm: #ffd7a0;
 

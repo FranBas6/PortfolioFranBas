@@ -181,6 +181,8 @@ const yamlCollections = {
   experience: {
     'jobs[].period': (d) => d.jobs?.map((j) => j.period),
     'jobs[].stack': (d) => d.jobs?.map((j) => j.stack),
+    'jobs[].highlights[].platforms': (d) =>
+      d.jobs?.map((j) => j.highlights?.map((h) => h.platforms)),
     'education[].years': (d) => d.education?.map((e) => e.years),
   },
 };

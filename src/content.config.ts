@@ -143,7 +143,16 @@ const experience = defineCollection({
           /** One line about the company or the job. */
           summary: text,
           /** CV-style points: optional bold title, then the text. */
-          highlights: z.array(z.object({ title: text.optional(), text })).max(7).default([]),
+          highlights: z
+            .array(
+              z.object({
+                title: text.optional(),
+                text,
+                platforms: z.array(z.enum(['web', 'mobile', 'ai'])).optional(),
+              }),
+            )
+            .max(7)
+            .default([]),
           /** Technologies used in this job, shown as one line. */
           stack: z.array(skillId).default([]),
         }),

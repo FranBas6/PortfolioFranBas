@@ -503,3 +503,14 @@ Sustituye a lo que dicen los apartados 6, 8 y 10 sobre proyectos de empresa.
 - En la página del proyecto, un selector para toda la galería permite elegir escritorio o móvil, y oscuro o claro. Se hará **sin JavaScript** (botones de opción y CSS), en la fase 4, con el diseño aprobado.
 - La portada es una sola imagen: la pantalla principal en escritorio y en oscuro.
 - Las capturas las hacen los agentes de cada proyecto con cuentas de demo y datos inventados, y Fran las revisa antes de usarlas.
+
+### 2026-11-11 · Bocetos aprobados (fase 3, entrega 2)
+
+- Fran aprueba los bocetos del inicio y de la página de proyecto (YourFavs), en móvil y escritorio.
+- **Experiencia, opción B:** ficha del puesto actual (fija en escritorio) con tecnologías como chips, puntos en filas con etiquetas de plataforma, tarjetas para los puestos anteriores y franja de formación. Nada de línea de tiempo, guiones ni tecnologías separadas por barras.
+- Cada punto de la experiencia puede llevar `platforms` (Web, Móvil, IA). Sus textos empiezan en mayúscula.
+- **Proyectos:** YourFavs destacado a todo el ancho en escritorio y OnMyMind en una tarjeta secundaria.
+- **Galería:** rejilla en escritorio y carrusel con scroll-snap en móvil, sin JavaScript. Por defecto, escritorio y oscuro.
+- **Luz cálida:** solo en la ilustración de la presentación.
+- **Tokens nuevos:** `accent-hover` y `border-strong`. La escala de espaciado gana 20 y 40 px.
+- `docs/design-system.md` recoge todo esto y sigue en BORRADOR hasta que Fran apruebe el sistema completo, tras la tercera entrega.
