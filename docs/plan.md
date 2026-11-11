@@ -466,3 +466,11 @@ Cada cambio visual se comprueba en un navegador real, en móvil y escritorio, an
   - Después del merge, la rama se borra (en local y en el remoto, si se subió).
   - `main` avanza hasta `develop` solo cuando Fran aprueba una fase. Desde la fase 5, `main` es lo que está en producción.
 - **Hook `pre-push`:** además del contenido y de los mensajes de commit, revisa los nombres de las ramas y etiquetas que se suben, porque son públicos mientras existen en el remoto.
+
+### 2026-11-11 · Cierre de la fase 1
+
+- **Node:** Node 24 LTS, fijado en `.nvmrc` y en Netlify. Astro 7 necesita 22.23.4 o superior. La versión de Node por defecto del equipo no se cambia, porque la usan otros proyectos: en esta carpeta se ejecuta `nvm use`.
+- **Apartado 10 de este plan:** queda como resumen con enlace a `design-system.md`, que es la única fuente del diseño, para que no haya dos versiones que se desincronicen.
+- **Licencia:** todos los derechos reservados (código y contenido). El repositorio es público para poder verlo, no para reutilizarlo. La fuente Manrope mantiene su licencia OFL.
+- **Meses:** tres letras fijas en los dos idiomas ("sep 2026" / "Sep 2026"), en lugar del formato de Intl, que escribe "sept" / "Sept".
+- **Fase 1 aprobada:** `main` avanza hasta `develop`.
