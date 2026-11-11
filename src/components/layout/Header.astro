@@ -1,7 +1,8 @@
 ---
 /*
  * Sticky header. Desktop (≥ lg): name, section links, ES / EN and the CV
- * button. Mobile: name and a "Menú" button that opens a full-screen panel.
+ * button. Mobile: name and a "Menú" button that drops a panel down over a
+ * dimmed page (tapping the dimmed area closes it).
  *
  * The mobile menu is a <details> element, so it works without JavaScript.
  * The script only adds Escape to close, the body scroll lock and closing the
@@ -84,7 +85,15 @@ const links = (['projects', 'experience', 'skills', 'contact'] as const).map((se
           {t('site.menuClose')}
         </span>
       </summary>
-      <div class="fixed inset-x-0 top-16 bottom-0 overflow-y-auto bg-bg-base px-5 pt-2 pb-8">
+      <div
+        data-menu-backdrop
+        aria-hidden="true"
+        class="fixed inset-x-0 top-16 bottom-0 bg-[rgba(6,6,15,0.7)]"
+      >
+      </div>
+      <div
+        class="fixed inset-x-0 top-16 max-h-[calc(100dvh-4rem)] overflow-y-auto border-b border-border bg-bg-base px-5 pt-2 pb-6"
+      >
         <nav aria-label={t('site.mainNav')}>
           <ul>
             {
@@ -164,6 +173,7 @@ const links = (['projects', 'experience', 'skills', 'contact'] as const).map((se
     document.addEventListener('keydown', (event) => {
       if (event.key === 'Escape' && menu.open) close();
     });
+    menu.querySelector('[data-menu-backdrop]')?.addEventListener('click', close);
     for (const link of menu.querySelectorAll('[data-menu-link]')) {
       link.addEventListener('click', () => {
         menu.open = false;

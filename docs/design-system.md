@@ -119,7 +119,7 @@ Manrope variable (200–800), autoalojada en `public/fonts/`, con fuentes del si
 
 | Grupo | Componentes |
 | --- | --- |
-| Estructura | Cabecera fija (con «Proyectos» activo en la página de proyecto), menú móvil a pantalla completa, selector de idioma «ES / EN», pie, enlace de salto al contenido |
+| Estructura | Cabecera fija (con «Proyectos» activo en la página de proyecto), menú móvil desplegable sobre la página oscurecida, selector de idioma «ES / EN», pie, enlace de salto al contenido |
 | Base | Botón principal y secundario, botón de icono (48 × 48), etiqueta de tecnología, etiqueta de plataforma, pastilla de periodo, título de sección, icono SVG en línea |
 | Inicio | Presentación con hueco para la ilustración, tarjeta de proyecto destacada, tarjeta de proyecto secundaria (horizontal) y vertical (móvil), experiencia, grupo de habilidades, bloque de contacto con botón de copiar |
 | Experiencia | Ficha fija del puesto actual (`sticky` en escritorio, con tecnologías como chips), fila de punto con etiquetas de plataforma, tarjeta de puesto anterior, franja de formación |
@@ -196,7 +196,7 @@ Foco en todo: `outline: 2px solid var(--color-accent); outline-offset: 2px` con 
 ## JavaScript
 
 Solo en tres sitios, y el sitio funciona sin él:
-- **Menú móvil:** cambia `aria-expanded`, Escape lo cierra, el foco vuelve al botón y se bloquea el scroll del cuerpo. Sin JavaScript, la navegación sigue siendo accesible.
+- **Menú móvil:** es un `<details>` que funciona sin JavaScript. El panel baja solo hasta su contenido (enlaces, ES / EN y CV) y debajo la página queda oscurecida (`rgba(6,6,15,0.7)`). El script añade que Escape, tocar la zona oscurecida o elegir un enlace lo cierren, devuelve el foco al botón y bloquea el scroll del cuerpo mientras está abierto. (Cambio aprobado el 2026-11-11: el boceto lo ponía a pantalla completa.)
 - **Copiar email:** `navigator.clipboard.writeText`. El botón pasa a «Email copiado» durante 2 s y se anuncia con `aria-live`. Sin JavaScript, el botón no aparece y queda el enlace `mailto:`.
 - **Enviando el formulario:** desactiva el botón, cambia su texto a «Enviando…» y marca el formulario con `aria-busy`. Sin JavaScript se envía igual.
 

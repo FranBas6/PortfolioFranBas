@@ -530,3 +530,7 @@ Sustituye a lo que dicen los apartados 6, 8 y 10 sobre proyectos de empresa.
 
 - Fran aprueba `docs/design-system.md` completo. Deja de ser borrador y pasa a ser la referencia de la fase 4.
 - Se cierra la fase 3.
+
+### 2026-11-11 · Menú móvil desplegable
+
+- El menú móvil deja de ocupar toda la pantalla: baja solo hasta su contenido y la página queda oscurecida debajo. Tocar la zona oscurecida lo cierra, igual que «Cerrar», Escape o elegir un enlace.
