@@ -552,3 +552,7 @@ Sustituye a lo que dicen los apartados 6, 8 y 10 sobre proyectos de empresa.
 - Antes de publicar se revisó todo el historial (archivos de cada commit, nombres de archivo, mensajes y ramas): sin términos prohibidos, rutas locales ni archivos privados.
 - Repositorio público creado y subidas `main` (rama por defecto) y `develop`.
 - **Nombre:** `FranBas6/PortfolioFranBas` en lugar de `FranBas6/portfolio`, a petición de Fran, coherente con YourFavs y OnMyMind. GitHub redirige el nombre antiguo. La web sigue siendo `franbasguil.netlify.app`.
+
+### 2026-11-12 · Sin pasada con lector de pantalla
+
+- Fran decide no hacer la pasada manual con VoiceOver que pedía la fase 4. Se acepta la verificación automática: accesibilidad 100 en Lighthouse (móvil, en producción, los dos idiomas), un solo `h1` por página y encabezados sin saltos, zonas con nombre, ningún enlace, botón o imagen sin nombre, y todo el sitio usable con teclado.
