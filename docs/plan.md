@@ -581,3 +581,11 @@ Ideas para más adelante: logo de cada proyecto en su tarjeta y en su página; e
 - Tamaños: 32 px en la tarjeta (40 px en la destacada en escritorio) y 40 / 56 px en la cabecera. Decorativo, con `alt=""`, y un anillo de 1 px para que los iconos oscuros se distingan del fondo.
 - YourFavs: la claqueta sobre su fondo oscuro, como su icono de app. OnMyMind: su icono de app tal cual, con su credencial de contenido.
 - Detalle en `design-system.md` («Ilustraciones y recursos»).
+
+### 2026-11-12 · Estadísticas de visitas sin cookies
+
+- **GoatCounter**, elegido frente a la analítica de Netlify (en el plan gratuito solo muestra el día actual o el anterior) y Cloudflare Web Analytics (script y envío a dominios de Cloudflare). Gratis para webs personales, código abierto, sin cookies ni nada guardado en el navegador del visitante, no guarda IPs y los datos están en la Unión Europea.
+- El script (`count.v5.js`, versión fija comprobada con la huella que publica GoatCounter) se sirve desde la propia web: `script-src` sigue en `'self'` y la CSP solo añade la dirección de envío en `connect-src`.
+- Se recogen datos agregados: página, web de origen, navegador, sistema, tamaño de pantalla y país. El idioma y las visitas individuales quedan desactivados en GoatCounter.
+- La página de privacidad lo explica en los dos idiomas (apartado «Estadísticas de visitas»).
+- Las visitas de Fran se excluyen entrando una vez en `/#toggle-goatcounter` desde cada navegador; las de `localhost` no se cuentan.

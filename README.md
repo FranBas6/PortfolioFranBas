@@ -9,7 +9,7 @@ Personal portfolio of Francisco José Bas Guil, full stack Software Developer (L
 - Bilingual (es / en) with translated URLs, `hreflang` pairs and a sitemap that links each page to its translation.
 - Content separated from code: every text lives in schema-validated Markdown and YAML; adding a project is two files.
 - Screenshot gallery with a desktop / mobile and dark / light switch built with radio buttons and `:has()`, no JavaScript.
-- Almost no JavaScript: only the mobile menu, the copy-email button and the form's sending state, all as progressive enhancement.
+- Almost no JavaScript: only the mobile menu, the copy-email button and the form's sending state, all as progressive enhancement, plus the visit statistics script.
 - Strict Content-Security-Policy with no `'unsafe-inline'`.
 - Accessible (WCAG AA): keyboard navigation, visible focus, reduced motion, 44 px touch targets.
 - Lighthouse (mobile): 100 in performance, accessibility, best practices and SEO.
@@ -23,8 +23,9 @@ Personal portfolio of Francisco José Bas Guil, full stack Software Developer (L
 - Astro's native i18n routing and the official sitemap integration
 - Manrope variable font, self-hosted
 - Netlify (hosting, root language redirect, Netlify Forms)
+- [GoatCounter](https://www.goatcounter.com) for visit statistics
 
-No analytics, no cookies, no third-party scripts.
+No cookies. Visit statistics are cookieless and anonymous; the GoatCounter script is served from the site itself, so the Content-Security-Policy only allows its endpoint in `connect-src`.
 
 ## Getting started
 

@@ -195,10 +195,12 @@ Foco en todo: `outline: 2px solid var(--color-accent); outline-offset: 2px` con 
 
 ## JavaScript
 
-Solo en tres sitios, y el sitio funciona sin él:
+Solo en tres sitios de la interfaz, y el sitio funciona sin él:
 - **Menú móvil:** es un `<details>` que funciona sin JavaScript. El panel baja solo hasta su contenido (enlaces, ES / EN y CV) y debajo la página queda oscurecida (`rgba(6,6,15,0.7)`). El script añade que Escape, tocar la zona oscurecida o elegir un enlace lo cierren, devuelve el foco al botón y bloquea el scroll del cuerpo mientras está abierto. (Cambio aprobado el 2026-11-11: el boceto lo ponía a pantalla completa.)
 - **Copiar email:** `navigator.clipboard.writeText`. El botón pasa a «Email copiado» durante 2 s y se anuncia con `aria-live`. Sin JavaScript, el botón no aparece y queda el enlace `mailto:`.
 - **Enviando el formulario:** desactiva el botón, cambia su texto a «Enviando…» y marca el formulario con `aria-busy`. Sin JavaScript se envía igual.
+
+Aparte, sin efecto en la interfaz: el script de estadísticas de GoatCounter (`public/js/count.v5.js`, versión fija copiada de la oficial y comprobada con su huella), cargado con `async` en todas las páginas. Se sirve desde la propia web; la CSP solo abre `connect-src` a su dirección de envío.
 
 ## Ilustraciones y recursos
 
