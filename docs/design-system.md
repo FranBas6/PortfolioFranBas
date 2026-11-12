@@ -187,7 +187,8 @@ Foco en todo: `outline: 2px solid var(--color-accent); outline-offset: 2px` con 
 ## Movimiento y accesibilidad (WCAG AA)
 
 - Transiciones de 160 ms en controles y 180 ms en tarjetas (`background`, `color`, `border-color`, `box-shadow`). Sin animaciones al hacer scroll ni efectos de escritura.
-- Con `prefers-reduced-motion: reduce`, sin transiciones.
+- Con `prefers-reduced-motion: reduce`, sin transiciones y con la escena de la presentación quieta.
+- Única animación continua: la escena de la presentación (ver «Ilustraciones y recursos»), lenta y sutil, sin efectos de escritura.
 - Foco visible: anillo de 2 px en `accent` con `outline-offset: 2px`, mediante `:focus-visible`.
 - Zonas táctiles de 44 px como mínimo.
 - La información nunca depende solo del color: las etiquetas de plataforma llevan texto, el idioma activo va subrayado y con `aria-current`, y la opción elegida del selector tiene relleno.
@@ -205,9 +206,10 @@ Aparte, sin efecto en la interfaz: el script de estadísticas de GoatCounter (`p
 ## Ilustraciones y recursos
 
 - **Iconos:** SVG en línea, con trazo de 1,6 a 2 px y `currentColor`, con `aria-hidden="true"`. Los de GitHub y LinkedIn son sus logotipos oficiales.
-- **Escena de la presentación:** `src/assets/illustrations/hero-scene.svg` (1000 × 800, 5:4), con `alt=""` porque es decorativa. Solo desde `lg`: en móvil no se pinta ni se descarga. La luz cálida, solo en la lámpara y sus reflejos.
+- **Escena de la presentación:** `src/assets/illustrations/hero-scene.svg` (1000 × 800, 5:4), decorativa (`aria-hidden`). Va dentro del HTML (no como `<img>`): animada como imagen, el navegador la repinta entera en cada fotograma. Solo se pinta desde `lg`; en móvil no se muestra, aunque su marcado (unos 3 KB comprimidos) viaja en la página. La luz cálida, solo en la lámpara y sus reflejos.
+- **Animación de la escena** (aprobada el 2026-11-12, en el ritmo del banner de GitHub): el brillo del monitor (9 s) y el del móvil (7 s) respiran; las barras de la gráfica suben y bajan escalonadas (6 s); el cursor del título parpadea (1,1 s); el haz y la bombilla de la lámpara laten (7 s); los LED de los cascos y el punto verde del móvil pulsan (3,2 s); sale vapor de la taza (3,2 s). Las clases y los `id` del SVG llevan el prefijo `hs-` y el CSS vive en `Hero.astro`. Con `prefers-reduced-motion` se para y el vapor queda fijo y tenue.
 - **Logo de cada proyecto:** su icono de app (cuadrado, esquinas al 22 %), a la izquierda del título y en la misma línea. Tarjeta: 32 px, y 40 px en la destacada desde `lg`; separación de 12 px. Cabecera de la página: 40 px y 56 px desde `lg`; separación de 14 y 18 px. Anillo de 1 px en `border-strong` para que los iconos oscuros se vean sobre `surface`. Decorativo, con `alt=""`: el nombre va al lado. Sale del repositorio de cada proyecto (YourFavs: la claqueta sobre su fondo oscuro, como su icono de app; OnMyMind: su icono de app, tal cual). Campo opcional `logo`; sin él, el título va solo.
 - **Icono del sitio:** `public/favicon.svg` (monograma «FB» en `accent`) y `public/apple-touch-icon.png` (180 × 180).
 - **Imágenes para compartir:** `public/og/og-es.png` y `og-en.png` (1200 × 630), con nombre, rol y frase del idioma, sin nombre de empresa. Si cambia la frase, se regeneran.
 - **Presentación en móvil:** sin ilustración.
-- **Credenciales de contenido:** la ilustración y el favicon llevan incrustada la credencial C2PA de Anthropic que indica que los generó Claude. Se conservan a propósito: al optimizar los SVG hay que mantener la etiqueta `<metadata>`.
+- **Credenciales de contenido:** la ilustración y el favicon llevan incrustada la credencial C2PA de Anthropic que indica que los generó Claude. Se conservan a propósito: al optimizar los SVG hay que mantener la etiqueta `<metadata>`. La copia de la escena que va dentro del HTML no la lleva; sigue en el archivo original.

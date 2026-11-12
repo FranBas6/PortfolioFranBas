@@ -593,3 +593,10 @@ Ideas para más adelante: logo de cada proyecto en su tarjeta y en su página; e
 ### 2026-11-12 · Sitemap leído por Google
 
 - Search Console ya marca `sitemap-index.xml` como «Correcto», con 8 páginas descubiertas: el inicio, los dos proyectos y la privacidad, en los dos idiomas. Cerrado el pendiente de la fase 5.
+
+### 2026-11-12 · Escena de la presentación animada
+
+- La ilustración de la presentación se anima con el mismo ritmo que el banner del perfil de GitHub, sin cifras ni texto: brillo de pantallas, barras de la gráfica, cursor, lámpara, LED y vapor de la taza. Minimalista; se para con `prefers-reduced-motion`.
+- Va dentro del HTML en lugar de como imagen: medido en Chrome, animada como `<img>` gastaba unos 530 ms de CPU cada 10 s (se repinta entera en cada fotograma) y dentro del HTML unos 13 ms, casi lo mismo que estática. A cambio, la página de inicio pesa unos 3 KB más comprimida, también en móvil, donde no se muestra.
+- La CSP no cambia: el CSS de la animación va en la hoja de estilos del componente.
+- Detalle en `design-system.md`.
