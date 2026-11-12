@@ -600,3 +600,11 @@ Ideas para más adelante: logo de cada proyecto en su tarjeta y en su página; e
 - Va dentro del HTML en lugar de como imagen: medido en Chrome, animada como `<img>` gastaba unos 530 ms de CPU cada 10 s (se repinta entera en cada fotograma) y dentro del HTML unos 13 ms, casi lo mismo que estática. A cambio, la página de inicio pesa unos 3 KB más comprimida, también en móvil, donde no se muestra.
 - La CSP no cambia: el CSS de la animación va en la hoja de estilos del componente.
 - Detalle en `design-system.md`.
+
+### 2026-11-12 · Avatar en pixel art en la presentación
+
+- El avatar de Fran (el mismo que en su perfil de GitHub) entra en la presentación. Comparadas en la web real: encima del nombre (empujaba los botones fuera de la primera pantalla), como insignia sobre la escena, flotando abajo a la izquierda y en el cielo de la escena arriba a la derecha. Elegida esta última: no tapa nada y el cielo nocturno del avatar se funde con el de la escena.
+- En móvil, donde no hay escena, va encima del nombre.
+- Aro en el degradado azul y morado del sitio, halo como el de la pantalla y un balanceo lento, como la isla flotante del avatar; quieto con `prefers-reduced-motion`.
+- WebP de 11 a 20 KB según el ancho, en lugar del PNG original de 1,6 MB; solo se descarga la copia visible. Lighthouse sigue en 100.
+- Detalle en `design-system.md`.
