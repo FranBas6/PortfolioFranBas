@@ -1,5 +1,5 @@
 ---
-import heroScene from '../../assets/illustrations/hero-scene.svg?url';
+import heroSceneSource from '../../assets/illustrations/hero-scene.svg?raw';
 import Icon from '../ui/Icon.astro';
 import type { CollectionEntry } from 'astro:content';
 import { sections, type Lang } from '../../i18n/routes';
@@ -17,8 +17,13 @@ const t = useTranslations(lang);
 // The three ideas share the platform colours, in this order: web, mobile, AI.
 const highlightColour = ['bg-editor-blue', 'bg-editor-green', 'bg-editor-purple'];
 
-// 1 × 1 transparent GIF: below lg the <img> keeps this and the scene is never fetched.
-const blank = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
+// The scene is inlined, not an <img>: an animated SVG image is repainted whole
+// on every frame (~5 % of a core), while inline its animations are nearly free.
+// The content credential stays in the source file; the copy in the page drops it.
+const heroScene = heroSceneSource
+  .replace(/<metadata>[\s\S]*?<\/metadata>/, '')
+  .replace(' xmlns:c2pa="http://c2pa.org/manifest"', '')
+  .replace('<svg ', '<svg class="aspect-[5/4] h-auto w-full" ');
 ---
 
 <section aria-labelledby="hero-title" class="bg-hero">
@@ -83,9 +88,85 @@ const blank = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAI
       </div>
     </div>
 
-    <picture class="hidden lg:block">
-      <source media="(min-width: 64rem)" srcset={heroScene} type="image/svg+xml" />
-      <img src={blank} alt="" width="1000" height="800" class="aspect-[5/4] h-auto w-full" />
-    </picture>
+    <div class="hero-scene hidden lg:block" set:html={heroScene} />
   </div>
 </section>
+
+<style is:global>
+  /*
+   * Hero scene animations (docs/design-system.md, "Ilustraciones y recursos").
+   * Global because the SVG comes in through set:html; every name has the hs- prefix.
+   */
+  .hs-glow {
+    animation: hs-breathe 9s ease-in-out infinite;
+  }
+  .hs-glow-phone {
+    animation: hs-breathe 7s ease-in-out -3s infinite;
+  }
+  .hs-beam {
+    animation: hs-beam 7s ease-in-out infinite;
+  }
+  .hs-bulb {
+    animation: hs-bulb 7s ease-in-out infinite;
+  }
+  .hs-bar {
+    transform-box: fill-box;
+    transform-origin: 50% 100%;
+    animation: hs-bar 6s ease-in-out infinite;
+  }
+  .hs-d1 { animation-delay: -0.7s; }
+  .hs-d2 { animation-delay: -1.4s; }
+  .hs-d3 { animation-delay: -2.1s; }
+  .hs-d4 { animation-delay: -2.8s; }
+  .hs-d5 { animation-delay: -3.5s; }
+  .hs-led {
+    animation: hs-pulse 3.2s ease-in-out infinite;
+  }
+  .hs-led-r {
+    animation: hs-pulse 3.2s ease-in-out -1.6s infinite;
+  }
+  .hs-steam {
+    opacity: 0;
+    animation: hs-steam 3.2s ease-out infinite;
+  }
+  .hs-s2 { animation-delay: 1.6s; }
+  .hs-cursor {
+    animation: hs-blink 1.1s steps(1) infinite;
+  }
+  @keyframes hs-breathe {
+    0%, 100% { opacity: 0.42; }
+    50% { opacity: 0.26; }
+  }
+  @keyframes hs-beam {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.75; }
+  }
+  @keyframes hs-bulb {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.82; }
+  }
+  @keyframes hs-bar {
+    0%, 100% { transform: scaleY(1); }
+    50% { transform: scaleY(0.7); }
+  }
+  @keyframes hs-pulse {
+    0%, 100% { opacity: 0.9; }
+    50% { opacity: 0.35; }
+  }
+  @keyframes hs-steam {
+    0% { opacity: 0; transform: translateY(4px); }
+    30% { opacity: 0.45; }
+    100% { opacity: 0; transform: translateY(-16px); }
+  }
+  @keyframes hs-blink {
+    50% { opacity: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-scene * {
+      animation: none !important;
+    }
+    .hero-scene .hs-steam {
+      opacity: 0.3;
+    }
+  }
+</style>
