@@ -589,3 +589,7 @@ Ideas para más adelante: logo de cada proyecto en su tarjeta y en su página; e
 - Se recogen datos agregados: página, web de origen, navegador, sistema, tamaño de pantalla y país. El idioma y las visitas individuales quedan desactivados en GoatCounter.
 - La página de privacidad lo explica en los dos idiomas (apartado «Estadísticas de visitas»).
 - Las visitas de Fran se excluyen entrando una vez en `/#toggle-goatcounter` desde cada navegador; las de `localhost` no se cuentan.
+
+### 2026-11-12 · Sitemap leído por Google
+
+- Search Console ya marca `sitemap-index.xml` como «Correcto», con 8 páginas descubiertas: el inicio, los dos proyectos y la privacidad, en los dos idiomas. Cerrado el pendiente de la fase 5.
