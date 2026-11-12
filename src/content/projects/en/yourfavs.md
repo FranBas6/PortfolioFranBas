@@ -25,6 +25,7 @@ metrics:
     label: database migrations
   - value: "400+"
     label: commits
+logo: ../../../assets/projects/yourfavs/logo.svg
 cover:
   src: ../../../assets/projects/yourfavs/00-portada-desktop-dark.png
   alt: "YourFavs home page: today's picks and the series you are watching, with the next episode of each."

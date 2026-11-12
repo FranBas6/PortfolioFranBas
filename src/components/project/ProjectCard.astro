@@ -70,10 +70,21 @@ const href = projectPath(lang, data.slug);
     <div class="mt-5 lg:mt-0">
       <h3
         class:list={[
-          'text-xl leading-[1.25] font-bold lg:text-[22px]',
+          'flex items-center gap-3 text-xl leading-[1.25] font-bold lg:text-[22px]',
           featured && 'lg:text-[32px] lg:leading-[1.15] lg:font-extrabold lg:tracking-[-0.02em]',
         ]}
       >
+        {
+          data.logo && (
+            <Image
+              src={data.logo}
+              alt=""
+              width={40}
+              height={40}
+              class:list={['project-logo size-8 shrink-0', featured && 'lg:size-10']}
+            />
+          )
+        }
         <a href={href} class="card-link">{data.title}</a>
       </h3>
       <p

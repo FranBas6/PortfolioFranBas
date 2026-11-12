@@ -22,6 +22,7 @@ metrics:
     label: tests (Vitest y pgTAP)
   - value: "32"
     label: migraciones de base de datos
+logo: ../../../assets/projects/onmymind/logo.svg
 cover:
   src: ../../../assets/projects/onmymind/00-portada-desktop-dark.png
   alt: "OnMyMind en escritorio: la barra lateral con listas de todo tipo y un viaje abierto con tareas, compras y notas."

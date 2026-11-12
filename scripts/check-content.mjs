@@ -110,6 +110,7 @@ const projectPick = {
   links: (d) => d.links,
   uiNote: (d) => d.uiNote,
   'metrics[].value': (d) => d.metrics?.map((m) => m.value),
+  logo: (d) => d.logo,
   'cover.src': (d) => d.cover?.src,
   'gallery[].images': (d) => d.gallery?.map((g) => g.images),
 };
@@ -142,6 +143,7 @@ for (const [id, byLang] of Object.entries(projects)) {
     const images = [];
     if (!data.cover?.src) error(where, 'every project needs a `cover`');
     else images.push(data.cover.src);
+    if (data.logo) images.push(data.logo);
     for (const shot of data.gallery ?? []) {
       for (const device of ['desktop', 'mobile']) {
         for (const theme of ['dark', 'light']) {

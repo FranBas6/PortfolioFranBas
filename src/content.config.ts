@@ -83,6 +83,8 @@ const projects = defineCollection({
       whatIDid: z.array(text).min(4).max(6),
       whyItMatters: text,
       metrics: z.array(z.object({ value: text, label: text })).optional(),
+      // Square app icon shown next to the title. Decorative: no alt text.
+      logo: image().optional(),
       cover: z.object({ src: image(), alt: text }),
       links: z.object({ demo: z.url(), repo: z.url() }),
       // Each screen comes in four versions; visitors pick device and theme

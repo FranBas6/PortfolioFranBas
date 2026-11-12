@@ -22,6 +22,7 @@ metrics:
     label: tests (Vitest and pgTAP)
   - value: "32"
     label: database migrations
+logo: ../../../assets/projects/onmymind/logo.svg
 cover:
   src: ../../../assets/projects/onmymind/00-portada-desktop-dark.png
   alt: "OnMyMind on desktop: the sidebar with all kinds of lists and a trip open with tasks, shopping and notes."

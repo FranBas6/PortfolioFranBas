@@ -25,6 +25,7 @@ metrics:
     label: migraciones de base de datos
   - value: "400+"
     label: commits
+logo: ../../../assets/projects/yourfavs/logo.svg
 cover:
   src: ../../../assets/projects/yourfavs/00-portada-desktop-dark.png
   alt: "Portada de YourFavs: lo que toca hoy y las series que estás viendo, con el próximo episodio de cada una."

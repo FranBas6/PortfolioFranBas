@@ -70,8 +70,20 @@ const skillName = new Map(
           }
         </ul>
         <h1
-          class="mt-5 text-[40px] leading-[1.1] font-extrabold tracking-[-0.025em] lg:text-[64px] lg:leading-[1.05] lg:tracking-[-0.03em]"
+          class="mt-5 flex items-center gap-3.5 text-[40px] leading-[1.1] font-extrabold tracking-[-0.025em] lg:gap-[18px] lg:text-[64px] lg:leading-[1.05] lg:tracking-[-0.03em]"
         >
+          {
+            project.logo && (
+              <Image
+                src={project.logo}
+                alt=""
+                width={56}
+                height={56}
+                loading="eager"
+                class="project-logo size-10 shrink-0 lg:size-14"
+              />
+            )
+          }
           {project.title}
         </h1>
         <p class="mt-4 max-w-[34em] text-lg font-medium text-text-secondary lg:text-xl">

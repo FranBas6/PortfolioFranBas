@@ -316,6 +316,13 @@
     color: var(--color-text);
   }
 
+  /* Project logo: an app-icon tile next to the title. The ring keeps dark
+     tiles visible on the card surface; the radius matches the SVG's own. */
+  .project-logo {
+    border-radius: 22%;
+    box-shadow: 0 0 0 1px var(--color-border-strong);
+  }
+
   .section-title {
     font-size: 28px;
     font-weight: 800;
