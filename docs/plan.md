@@ -574,3 +574,10 @@ Verificado en producción:
 Pendiente de Fran: el enlace al portfolio en sus perfiles de LinkedIn y GitHub.
 
 Ideas para más adelante: logo de cada proyecto en su tarjeta y en su página; estadísticas de visitas sin cookies (sin romper la CSP ni la promesa de privacidad); revisar en Search Console que el sitemap pasa a «Correcto».
+
+### 2026-11-12 · Logo de cada proyecto
+
+- Cada proyecto puede llevar su logo (campo opcional `logo`, igual en los dos idiomas): su icono de app, a la izquierda del título, en la tarjeta del inicio y en la cabecera de su página. Elegida la opción «junto al título» frente a «encima del título», que alargaba las tarjetas.
+- Tamaños: 32 px en la tarjeta (40 px en la destacada en escritorio) y 40 / 56 px en la cabecera. Decorativo, con `alt=""`, y un anillo de 1 px para que los iconos oscuros se distingan del fondo.
+- YourFavs: la claqueta sobre su fondo oscuro, como su icono de app. OnMyMind: su icono de app tal cual, con su credencial de contenido.
+- Detalle en `design-system.md` («Ilustraciones y recursos»).

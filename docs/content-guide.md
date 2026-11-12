@@ -39,6 +39,7 @@ Para preparar un proyecto sin publicarlo, pon `draft: true` en los dos archivos.
 | `whatIDid` | Lista de 4 a 6 puntos | Sí | Mismo número de puntos en los dos idiomas |
 | `whyItMatters` | Por qué es interesante, una o dos frases | Sí | |
 | `metrics` | Lista de `value` y `label` | Solo `label` | Ver la regla de cifras |
+| `logo` | Ruta relativa a un SVG cuadrado (icono de app) | No | Opcional. Decorativo, sin `alt` |
 | `cover` | `src` (ruta relativa) y `alt` | Solo `alt` | Obligatoria |
 | `links` | `demo` y `repo` | No | Obligatorio |
 | `gallery` | Lista de `src`, `alt` y `type` (`mobile` o `desktop`) | Solo `alt` | Opcional |
