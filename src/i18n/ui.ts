@@ -29,6 +29,7 @@ const es = {
   'hero.viewProjects': 'Ver proyectos',
   'hero.downloadCv': 'Descargar CV',
   'hero.mainStack': 'Stack principal',
+  'hero.avatarAlt': 'Avatar de Fran en pixel art',
 
   'projects.title': 'Proyectos',
   'projects.viewProject': 'Ver proyecto',
@@ -133,6 +134,7 @@ const en = {
   'hero.viewProjects': 'View projects',
   'hero.downloadCv': 'Download CV',
   'hero.mainStack': 'Main stack',
+  'hero.avatarAlt': 'Fran’s pixel art avatar',
 
   'projects.title': 'Projects',
   'projects.viewProject': 'View project',
