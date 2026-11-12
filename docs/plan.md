@@ -556,3 +556,21 @@ Sustituye a lo que dicen los apartados 6, 8 y 10 sobre proyectos de empresa.
 ### 2026-11-12 · Sin pasada con lector de pantalla
 
 - Fran decide no hacer la pasada manual con VoiceOver que pedía la fase 4. Se acepta la verificación automática: accesibilidad 100 en Lighthouse (móvil, en producción, los dos idiomas), un solo `h1` por página y encabezados sin saltos, zonas con nombre, ningún enlace, botón o imagen sin nombre, y todo el sitio usable con teclado.
+
+### 2026-11-12 · Fase 5 cerrada: portfolio publicado
+
+**Publicado en `franbasguil.netlify.app`**, desde el repositorio público, con despliegue automático en cada push a `main`.
+
+Verificado en producción:
+- **Redirección de `/`:** español solo si es el idioma preferido del navegador (Netlify mira solo el primero de la lista); el resto, inglés. Probado con español, inglés, alemán, portugués, francés con el español en segundo lugar y sin cabecera de idioma.
+- **Rutas:** las páginas responden con 200, una dirección inexistente devuelve la 404 bilingüe, y sin barra final redirige a la versión con barra.
+- **Cabeceras:** Content-Security-Policy estricta y el resto de cabeceras de seguridad, sin violaciones en la web real. Caché larga para archivos con hash y fuentes, y de una hora para los CV.
+- **Insignia «Powered by Netlify»** desactivada en Netlify: la inyectaba al servir la página y la CSP la bloqueaba.
+- **Formularios:** detección activada, los dos formularios registrados, aviso por email y prueba real recibida.
+- **SEO:** propiedad verificada en Google Search Console con un archivo HTML en `public/` (no se borra) y sitemap enviado; la vista previa al compartir en LinkedIn muestra la imagen, el título y la descripción.
+- **Lighthouse (móvil, producción):** 100 en rendimiento, accesibilidad, buenas prácticas y SEO, en los dos idiomas.
+- **CV:** sustituidos por las versiones con el enlace al portfolio.
+
+Pendiente de Fran: el enlace al portfolio en sus perfiles de LinkedIn y GitHub.
+
+Ideas para más adelante: logo de cada proyecto en su tarjeta y en su página; estadísticas de visitas sin cookies (sin romper la CSP ni la promesa de privacidad); revisar en Search Console que el sitemap pasa a «Correcto».

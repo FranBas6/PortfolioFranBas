@@ -57,6 +57,7 @@ Node 24, pinned in `.nvmrc` (Astro 7 needs ≥ 22.23.4; Netlify also builds with
 - `src/views/`: language-agnostic views. `src/pages/` only picks the language and renders a view.
 - `scripts/check-content.mjs`: parity, non-translatable fields, images, lengths (`scripts/content-limits.mjs`) and forbidden terms. The pre-push hook (`.githooks/pre-push`) runs it with `--strict` and also scans the messages of the commits being pushed.
 - Root `/` is redirected by language in `netlify.toml` (302); `src/pages/index.astro` is only a non-indexed fallback.
+- Production: pushing `main` deploys to Netlify (`franbasguil.netlify.app`) automatically. `public/googlef31bebfbef8fca96.html` is the Google Search Console verification file: never delete or rename it.
 - No inline `<script>`, `<style>` or `style=""`: `astro.config.mjs` disables inlining so `netlify.toml` can send a strict Content-Security-Policy without `'unsafe-inline'`. Keep it that way (set styles from JS through the CSSOM, never as attributes in markup).
 - After changing a collection schema (`src/content.config.ts`), stop the dev server and delete `.astro/` and `node_modules/.astro/`: the dev content cache keeps entries parsed with the old schema.
 - Visual checks: build, `astro preview`, then a headless Chrome at 360/375/768/1280. On phones an absolutely positioned element that escapes a scroll container widens the whole page, so check `innerWidth` equals the requested width.
