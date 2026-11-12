@@ -62,6 +62,16 @@ if (!site) throw new Error(`Missing src/content/site/${lang}.yaml`);
       ogAlt={site.og.alt}
     />
     <slot name="head" />
+    <!--
+      Cookieless visit statistics (GoatCounter). The script is served from this
+      site, so script-src stays 'self'; the endpoint is allowed in connect-src
+      (netlify.toml). Localhost is ignored by the script itself.
+    -->
+    <script
+      is:inline
+      async
+      data-goatcounter="https://franbasguil.goatcounter.com/count"
+      src="/js/count.v5.js"></script>
   </head>
   <body class="flex min-h-dvh flex-col">
     {
